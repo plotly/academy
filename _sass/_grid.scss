@@ -1,0 +1,64 @@
+.wrapper {
+  max-width: $max-width;
+	margin: 0 auto;
+	padding: 0 38px;
+  position: relative;
+}
+
+.tutorial {
+	margin: 3em 0;
+}
+
+.tutorial__title {
+	font-size: 1.25em;
+  text-align: center;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+.tutorial__row {
+	width: 100%;
+  margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.tutorial__row:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.tutorial-part {
+	position: relative;
+  font-size: 1em;
+	width: 286px;
+	float: left;
+}
+
+.tutorial-part:after {
+	content: "";
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+.tutorial-part + .tutorial-part {
+	margin-left: 1em;
+}
+
+.tutorial-part__title {
+	font-size: 1em;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.tutorial-part__desc {
+	margin-top: 0em;
+  margin-bottom: 0;
+}
+
+.tutorial-part a {
+	text-decoration: none;
+  color: $text-color;
+}

@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<h1>{{ site.title }}</h1>
+{% for collection in site.collections %}
+  <section class="tutorial">
+    <h2 class="tutorial__title">{{ collection[1].title }}</h2>
+    {% for docs in collection[1].docs %}
+      {% assign loopindex = forloop.index0 | modulo: 2 %}
+      {% if loopindex == 0 %}
+        <div class="tutorial__row">
+      {% endif %}
+      <article class="tutorial-part">
+        <a href="{{ docs.url }}">
+          <h3 class="tutorial-part__title">{{ docs.title }}</h3>
+          <p class="tutorial-part__desc">{{ docs.description }}</p>
+        </a>
+      </article>
+      {% if loopindex == 1 %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </section>
+{% endfor %}

@@ -1,0 +1,31 @@
+# Site settings
+title: "Plotly Academy"
+description: "site description goes here"
+url: "http://academy.plot.ly"
+
+# Tutorials
+collections:
+  react:
+    output: true
+    permalink: /react/:path/index.html
+    title: "Learn React.js with @mxstbr"
+
+# Link style
+permalink: /:year/:month/:title
+
+# Default YAML Front Matter
+defaults:
+  scope:
+    path: ""
+    type: "posts"
+  values:
+    layout: "post"
+
+# Build settings
+markdown: redcarpet
+redcarpet:
+  extensions: [smart, no_intra_emphasis, tables, fenced_code_blocks, autolink, lax_spacing, footnotes, disable_indented_code_blocks, superscript, with_toc_data]
+sass:
+  sass_dir: _sass
+  style: expanded
+  deploy_style: compressed
