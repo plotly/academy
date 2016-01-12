@@ -33,11 +33,12 @@ $very-dark-brand-color: $blue-5;
 
 // Text
 $text-color: $black;
-$code-color: $blue-3;
+$code-color: $dark-brand-color;
 
 // Background
 $light-background-color: $white;
 $background-color: $grey-3;
+$dark-background-color: $grey-4;
 
 
 /**************************
@@ -45,7 +46,7 @@ $background-color: $grey-3;
 ***************************/
 
 $sans-serif: 'Open Sans', Verdana, Arial, sans-serif;
-$monospace: 'Source Code Pro', 'Courier New', Menlo, Courier, monospace;
+$monospace: 'Courier New', Menlo, Courier, monospace;
 
 $base-font-size: 15px;
 
