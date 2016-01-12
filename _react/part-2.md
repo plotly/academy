@@ -1,5 +1,5 @@
 ---
-title: Part 2 Redux
+title: Redux
 description: What the Flux is Redux?
 layout: post
 ---

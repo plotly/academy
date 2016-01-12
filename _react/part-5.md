@@ -1,5 +1,5 @@
 ---
-title: Part 5 Testing
+title: Testing
 description: Testing React.js applications
 layout: post
 ---

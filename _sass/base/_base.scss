@@ -27,3 +27,11 @@ body{
     color: #fff;
     text-shadow: none;
 }
+
+
+.wrapper {
+  max-width: $max-width;
+	margin: 0 auto;
+	padding: 0 38px;
+  position: relative;
+}

@@ -5,21 +5,23 @@ layout: default
 <h1>{{ site.title }}</h1>
 {% for collection in site.collections %}
   <section class="tutorial">
-    <h2 class="tutorial__title">{{ collection[1].title }}</h2>
-    {% for docs in collection[1].docs %}
-      {% assign loopindex = forloop.index0 | modulo: 2 %}
-      {% if loopindex == 0 %}
-        <div class="tutorial__row">
-      {% endif %}
-      <article class="tutorial-part">
-        <a href="{{ docs.url }}">
+    <!-- Note: collection[1] is necessary because of a Jekyll bug that isn't resolved in the current version -->
+    <h3 class="tutorial__title">{{ collection[1].title }}</h3>
+    <section class="tutorial__parts">
+      {% for docs in collection[1].docs %}
+        {% assign loopindex = forloop.index0 | modulo: 2 %}
+        {% if loopindex == 0 %}
+          <div class="tutorial__row">
+        {% endif %}
+        <a class="tutorial-part" href="{{ docs.url }}">
+          <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
           <h3 class="tutorial-part__title">{{ docs.title }}</h3>
-          <p class="tutorial-part__desc">{{ docs.description }}</p>
+          <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
         </a>
-      </article>
-      {% if loopindex == 1 %}
-        </div>
-      {% endif %}
-    {% endfor %}
+        {% if loopindex == 1 %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </section>
   </section>
 {% endfor %}
