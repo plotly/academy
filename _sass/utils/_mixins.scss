@@ -1,0 +1,22 @@
+/**************************
+        Typography
+***************************/
+
+@mixin sans {
+  font-family: $sans-serif;
+}
+
+@mixin sans_light {
+  @include sans;
+  font-weight: 300;
+}
+
+@mixin sans_regular {
+  @include sans;
+  font-weight: 400;
+}
+
+@mixin sans_bold {
+  @include sans;
+  font-weight: 700;
+}

@@ -1,0 +1,62 @@
+/**************************
+          Colors
+***************************/
+
+// Greys
+$grey-1: #F4FAFF; // Lightest grey
+$grey-2: #FBFBFD;
+$grey-3: #F8F8F9;
+$grey-4: #EEEEEE;
+$grey-5: #E7E7E7;
+$grey-6: #DDDDDD;
+$grey-7: #8D98AF;
+// $grey-8 hex code is wrong, waiting for correction in the style guide
+$grey-9: #69738A; // Darkest grey
+
+// Blues
+$blue-1: #98D0FF; // Lightest blue
+$blue-2: #6EBAFC;
+$blue-3: #447ADB;
+$blue-4: #274478;
+$blue-5: #152F5E; // Darkest blue
+
+// Custom assignments
+$white: #FFFFFF;
+$black: $grey-9;
+
+// Brand
+$very-light-brand-color: $blue-1;
+$light-brand-color: $blue-2;
+$brand-color: $blue-3;
+$dark-brand-color: $blue-4;
+$very-dark-brand-color: $blue-5;
+
+// Text
+$text-color: $black;
+$code-color: $blue-3;
+
+// Background
+$light-background-color: $white;
+$background-color: $grey-3;
+
+
+/**************************
+        Typography
+***************************/
+
+$sans-serif: 'Open Sans', Verdana, Arial, sans-serif;
+$monospace: 'Source Code Pro', 'Courier New', Menlo, Courier, monospace;
+
+$small-copy-font-size: 13px;
+$small-copy-line-height: 17px;
+$copy-font-size: 15px;
+$copy-line-height: 21px;
+$big-copy-font-size: 21px;
+$big-copy-line-height: 27px;
+
+
+/**************************
+          Sizing
+***************************/
+
+$max-width: 664px;

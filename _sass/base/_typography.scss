@@ -1,0 +1,48 @@
+/**************************
+        Typography
+***************************/
+
+h1, h2, h3, h4, h5, h6 {
+  @include sans_light;
+  color: $brand-color;
+}
+
+h1 {
+  font-size: 65px;
+  font-height: 66px;
+  letter-spacing: -0.25px;
+}
+
+h2 {
+  font-size: 48px;
+  font-height: 49px;
+  letter-spacing: -0.25px;
+}
+
+h3 {
+  font-size: 31px;
+  font-height: 32px;
+}
+
+h4 {
+  font-size: 21px;
+  font-height: 22px;
+  line-height: 22px;
+}
+
+p {
+  @include sans_light;
+  font-size: $copy-font-size;
+  line-height: $copy-line-height;
+  color: $text-color;
+}
+
+p.big-copy {
+  font-size: $big-copy-font-size;
+  line-height: $big-copy-line-height;
+}
+
+p.small-copy {
+  font-size: $small-copy-font-size;
+  line-height: $small-copy-line-height;
+}
