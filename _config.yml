@@ -9,6 +9,9 @@ collections:
     output: true
     permalink: /react/:path/index.html
     title: "Learn React.js with @mxstbr"
+  external-test:
+    output: false
+    title: "External Test"
 
 # Link style
 permalink: /:year/:month/:title

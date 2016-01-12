@@ -14,6 +14,12 @@
 
 ### Adding a new tutorial
 
+There are two types of tutorials: site internal tutorials, and external tutorials. Site internal tutorials are all tutorials that live in this repository and can be accessed directly at academy.plotly.com/tutorialname, e.g. the React tutorials.
+
+External tutorials are links to tutorials that live on other websites.
+
+#### Internal tutorials
+
 Add your tutorial to the [`_config.yml`](_config.yml) as a collection like this:
 
 ```YAML
@@ -25,6 +31,31 @@ collections:
 ```
 
 Add a folder in the root directory called `_tutorialname`, and put the Markdown files of the tutorial in there. That's it, your tutorial will now be visible on the homescreen!
+
+#### External tutorials
+
+To add an external tutorial, again add your tutorial to the [`_config.yml`](_config.yml) as a collection but this time with `output` set to `false`:
+
+```YAML
+collections:
+  tutorialname:
+    output: false
+    title: "Tutorial Title"
+```
+
+Also similar to the internal tutorials, you again add a directory called `_tutorialname` to the root folder and put Markdown files in there, one for each tutorial part.
+
+The difference lies within the Markdown files, instead of containing the parts themselves, they specify `links_to` in their YAML Front Matter, like this:
+
+```Markdown
+---
+title: Test 1
+description: This is a test external tutorial
+links_to: http://plot.ly
+---
+```
+
+And you'll see a list of your tutorial parts with links to the external sites on the homepage!
 
 ## Licensing
 

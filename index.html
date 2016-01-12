@@ -26,11 +26,21 @@ layout: default
         {% if loopindex == 0 %}
           <div class="tutorial__row">
         {% endif %}
-        <a class="tutorial-part" href="{{ docs.url }}">
-          <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
-          <h3 class="tutorial-part__title">{{ docs.title }}</h3>
-          <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
-        </a>
+        <!-- site-internal tutorials -->
+        {% if collection[1].output == true %}
+          <a class="tutorial-part" href="{{ docs.url }}">
+            <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+            <h3 class="tutorial-part__title">{{ docs.title }}</h3>
+            <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+          </a>
+        <!-- external tutorials -->
+        {% else %}
+          <a class="tutorial-part" href="{{ docs.links_to }}">
+            <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+            <h3 class="tutorial-part__title">{{ docs.title }}</h3>
+            <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+          </a>
+        {% endif %}
         {% if loopindex == 1 %}
           </div>
         {% endif %}

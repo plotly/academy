@@ -42,10 +42,11 @@
   font-size: 1em;
 	width: 50%;
 	float: left;
+	border-right: 1px solid $grey-5;
 }
 
 .tutorial-part + .tutorial-part {
-	border-left: 1px solid $grey-5;
+	border-right: none;
 }
 
 .tutorial-part:hover {
