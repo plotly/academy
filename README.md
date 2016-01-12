@@ -4,12 +4,15 @@
 
 ### Setup
 
-1. Clone repo `git clone https://github.com/plotly/academy.git`
-2. Run `bundle install`
+1. Clone this repository by entering `git clone https://github.com/plotly/academy.git` into your terminal
+2. When that is finished, enter the directory of the repo with `cd academ`
+3. Install the dependencies of this page with `bundle install`
+
+> Note: See [`Prerequisites.md`](prerequisites.md) if you encounter a problem with the initial setup.
 
 ### Running locally
 
-1. Run `bundle exec jekyll serve`
+1. Enter `bundle exec jekyll serve` into your terminal
 2. Open `localhost:4000` in your browser
 
 ### Adding a new tutorial
