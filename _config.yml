@@ -24,7 +24,7 @@ defaults:
 # Build settings
 markdown: redcarpet
 redcarpet:
-  extensions: [smart, no_intra_emphasis, tables, fenced_code_blocks, autolink, lax_spacing, footnotes, disable_indented_code_blocks, superscript, with_toc_data]
+  extensions: [smart, no_intra_emphasis, tables, fenced_code_blocks, lax_spacing, footnotes, disable_indented_code_blocks, superscript, with_toc_data]
 sass:
   sass_dir: _sass
   style: expanded

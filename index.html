@@ -3,10 +3,23 @@ layout: default
 ---
 
 <h1>{{ site.title }}</h1>
+
+<!-- Buttons to tutorials -->
+
+<ul class="tutorial-list">
+  {% for collection in site.collections %}
+    <li class="tutorial-list__item">
+      <a class="button" href="#{{ collection[1].label }}">{{ collection[1].label | upcase }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Tutorials with parts -->
+
 {% for collection in site.collections %}
   <section class="tutorial">
     <!-- Note: collection[1] is necessary because of a Jekyll bug that isn't resolved in the current version -->
-    <h3 class="tutorial__title">{{ collection[1].title }}</h3>
+    <h3 id="{{ collection[1].label }}" class="tutorial__title">{{ collection[1].title }}</h3>
     <section class="tutorial__parts">
       {% for docs in collection[1].docs %}
         {% assign loopindex = forloop.index0 | modulo: 2 %}

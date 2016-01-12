@@ -6,6 +6,10 @@
 	margin: 3em 0;
 }
 
+.tutorial a {
+	text-decoration: none;
+}
+
 .tutorial__title {
   text-align: center;
 	margin-top: 0;
@@ -20,6 +24,11 @@
 
 .tutorial__row {
 	width: 100%;
+	border-bottom: 1px solid $grey-5;
+}
+
+.tutorial__row:last-child {
+	border-bottom: none;
 }
 
 .tutorial__row:after {
@@ -34,8 +43,6 @@
   font-size: 1em;
 	width: 50%;
 	float: left;
-	border-bottom: 1px solid $grey-5;
-	text-decoration: none;
 }
 
 .tutorial-part + .tutorial-part {
@@ -68,4 +75,15 @@
 .tutorial-part a {
 	text-decoration: none;
   color: $text-color;
+}
+
+@media (max-width: 500px) {
+	.tutorial-part {
+		width: 100%;
+		border-bottom: 1px solid $grey-5;
+	}
+
+	.tutorial-part + .tutorial-part {
+		border: none;
+	}
 }
