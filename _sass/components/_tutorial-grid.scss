@@ -92,9 +92,10 @@
 	.tutorial-part {
 		width: 100%;
 		border-bottom: 1px solid $grey-5;
+		border-right: none;
 	}
 
 	.tutorial-part + .tutorial-part {
-		border: none;
+		border-bottom: none;
 	}
 }
