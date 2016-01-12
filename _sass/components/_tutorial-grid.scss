@@ -45,6 +45,15 @@
 	border-right: 1px solid $grey-5;
 }
 
+.tutorial-part--wide {
+	width: 100%;
+	border-right: none;
+}
+
+.tutorial-part--wide .tutorial-part__title {
+	margin-top: 3em;
+}
+
 .tutorial-part + .tutorial-part {
 	border-right: none;
 }

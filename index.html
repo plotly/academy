@@ -26,17 +26,26 @@ layout: default
         {% if loopindex == 0 %}
           <div class="tutorial__row">
         {% endif %}
+        {% if collection[1].docs.size == 1 %}
+          {% assign className = "tutorial-part--wide" %}
+        {% else %}
+          {% assign className = "" %}
+        {% endif %}
         <!-- site-internal tutorials -->
         {% if collection[1].output == true %}
-          <a class="tutorial-part" href="{{ docs.url }}">
-            <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+          <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
+            {% if collection[1].docs.size != 1 %}
+              <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+            {% endif %}
             <h3 class="tutorial-part__title">{{ docs.title }}</h3>
             <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
           </a>
         <!-- external tutorials -->
         {% else %}
-          <a class="tutorial-part" href="{{ docs.links_to }}">
-            <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+          <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
+            {% if collection[1].docs.size != 1 %}
+              <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+            {% endif %}
             <h3 class="tutorial-part__title">{{ docs.title }}</h3>
             <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
           </a>
