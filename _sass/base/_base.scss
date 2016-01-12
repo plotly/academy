@@ -15,6 +15,7 @@ html {
 body{
   @include sans;
   color: $text-color;
+  font-size: $base-font-size;
 }
 
 ::-moz-selection {
@@ -27,7 +28,6 @@ body{
     color: #fff;
     text-shadow: none;
 }
-
 
 .wrapper {
   max-width: $max-width;

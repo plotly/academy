@@ -47,16 +47,23 @@ $background-color: $grey-3;
 $sans-serif: 'Open Sans', Verdana, Arial, sans-serif;
 $monospace: 'Source Code Pro', 'Courier New', Menlo, Courier, monospace;
 
-$small-copy-font-size: 13px;
-$small-copy-line-height: 17px;
-$copy-font-size: 15px;
-$copy-line-height: 21px;
-$big-copy-font-size: 21px;
-$big-copy-line-height: 27px;
+$base-font-size: 15px;
+
+$small-copy-font-size: 0.8666em;
+$small-copy-line-height: 1.13333333333em;
+
+$copy-font-size: 1em;
+$copy-line-height: 1.4em;
+
+$big-copy-font-size: 1.4em;
+$big-copy-line-height: 1.8em;
 
 
 /**************************
           Sizing
 ***************************/
 
+$border-radius: 2px;
 $max-width: 680px;
+
+$small-screen-width: 500px;

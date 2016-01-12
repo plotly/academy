@@ -8,26 +8,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 65px;
-  font-height: 66px;
+  font-size: 4.333em;
+  font-height: 4.4em; // font-size + 1px
   letter-spacing: -0.25px;
 }
 
 h2 {
-  font-size: 48px;
-  font-height: 49px;
+  font-size: 1.8666em;
+  font-height: 3.2666em; // font-size + 1px
   letter-spacing: -0.25px;
 }
 
 h3 {
-  font-size: 31px;
-  font-height: 32px;
+  font-size: 2.0666em;
+  font-height: 2.1333em; // font-size + 1px
 }
 
 h4 {
-  font-size: 21px;
-  font-height: 22px;
-  line-height: 22px;
+  font-size: 1.4em;
+  font-height: 1.4666em; // font-size + 1px
+  line-height: 1.4666em; // font-size + 1px
 }
 
 p {

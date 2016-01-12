@@ -11,7 +11,6 @@
 }
 
 .tutorial__title {
-  text-align: center;
 	margin-top: 0;
 	margin-bottom: 0.75em;
 }
@@ -19,7 +18,7 @@
 .tutorial__parts {
   width: 100%;
   border: 1px solid $grey-5;
-  border-radius: 2px;
+  border-radius: $border-radius;
 }
 
 .tutorial__row {
@@ -77,7 +76,7 @@
   color: $text-color;
 }
 
-@media (max-width: 500px) {
+@media (max-width: $small-screen-width) {
 	.tutorial-part {
 		width: 100%;
 		border-bottom: 1px solid $grey-5;
