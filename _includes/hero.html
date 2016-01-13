@@ -1,0 +1,17 @@
+
+
+<section class="hero">
+  <div class="hero__overlay">
+  <div class="hero__text-container">
+    <h1 class="hero__title">{{ site.title }}</h1>
+    <h2 class="hero__subtitle">Tagline here</h2>
+    <!-- Buttons to tutorials -->
+    <ul class="tutorial-list">
+      {% for collection in site.collections %}
+        <li class="tutorial-list__item">
+          <a class="button" href="#{{ collection[1].label }}">{{ collection[1].label | upcase }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
