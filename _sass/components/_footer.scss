@@ -1,0 +1,130 @@
+.footerarea{
+    color: #69738A;
+    background-color: #ffffff;
+    padding-left: 5px;
+}
+
+.footer-top{
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-bottom {
+  padding: 25px 0 25px 0;
+  font-size: 12px;
+  background-color: #e0e2e5;
+  margin: 0;
+}
+
+.footer-bottom .columns {
+  max-width: 100%;
+
+}
+
+/* For devices smaller than 550px */
+@media (max-width: 550px) {
+  .respfooter{
+  width: 40%;
+  height: 200px;}
+}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (max-width: 1000px) {
+  .respfooter{
+    width: 30.6666666667%;
+    height: 200px;
+  }
+}
+
+.footer-bottom {
+  font-size: 12px;
+}
+
+.footerarea h6 {
+  color: #447bdc;
+  font-size: 13px;
+  font-weight: 700;
+  padding-bottom: 0px;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 8px;
+}
+
+.footerarea li, .footerarea a, .footerarea p{
+  color: #8c97af;
+  font-size: 12px;
+  font-weight: 400;
+  list-style: none;
+  line-height: 4px;
+  margin-top: 15px;
+}
+
+@media (max-width: 550px) {
+  .footer-bottom li, .footer-bottom a, .footer-bottom p{
+  margin-top: 2px;
+  margin: 0 0 10px 3px;}
+
+}
+
+.footerarea a{
+  text-decoration: none;
+  color: #8c97af;
+}
+
+.footerarea a:hover{
+  color: #69738a;
+}
+
+.social_icon{
+  color: #447bdc;
+  font-size: 21px;
+}
+
+.plotly-social-media-small{
+  display: inline-block;
+}
+
+.plotly-social-media-small li{
+  display: inline;
+  padding-right: 8px;
+}
+
+/***********************
+NAVIGATION BAR STYLING
+***********************/
+
+.navigation-bar p, .navigation-bar a {
+  font-weight: 800;
+  margin-top: 10px;
+  text-transform: uppercase;
+  line-height: 40px;
+  text-decoration: none;
+  display: inline;
+  font-size: 13px
+}
+.navigation-bar a{
+  color: #447bdc;
+  margin: 0px 20px;
+}
+.navigation-bar p{
+  float: left;
+  color: #69738a;
+}
+#nav-not-active{
+  color: #69738a;
+}
+
+@media (max-width: 400px) {
+  .navigation-bar p, .navigation-bar a {
+      font-size: 12px;}
+}
+@media (max-width: 550px) {
+  .navigation-bar .float-right{
+    display: none;}
+}
+
+#forklink{
+font-weight: 300;
+font-family: "Open sans",verdana,arial,sans-serif;
+font-size: 14px;
+}

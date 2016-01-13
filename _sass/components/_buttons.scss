@@ -3,25 +3,76 @@
 ***************************/
 
 .button {
-  background-color: $brand-color;
-  border: medium none;
-  border-radius: $border-radius;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-family: inherit;
-  font-size: $small-copy-font-size;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0 5px;
-  padding: 5px 1em;
-  vertical-align: middle;
-  white-space: nowrap;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
+    background-color: #447bdc;
+    border: medium none;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 5px;
+    padding: 5px 1em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
-.button:hover {
-  background: none repeat scroll 0 0 $dark-brand-color;
+.\--enterprise-quaternary {
+    background: None;
+    border: 1px solid #45A9FF;
+    color: #45A9FF;
+}
+
+.button a{
+  text-decoration: none;}
+
+@media (max-width: 550px) {
+  .button {
+    min-width: 100%;
+          margin: 5px 0;
+    padding: 5px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .button {
+    margin: 0 0px 10px;
+  }
+}
+
+.secondary {
+    background: none repeat scroll 0 0 #8c97af;
+      border: medium none;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 5px;
+    padding: 5px 1em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.button:hover, .button.lateralmenu-item.is-active{
+  background: none repeat scroll 0 0 #2d56aa;
+  color: white;
+}
+
+.\--enterprise-quaternary:hover {
+    background: #45A9FF;
+    color: #ffffff;
+}
+
+.secondary:hover {
+  background: none repeat scroll 0 0 #69738a;
   color: white;
 }

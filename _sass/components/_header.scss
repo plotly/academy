@@ -1,0 +1,264 @@
+.headerbar{
+  background-color: transparent;
+  height: 80px;
+  width: 100%;
+  line-height: 78px;
+  display: block;
+  min-width: 1080px;
+  border-bottom-color: #ffffff;
+  border-bottom-width: 0px;
+  border-bottom-style: solid;
+}
+
+.is-fixed {
+  background-color: white;
+  border: 1px solid #e7e8e9;
+  color: #69738a;
+  height: 80px;
+  line-height: 80px;
+  position: fixed;
+  top: 0;
+  transition: background-color 0.4s linear 0s, border 0.4s linear 0s;
+  z-index: 99;
+  margin-top: 0px;
+}
+
+.headerbar-leftside {
+  margin-left: 70px;
+  display: inline-block;
+  float: left;
+  max-width: 200px;
+  white-space: nowrap;
+  margin-right: 70px;
+  height: 78px;
+  line-height: 78px;
+}
+
+.logo {
+  font-size: 26px !important;
+  font-weight: 200;
+  color: #447BDC;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #2d56aa;
+}
+
+.ploticon-plotlylogo {
+  font-family: "plotlylogo";
+}
+
+.logo em {
+    font-style: normal;
+}
+
+.headerbar-rightside {
+  display: inline-block;
+  float: right;
+  margin-left: 0px;
+  max-width: 500px;
+  white-space: nowrap;
+  margin-right: 70px;
+/*  margin-top: 25px; */
+}
+
+.headerbar-nav {
+  display: inline-block;
+  vertical-align: super;
+}
+
+.headerbar-nav-item {
+  color: #69738a;
+  display: inline-block;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  font-family: "Open sans",verdana,arial,sans-serif;
+  text-decoration: none;
+}
+
+.headerbar a{
+  text-decoration: none;
+}
+
+.headerbar-nav-item:hover, .headerbar-nav-item.lateralmenu-item.is-active{
+  color: #447bcd;
+  cursor: pointer;
+}
+
+.hamburger{
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .hamburger{
+    float: right;
+    display: block;
+    max-width: 40px;
+    max-height: 30px;
+    margin-right: 40px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .headerbar{
+  width: 100%;
+  min-width: 150px;
+  }
+
+  .headerbar-leftside {
+  margin-left: 20px;
+  max-width: 100px;
+  margin-right: 25px;
+  }
+}
+
+/***********************
+DROP-DOWN MENU
+************************/
+.dropdown {
+  position: relative;
+  display: inline-block;
+  overflow-y: visible;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  min-width: 150px;
+  border: 1px solid rgba(0,0,0,.2);
+  margin: 0;
+  top: 65px;
+  background-color: #fff;
+  padding: 0 10px;
+  border-radius: 2px;
+  padding: 5px 15px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.1);
+}
+
+.dropdown-menu:after, .dropdown-menu:before {
+  box-sizing: border-box;
+}
+
+.dropdown-menu-item {
+  border-bottom: 1px solid #E7E8E9;
+  font-weight: 600;
+  display: block;
+  clear: both;
+  font-size: 14px;
+  line-height: 28px;
+}
+
+.dropdown-menu-item:last-child {
+  border-bottom: 0px none #E7E8E9;
+}
+
+.dropdown-menu-item{
+  display: block;
+  padding: 4px 6px;
+  margin: 0;
+  white-space: nowrap;
+  width: 90%;
+  text-align: left;
+  font-size: 14px;
+  line-height: 21px;
+  color: #5D667A;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-menu-item:hover {
+  color: #447bdc;
+}
+
+.carret{
+    width: 0;
+    height: 0;
+    border-top: 4px solid #000;
+    border-left: 4px solid transparent;
+    margin-left: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    box-sizing: border-box;
+}
+
+/***********************
+SOCIAL SHARE STYLING
+************************/
+.share_bar{
+  height: 40px;
+  margin: auto;
+  width: 300px;
+}
+.share_one{
+  padding-top: 10px;
+  display: inline;
+}
+.share_two{
+  display: inline;
+}
+
+/*************************
+POP-UP MENU STYLING
+**************************/
+.popupheader a{
+  line-height: 78px;
+}
+
+.popupmenu li{
+  list-style: none;
+}
+
+.popupmenu a{
+  color: #69738a;
+  text-decoration: none;
+    font-size: 40px;
+    font-weight: 200;
+}
+.popupmenu a:hover{
+  color: #447bdc;
+}
+
+#popmenufull{
+  z-index: 99999;
+  position: fixed;
+  opacity: 0.95;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  text-align: center;
+  vertical-align: middle;
+  overflow-y: scroll;
+}
+
+.popupheader{
+  display: block;
+  width: 100%;
+  clear: both;
+  height: 80px;
+}
+
+.popupmenu{
+  padding-top: 20px;
+}
+
+.close{
+  float: right;
+  height: 30px;
+  width: 30px;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+.sub-popmenu a{
+  font-size: 20px;
+}

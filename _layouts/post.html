@@ -1,17 +1,18 @@
 ---
 layout: default
 ---
-<div class="post">
 
-  <header class="post__header">
-    <h1 class="post__title">{{ page.title }}</h1>
-    <p class="post__description">{{ page.description }}</p>
-  </header>
+<div class="wrapper">
+  <div class="post">
+    <header class="post__header">
+      <h1 class="post__title">{{ page.title }}</h1>
+      <p class="post__description">{{ page.description }}</p>
+    </header>
 
-  <div class="divider"></div>
+    <div class="divider"></div>
 
-  <article class="post__content">
-    {{ content }}
-  </article>
-
+    <article class="post__content">
+      {{ content }}
+    </article>
+  </div>
 </div>
