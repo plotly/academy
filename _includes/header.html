@@ -46,10 +46,10 @@
     <span class="headerbar-nav-item ">Dashboards</span></span>
     </a>
 
-    <a href="https://plot.ly/api/" onmouseover="dropDownMenu('api-menu')" onmouseout="hideDropDownMenu('api-menu')" target="_self">
+    <a href="https://plot.ly/api/" onmouseover="toggleDisplay('api-menu')" onmouseout="toggleDisplay('api-menu')" target="_self">
     <span class="headerbar-nav-item ">API</span><span class="caret"></span>
     </a>
-    <nav id="api-menu" role="menu" class="dropdown-menu" onmouseover="dropDownMenu('api-menu')" onmouseout="hideDropDownMenu('api-menu')" style="display:none; margin-left: 225px;">
+    <nav id="api-menu" role="menu" class="dropdown-menu" onmouseover="toggleDisplay('api-menu')" onmouseout="toggleDisplay('api-menu')" style="display:none; margin-left: 225px;">
         <a href="https://plot.ly/python" class="dropdown-menu-item" target="_blank">PYTHON</a>
         <a href="https://plot.ly/r" class="dropdown-menu-item" target="_blank">R</a>
         <a href="https://plot.ly/matlab" class="dropdown-menu-item" target="_blank">MATLAB</a>
@@ -84,7 +84,7 @@
     <ul>
       <li><a href="https://plot.ly/feed/">Explore</a></li>
       <li><a href="https://plot.ly/products/cloud/">Pricing</a></li>
-      <div onmouseover="dropDownMenu('sub-industries')" onmouseout="hideDropDownMenu('sub-industries')">
+      <div onmouseover="toggleDisplay('sub-industries')" onmouseout="toggleDisplay('sub-industries')">
         <li><a href="https://plot.ly/products/industries/">Industries</a></li>
         <div class="sub-popmenu" id="sub-industries" style="display:none;">
             <ul class="no-margin">
@@ -101,7 +101,7 @@
             </ul>
         </div>
       </div>
-      <div onmouseover="dropDownMenu('sub-api')" onmouseout="hideDropDownMenu('sub-api')">
+      <div onmouseover="toggleDisplay('sub-api')" onmouseout="toggleDisplay('sub-api')">
         <li><a href="https://plot.ly/api/">API</a></li>
         <div class="sub-popmenu" id="sub-api" style="display:none;">
           <ul class="no-margin">
@@ -131,18 +131,14 @@
   </script>
 
   <script>
-  // Nav drop down
-  function dropDownMenu(divID) {
-    var chosenDiv = document.getElementById(divID);
-    if(chosenDiv.style.display == "none"){
-      chosenDiv.style.display = "block";
-    }
-  };
-  
-  function hideDropDownMenu(divID){
-    var chosenDiv = document.getElementById(divID);
-    if(chosenDiv.style.display == "block"){
-      chosenDiv.style.display = "none";
+  function toggleDisplay(id) {
+    var elem = document.getElementById(id);
+    if (elem.style.display == "none") {
+      elem.style.display = "block";
+    } else if (elem.style.display == "block") {
+      elem.style.display = "none";
+    } else {
+      console.log('display property was neither "none" nor "block".');
     }
   }
   </script>
