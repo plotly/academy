@@ -1,7 +1,11 @@
+.plotly-footer {
+  margin-top: 100px;
+}
+
 .footerarea{
-    color: #69738A;
-    background-color: #ffffff;
-    padding-left: 5px;
+  color: #69738A;
+  background-color: #ffffff;
+  padding-left: 5px;
 }
 
 .footer-top{
@@ -31,8 +35,8 @@
 /* Larger than phablet (also point when grid becomes active) */
 @media (max-width: 1000px) {
   .respfooter{
-    width: 30.6666666667%;
-    height: 200px;
+  width: 30.6666666667%;
+  height: 200px;
   }
 }
 
@@ -116,11 +120,13 @@ NAVIGATION BAR STYLING
 
 @media (max-width: 400px) {
   .navigation-bar p, .navigation-bar a {
-      font-size: 12px;}
+    font-size: 12px;
+  }
 }
 @media (max-width: 550px) {
   .navigation-bar .float-right{
-    display: none;}
+    display: none;
+  }
 }
 
 #forklink{
