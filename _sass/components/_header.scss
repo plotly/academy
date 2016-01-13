@@ -90,29 +90,53 @@
 
 .hamburger{
   display: none;
+  float: right;
+  width: 40px;
+  height: 30px;
+  margin-right: 40px;
+  margin-top: 25px;
 }
 
-@media (max-width: 1100px) {
-  .hamburger{
-    float: right;
-    display: block;
-    max-width: 40px;
-    max-height: 30px;
-    margin-right: 40px;
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 1100px) {
-  .headerbar{
+#popmenufull {
   width: 100%;
-  min-width: 150px;
+  height: 100%;
+}
+
+#hamburger-menu {
+  width: 100%;
+  height: 100%;
+}
+
+#hamburgerlink {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 1200px) {
+  .headerbar{
+    width: 100%;
+    min-width: 150px;
   }
 
   .headerbar-leftside {
-  margin-left: 20px;
-  max-width: 100px;
-  margin-right: 25px;
+    margin-left: 20px;
+    max-width: 100px;
+    margin-right: 25px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hamburger {
+    display: block;
+  }
+
+  .headerbar-rightside {
+    display: none;
+  }
+
+  .headerbar-nav {
+    display: none;
   }
 }
 
@@ -206,25 +230,25 @@ SOCIAL SHARE STYLING
 /*************************
 POP-UP MENU STYLING
 **************************/
-.popupheader a{
+.popupheader a {
   line-height: 78px;
 }
 
-.popupmenu li{
+.popupmenu li {
   list-style: none;
 }
 
-.popupmenu a{
+.popupmenu a {
   color: #69738a;
   text-decoration: none;
-    font-size: 40px;
-    font-weight: 200;
+  font-size: 40px;
+  font-weight: 200;
 }
-.popupmenu a:hover{
+.popupmenu a:hover {
   color: #447bdc;
 }
 
-#popmenufull{
+#popmenufull {
   z-index: 99999;
   position: fixed;
   opacity: 0.95;
@@ -240,25 +264,31 @@ POP-UP MENU STYLING
   overflow-y: scroll;
 }
 
-.popupheader{
+.popupheader {
   display: block;
   width: 100%;
   clear: both;
   height: 80px;
 }
 
-.popupmenu{
+.popupmenu {
   padding-top: 20px;
 }
 
-.close{
+.close {
   float: right;
   height: 30px;
   width: 30px;
-  margin-right: 40px;
-  margin-top: 20px;
+  margin-right: 30px;
+  margin-top: 25px;
 }
 
-.sub-popmenu a{
+.close img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sub-popmenu a {
   font-size: 20px;
 }
