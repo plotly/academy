@@ -31,9 +31,12 @@ collections:
     output: true
     permalink: /tutorialname/:path/index.html
     title: "Tutorial Title"
+    category: "Frontend"
 ```
 
 Add a folder in the root directory called `_tutorialname`, and put the Markdown files of the tutorial in there. That's it, your tutorial will now be visible on the homescreen!
+
+> Note the `category` field, this field can be one of these two values: "Frontend" or "Data Science"!
 
 #### External tutorials
 
@@ -44,6 +47,7 @@ collections:
   tutorialname:
     output: false
     title: "Tutorial Title"
+    category: "Data Science"
 ```
 
 Also similar to the internal tutorials, you again add a directory called `_tutorialname` to the root folder and put Markdown files in there, one for each tutorial part.

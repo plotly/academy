@@ -9,9 +9,11 @@ collections:
     output: true
     permalink: /react/:path/index.html
     title: "Learn React.js with @mxstbr"
+    category: "Frontend"
   ipython-notebook:
     output: false
     title: "IPython Notebook Tutorial"
+    category: "Data Science"
 
 # Link style
 permalink: /:year/:month/:title

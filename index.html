@@ -6,46 +6,93 @@ layout: default
 
 <div class="wrapper">
   <!-- Tutorials with parts -->
-
+  <h3 class="tutorial__category" id="frontend">Frontend</h3>
   {% for collection in site.collections %}
-    <section class="tutorial">
-      <!-- Note: collection[1] is necessary because of a Jekyll bug that isn't resolved in the current version -->
-      <h3 id="{{ collection[1].label }}" class="tutorial__title">{{ collection[1].title }}</h3>
-      <section class="tutorial__parts">
-        {% for docs in collection[1].docs %}
-          {% assign loopindex = forloop.index0 | modulo: 2 %}
-          {% if loopindex == 0 %}
-            <div class="tutorial__row">
-          {% endif %}
-          {% if collection[1].docs.size == 1 %}
-            {% assign className = "tutorial-part--wide" %}
-          {% else %}
-            {% assign className = "" %}
-          {% endif %}
-          <!-- site-internal tutorials -->
-          {% if collection[1].output == true %}
-            <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
-              {% if collection[1].docs.size != 1 %}
-                <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
-              {% endif %}
-              <h3 class="tutorial-part__title">{{ docs.title }}</h3>
-              <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
-            </a>
-          <!-- external tutorials -->
-          {% else %}
-            <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
-              {% if collection[1].docs.size != 1 %}
-                <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
-              {% endif %}
-              <h3 class="tutorial-part__title">{{ docs.title }}</h3>
-              <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
-            </a>
-          {% endif %}
-          {% if loopindex == 1 %}
-            </div>
-          {% endif %}
-        {% endfor %}
+    {% if collection[1].category == "Frontend" %}
+      <section class="tutorial">
+        <!-- Note: collection[1] is necessary because of a Jekyll bug that isn't resolved in the current version -->
+        <h4 id="{{ collection[1].label }}" class="tutorial__title">{{ collection[1].title }}</h4>
+        <section class="tutorial__parts">
+          {% for docs in collection[1].docs %}
+            {% assign loopindex = forloop.index0 | modulo: 2 %}
+            {% if loopindex == 0 %}
+              <div class="tutorial__row">
+            {% endif %}
+            {% if collection[1].docs.size == 1 %}
+              {% assign className = "tutorial-part--wide" %}
+            {% else %}
+              {% assign className = "" %}
+            {% endif %}
+            <!-- site-internal tutorials -->
+            {% if collection[1].output == true %}
+              <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
+                {% if collection[1].docs.size != 1 %}
+                  <h5 class="tutorial-part__title-part">Part {{ forloop.index }}</h5>
+                {% endif %}
+                <h5 class="tutorial-part__title">{{ docs.title }}</h5>
+                <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+              </a>
+            <!-- external tutorials -->
+            {% else %}
+              <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
+                {% if collection[1].docs.size != 1 %}
+                  <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+                {% endif %}
+                <h3 class="tutorial-part__title">{{ docs.title }}</h3>
+                <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+              </a>
+            {% endif %}
+            {% if loopindex == 1 %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </section>
       </section>
-    </section>
+    {% endif %}
+  {% endfor %}
+
+  <h3 class="tutorial__category" id="datascience">Data Science</h3>
+  {% for collection in site.collections %}
+    {% if collection[1].category == "Data Science" %}
+      <section class="tutorial">
+        <!-- Note: collection[1] is necessary because of a Jekyll bug that isn't resolved in the current version -->
+        <h4 id="{{ collection[1].label }}" class="tutorial__title">{{ collection[1].title }}</h4>
+        <section class="tutorial__parts">
+          {% for docs in collection[1].docs %}
+            {% assign loopindex = forloop.index0 | modulo: 2 %}
+            {% if loopindex == 0 %}
+              <div class="tutorial__row">
+            {% endif %}
+            {% if collection[1].docs.size == 1 %}
+              {% assign className = "tutorial-part--wide" %}
+            {% else %}
+              {% assign className = "" %}
+            {% endif %}
+            <!-- site-internal tutorials -->
+            {% if collection[1].output == true %}
+              <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
+                {% if collection[1].docs.size != 1 %}
+                  <h5 class="tutorial-part__title-part">Part {{ forloop.index }}</h5>
+                {% endif %}
+                <h5 class="tutorial-part__title">{{ docs.title }}</h5>
+                <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+              </a>
+            <!-- external tutorials -->
+            {% else %}
+              <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
+                {% if collection[1].docs.size != 1 %}
+                  <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+                {% endif %}
+                <h3 class="tutorial-part__title">{{ docs.title }}</h3>
+                <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+              </a>
+            {% endif %}
+            {% if loopindex == 1 %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </section>
+      </section>
+    {% endif %}
   {% endfor %}
 </div>
