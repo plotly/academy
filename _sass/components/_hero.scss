@@ -38,9 +38,18 @@
   margin-bottom: 0;
 }
 
-.hero__subtitle {
+.hero__tagline {
   color: white;
   margin-top: 0;
+}
+
+.hero__tagline a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero__tagline a:hover {
+  text-decoration: underline;
 }
 
 .tutorial-list {
