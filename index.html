@@ -27,7 +27,7 @@ layout: default
             {% if collection[1].output == true %}
               <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
                 {% if collection[1].docs.size != 1 %}
-                  <h5 class="tutorial-part__title-part">Part {{ forloop.index }}</h5>
+                  <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
                 {% endif %}
                 <h5 class="tutorial-part__title">{{ docs.title }}</h5>
                 <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
@@ -36,7 +36,7 @@ layout: default
             {% else %}
               <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
                 {% if collection[1].docs.size != 1 %}
-                  <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+                  <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
                 {% endif %}
                 <h3 class="tutorial-part__title">{{ docs.title }}</h3>
                 <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
@@ -72,7 +72,7 @@ layout: default
             {% if collection[1].output == true %}
               <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
                 {% if collection[1].docs.size != 1 %}
-                  <h5 class="tutorial-part__title-part">Part {{ forloop.index }}</h5>
+                  <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
                 {% endif %}
                 <h5 class="tutorial-part__title">{{ docs.title }}</h5>
                 <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
@@ -81,7 +81,7 @@ layout: default
             {% else %}
               <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
                 {% if collection[1].docs.size != 1 %}
-                  <h3 class="tutorial-part__title-part">Part {{ forloop.index }}</h3>
+                  <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
                 {% endif %}
                 <h3 class="tutorial-part__title">{{ docs.title }}</h3>
                 <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
