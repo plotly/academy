@@ -18,11 +18,11 @@ React consists of two libraries, `React` and `ReactDOM`. `React` allows you to c
 
 > Note: There are initial experiments out there for rendering React to HTML5 Canvas, WebVR and some others.
 
-Open up our [first JSBin](https://react.jsbin.com/sewaru/6/edit?js,output), and you will see an `<h1>` with the text "Hello World!". This is the source code generating that text:
+Open up our [first JSBin](https://react.jsbin.com/sewaru/6/edit?js,output), and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
 
 ```JS
 ReactDOM.render(
-  React.createElement('h1', { className: 'heading' }, 'Hello World!'),
+  React.createElement('h1', {className: 'heading'}, 'Hello World'),
   document.getElementById('container')
 );
 ```
@@ -35,7 +35,7 @@ The `ReactDOM.render()` function takes two arguments: The ReactElement to render
 
 ```JS
 ReactDOM.render(
-  React.createElement('h1', { className: 'heading' }, 'Hello World!'),
+  React.createElement('h1', {className: 'heading'}, 'Hello World'),
   document.getElementById('container')
 );
 ```
@@ -51,15 +51,15 @@ This function takes the node (or ReactElement, as we'll see soon) we want to cre
 React.createElement('h1');
 // <h1 class="heading"></h1>
 React.createElement('h1', { className: 'heading' });
-// <h1 class="heading">Hello World!</h1>
-React.createElement('h1', { className: 'heading' }, 'Hello World!');
+// <h1 class="heading">Hello World</h1>
+React.createElement('h1', {className: 'heading'}, 'Hello World');
 ```
 
-The children (the third argument), where it now says `'Hello World!'`, can also be another ReactElement! Lets say we want to add a `<div>` with a `wrapper` class around our heading, we could pass our heading element to another element as a child:
+The children (the third argument), where it now says `'Hello World'`, can also be another ReactElement! Lets say we want to add a `<div>` with a `wrapper` class around our heading, we could pass our heading element to another element as a child:
 
 ```JS
 React.createElement('div', { className: 'wrapper' },
-  React.createElement('h1', { className: 'heading' }, 'Hello World!')
+  React.createElement('h1', {className: 'heading'}, 'Hello World')
 )
 ```
 
@@ -67,7 +67,7 @@ which'll render this HTML:
 
 ```HTML
 <div class="wrapper">
-  <h1 class="heading">Hello World!</h1>
+  <h1 class="heading">Hello World</h1>
 </div>
 ```
 
@@ -93,7 +93,7 @@ By using `props.children` as the third argument, this component will render it's
 
 ```JS
 React.createElement(Wrapper, null,
-  React.createElement('h1', { className: 'heading' }, 'Hello World!')
+  React.createElement('h1', {className: 'heading'}, 'Hello World')
 )
 ```
 *([JSBin](https://react.jsbin.com/sewaru/8/edit?js,output))*
@@ -107,23 +107,17 @@ You might have seen React code samples floating around, and something that might
 Instead of calling `React.createElement`, we can use JSX:
 
 ```JS
-ReactDOM.render(
-  React.createElement(Wrapper, null,
-    React.createElement('h1', { className: 'heading' }, 'Hello World!')
-  ),
-  document.getElementById('container')
-);
+React.createElement(Wrapper, null,
+  React.createElement('h1', {className: 'heading'}, 'Hello World')
+)
 ```
 
 is the same thing as
 
-```JS
-ReactDOM.render(
-  <Wrapper>
-    <h1 className="heading">Hello World!</h1>
-  </Wrapper>,
-  document.getElementById('container')
-);
+```HTML
+<Wrapper>
+  <h1 className="heading">Hello World</h1>
+</Wrapper>
 ```
 
 Using JSX is a bit tricky, since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!
