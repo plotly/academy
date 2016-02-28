@@ -46,3 +46,15 @@ p.small-copy {
   font-size: $small-copy-font-size;
   line-height: $small-copy-line-height;
 }
+
+blockquote {
+  border-left: 4px solid $light-text-color;
+  margin: 1.5 3em;
+  margin-left: 0;
+  padding-left: 1em;
+}
+
+blockquote p {
+  color: $light-text-color;
+  font-size: $small-copy-font-size;
+}
