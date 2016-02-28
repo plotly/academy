@@ -5,7 +5,7 @@
 ### Setup
 
 1. Clone this repository by entering `git clone https://github.com/plotly/academy.git` into your terminal
-2. When that is finished, enter the directory of the repo with `cd academ`
+2. When that is finished, enter the directory of the repo with `cd academy`
 3. Install the dependencies of this page with `bundle install`
 
 > Note: See [`Prerequisites.md`](prerequisites.md) if you encounter a problem with the initial setup.
