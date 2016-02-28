@@ -126,7 +126,9 @@ ReactDOM.render(
 );
 ```
 
-Passing properties to our components is as easy as writing them as attributes on these HTML-like tags, and to add children we simply wrap them! The nice thing about JSX is, since it is transpiled to JavaScript, we can use JavaScript code in JSX by wrapping it in curly braces.
+Using JSX is a bit tricky, since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!
+
+Passing properties to our components is as easy as writing them as attributes on these HTML-like tags, and to add children we simply wrap them! The nice thing about JSX is that we can use JavaScript code in JSX by wrapping it in curly braces.
 
 Lets convert our `Wrapper` component to use JSX:
 
@@ -139,6 +141,10 @@ var Wrapper = function(props) {
 ```
 
 *([JSBin](https://react.jsbin.com/sewaru/10/edit?js,output))*
+
+> JSX is preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
+
+
 
 ## Modules
 
