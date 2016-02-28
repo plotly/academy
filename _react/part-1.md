@@ -10,6 +10,20 @@ layout: post
 
 ## `npm`
 
+# Why React.js?
+
+The big benefits of React are performance and reusability.
+
+## Performance
+
+Normally, when your application state changes and some part of the page has to render again, the entire page renders. This is a huge performance problem for bigger applications. React circumvents with its "virtual DOM".
+
+The virtual DOM is a virtual representation of the browsers DOM. When the state changes, React calculates a virtual DOM with the new state and compares it with the virtual representation of the currently rendered DOM. If something changed, React renders the changes – only the changes. This means we no longer rerender the entire page for the tiniest changes, instead we only render the parts we need to.
+
+## Reusability
+
+React calls the smallest parts of your application "elements", which compose together into "components". These components are encapsulated parts, e.g. a `Button` component, which combine together to make the page.
+
 # Getting Started
 
 We'll use [`react.jsbin.com`](https://react.jsbin.com/sewaru/6/edit?js,output) for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
@@ -137,8 +151,6 @@ var Wrapper = function(props) {
 *([JSBin](https://react.jsbin.com/sewaru/10/edit?js,output))*
 
 > JSX is preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
-
-
 
 ## Modules
 
