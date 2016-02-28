@@ -150,7 +150,108 @@ var Wrapper = function(props) {
 
 *([JSBin](https://react.jsbin.com/sewaru/10/edit?js,output))*
 
-> JSX is preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
+> JSX is the preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
+
+## `React.createClass()`
+
+As mentioned in the "Why React?" section, React has the virtual DOM to minimize rerendering when the application state changes. But, how do we manage application state in React?
+
+Above we had our `Wrapper` component, which was written as a *functional component*. We can also write our React components in a slightly different way so we can make it stateful. Let's write a `Counter` component that counts how often we've clicked a button!
+
+React exports a separate function which we can use to create components which is `React.createClass()`. This function takes an object as its first argument, and we can pass it a `render` property, like so:
+
+```JS
+var Counter = React.createClass({
+  render: function() { /* component here */ }
+});
+```
+
+This render function doesn't work any differently from the functional component we have seen before, we simply return some elements in there and they will be rendered:
+
+```JS
+var Counter = React.createClass({
+  render: function() {
+    return (
+      <p>This is the Counter component!</p>
+    );
+  }
+});
+```
+
+We can then render this component just like the other components with `ReactDOM.render`:
+
+```JS
+ReactDOM.render(
+  <Counter />,
+  document.getElementById('container')
+);
+```
+
+*([JSBin](http://react.jsbin.com/xitatudiyo/1/edit?js,output))*
+
+Lets make a separate `Button` component, which'll take a prop called `text`. We'll make this component a functional one again, since it won't need to store any state:
+
+```JS
+var Button = function(props) {
+  return (
+    <button>{ props.text }</button>
+  );
+}
+```
+
+Then we render our `Button` into our `Counter` with a text of `Click me!`:
+
+```JS
+var Counter = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <p>This is the Counter component!</p>
+        <Button text="Click me!"/>
+      </div>
+    );
+  }
+});
+```
+
+*([JSBin](http://react.jsbin.com/xokunazoku/1/edit?js,output))*
+
+Now lets increase a number everytime out `Button` is clicked by using an `onClick` handler:
+
+```JS
+var Counter = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <p>This is the Counter component!</p>
+        <Button text="Click me!" onClick={function() { console.log('click!') }} />
+      </div>
+    );
+  }
+});
+```
+
+With only that code though, you can click the `Button` however much you like and you will never see `click!` in the console. That is because right now, we specified the `onClick` prop on a ReactComponent. To use this in the browser DOM, we have to attach it to the native DOM `button` node inside the React component:
+
+```JS
+var Button = function(props) {
+  return (
+    <button onClick={props.onClick}>{ props.text }</button>
+  );
+}
+```
+
+*([JSBin](http://react.jsbin.com/xokunazoku/2/edit?js,output))*
+
+This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked!
+
+- `setState`
+- `this.state`
+- `getInitialState`
+
+*([JSBin](http://react.jsbin.com/pijutixixo/1/edit?js,output))*
+
+There is a slight difference in how the props are passed to the component now, instead of the function receiving them they are stored in `this.props`.
 
 ## Modules
 
