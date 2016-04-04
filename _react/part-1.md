@@ -4,6 +4,8 @@ description: Learn the basics of React.js, how to get up and running with the ho
 layout: post
 ---
 
+# What we'll build (app preview)
+
 # Prerequisites
 
 ## Node
@@ -310,4 +312,49 @@ Now it works, our `Counter` correctly increments the number when the button is c
 
 ## Modules
 
+Real world applications can have any number of components, ranging from a handful to thousands. Having all of them in a single file is impractical, so we structure them into **modules**. This allows us to keep our applications well structured and easy to work with.
+
+Lets say we want to have a `add` function, that adds two numbers together. We write this function into its own file, `add.js`:
+
+```JS
+// add.js
+
+function add(x, y) {
+  return x + y;
+}
+```
+
+If we have all our functions in one file, reusing this function is no problem. By having this function in its own file, we can only use it that one file! To change that, we export this function using `module.exports`:
+
+```JS
+// add.js
+
+function add(x, y) {
+  return x + y;
+}
+
+module.exports = add;
+```
+
+To use this function in a separate file, we `require()` it, referencing the file name:
+
+```JS
+// someotherfile.js
+
+var add = require('./add.js');
+
+console.log(add(2, 2)); // => 4
+```
+
+Now, before you go ahead and try it, this won't work! We need special tools to take advantage of this feature. These build tools compile our possibly thousands of modules in different files into one file so we can use them in the browser. One of the most popular build tools to do this is Browserify.
+
+
 ### Browserify
+
+First, we have to install Browserify. Open your terminal and enter this command:
+
+```sh
+$ npm install -g browserify
+```
+
+Now you have access to the `browserify` command! (Try entering `$ browserify` in the terminal, and you should see a help message!) 
