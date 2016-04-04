@@ -243,15 +243,70 @@ var Button = function(props) {
 
 *([JSBin](http://react.jsbin.com/xokunazoku/2/edit?js,output))*
 
-This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked!
+This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
-- `setState`
-- `this.state`
-- `getInitialState`
+The first thing we need to do is set the initial state. `React.createClass` lets us pass a `getInitialState` function to our component where we return an object which'll be the initial state:
 
-*([JSBin](http://react.jsbin.com/pijutixixo/1/edit?js,output))*
+```JS
+var Counter = React.createClass({
+  getInitialState: function() {
+    return {
+      clicks: 0
+    };
+  },
+  render: function() { /* ... */ }
+});
+```
 
-There is a slight difference in how the props are passed to the component now, instead of the function receiving them they are stored in `this.props`.
+That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](react.jsbin.com/tovekeqoto/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
+
+```JS
+var Counter = React.createClass({
+  getInitialState: function() { /* ... */ },
+  render: function() {
+    return (
+      <div>
+        <p>This is the Counter component! The button was clicked { this.state.clicks } times.</p>
+        <Button text="Click me!" onClick={function() { console.log('click!') }} />
+      </div>
+    );
+  }
+});
+```
+
+*([JSBin](react.jsbin.com/tovekeqoto/2/edit?js,output))*
+
+> The `{ }` notation in JSX works with any variable.
+> `var favoriteFood = 'Pizza';` in combination with `I love { favoriteFood }!` will output "I love Pizza!"!
+
+Our `Counter` now looks like this, but clicking on the button doesn't increment the click count!
+
+![A counter with 0 clicks](https://i.imgur.com/zadL82o.jpg)
+
+To change the state of a component, we use the `this.setState` helper function which React provides. Lets add a `increment` method to our `Counter`, which increments the `clicks` state by one, and call `this.increment` when our `Button` is clicked!
+
+```JS
+var Counter = React.createClass({
+  getInitialState: function() { /* ... */ },
+  increment: function() {
+    this.setState({
+      clicks: this.state.clicks + 1
+    });
+  },
+  render: function() {
+    return (
+      <div>
+        <p>This is the Counter component! The button was clicked { this.state.clicks } times.</p>
+        <Button text="Click me!" onClick={this.increment} />
+      </div>
+    );
+  }
+});
+```
+
+*([JSBin](http://react.jsbin.com/qebenenozo/1/edit?js,output))*
+
+Now it works, our `Counter` correctly increments the number when the button is clicked!
 
 ## Modules
 
