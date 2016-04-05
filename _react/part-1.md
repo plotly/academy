@@ -348,7 +348,6 @@ console.log(add(2, 2)); // => 4
 
 Now, before you go ahead and try it, this won't work! We need special tools to take advantage of this feature. These build tools compile our possibly thousands of modules in different files into one file so we can use them in the browser. One of the most popular build tools to do this is Browserify.
 
-
 ### Browserify
 
 First, we have to install Browserify. Open your terminal and enter this command:
@@ -357,4 +356,52 @@ First, we have to install Browserify. Open your terminal and enter this command:
 $ npm install -g browserify
 ```
 
-Now you have access to the `browserify` command! (Try entering `$ browserify` in the terminal, and you should see a help message!) 
+Now you have access to the `browserify` command! (Try entering `$ browserify` in the terminal, and you should see a help message!) To try it out, create a new file called `log.js`, and fill it with this content:
+
+```JS
+// log.js
+
+function log(message) {
+  console.log(message);
+}
+
+module.exports = log;
+```
+
+This is a simple function called `log()`, that will log a message to the console. Now create a second file called `main.js`, and fill it with this content:
+
+```JS
+// main.js
+
+var log = require('./log.js');
+
+log('Hello World!');
+```
+
+And as a third step, add an `index.html` file with this content:
+
+```HTML
+<!doctype html>
+<head></head>
+<body>
+  <script src="./main.js" />
+</body>
+```
+
+If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "require is undefined". This is because we haven't transpiled our JavaScript files with Browserify yet – lets do that! Run this command in your terminal:
+
+```sh
+$ browserify main.js -o bundle.js
+```
+
+This is telling browserify to transpile the `main.js` file and all modules found within, and to generate an output file called `bundle.js`. Lets edit our `index.html` and reference that transpiled bundle instead of our `main.js`!
+
+```HTML
+<!doctype html>
+<head></head>
+<body>
+  <script src="./bundle.js" />
+</body>
+```
+
+When you open this file in your browser now, you should see a message in the console saying "Hello World!". Congratulations, you just used your first build tool!
