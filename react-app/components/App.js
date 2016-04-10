@@ -1,6 +1,8 @@
 var React = require('react');
 var xhr = require('xhr');
 
+var ScatterPlot = require('./ScatterPlot');
+
 var App = React.createClass({
   getInitialState: function() {
     return {
@@ -29,8 +31,15 @@ var App = React.createClass({
   },
   render: function() {
     var currentTemp;
+    var plotX = [];
+    var plotY = [];
     if (this.state.data.list && this.state.data.list.length > 0) {
-      currentTemp = this.state.data.list[0].main.temp;
+      var list = this.state.data.list;
+      currentTemp = list[0].main.temp;
+      for (var i = 0; i < list.length; i++) {
+        plotX.push(new Date(list[i].dt * 1000));
+        plotY.push(list[i].main.temp);
+      }
     }
     return (
       <div>
@@ -47,6 +56,9 @@ var App = React.createClass({
         <div>
           { JSON.stringify(currentTemp, null, 2) }
         </div>
+        {(plotX.length > 0 && plotY.length > 0) ? (
+          <ScatterPlot x={plotX} y={plotY} />
+        ) : null}
       </div>
     );
   }
