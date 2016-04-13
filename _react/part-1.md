@@ -1,6 +1,6 @@
 ---
-title: The Basics
-description: Learn the basics of React.js, how to get up and running with the hottest framework currently available
+title: Introduction
+description: Learn the basics of the tools we use to build web apps
 layout: post
 ---
 
@@ -413,3 +413,5 @@ When you open this file in your browser now, you should see a message in the con
 ## Babel
 
 // TODO
+
+# Summary of this chapter
