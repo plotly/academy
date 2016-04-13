@@ -405,3 +405,11 @@ This is telling browserify to transpile the `main.js` file and all modules found
 ```
 
 When you open this file in your browser now, you should see a message in the console saying "Hello World!". Congratulations, you just used your first build tool!
+
+### Node Modules
+
+// TODO
+
+## Babel
+
+// TODO

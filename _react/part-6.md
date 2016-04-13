@@ -1,5 +1,5 @@
 ---
-title: React Native
-description: Getting started with react native for Android and iOS
+title: Testing
+description: Testing React.js applications
 layout: post
 ---

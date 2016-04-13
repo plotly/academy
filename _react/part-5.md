@@ -1,5 +1,5 @@
 ---
-title: Testing
-description: Testing React.js applications
+title: ImmutableJS
+description: Enhance your application with immutability
 layout: post
 ---
