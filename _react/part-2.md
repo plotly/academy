@@ -288,6 +288,8 @@ As you can see, everything we really need to take care of is constructing the ur
 
 We know that the URL has a prefix that's always the same, `http://api.openweathermap.org/data/2.5/forecast?q=`, and a suffix that's always the same, `&APPID=YOURAPIKEY&units=metric`. The sole thing we need to do is insert the location the user entered into the URL!
 
+TK explanation how to change the units of the data we get back via the `units` URL parameter
+
 Now, if you're thinking this through you know what might happen – the user might enter spaces in the input! URLs with spaces aren't valid, so it wouldn't work and everything would break! While that is true, JavaScript gives us a very handy method to escape non-URL-friendly characters. It is called `encodeURIComponent()`, and this is how one uses it:
 
 ```JS
@@ -398,6 +400,26 @@ var App = React.createClass({
 });
 ```
 
+As mentioned in Part 1, when saving anything our local state, we should predefine it in our `getInitialState` method. Lets do that:
+
+
+```JS
+// components/App.js
+var React = require('react');
+var xhr = require('xhr');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      data: {}
+    };
+  },
+  fetchData: function(evt) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */ }
+});
+```
+
 Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the `list` array, sorted by time. The first element of said array is thus the current temperature, so lets try to render that first:
 
 ```JS
@@ -406,6 +428,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) { /* … */ },
   changeLocation: function(evt) { /* … */ },
   render: function() {

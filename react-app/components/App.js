@@ -1,26 +1,44 @@
 var React = require('react');
 var xhr = require('xhr');
 
-var ScatterPlot = require('./ScatterPlot');
+var Plot = require('./Plot');
 
 var App = React.createClass({
   getInitialState: function() {
     return {
-      city: '',
-      data: {}
+      data: {},
+      dates: [],
+      temps: []
     };
   },
-  fetchData: function(e) {
-    e.preventDefault();
+  fetchData: function(evt) {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.state.location);
+
+    var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+    var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
+    var url = urlPrefix + location + urlSuffix;
+
     var self = this;
 
-    var location = encodeURIComponent(this.state.city);
-
     xhr({
-      uri: 'http://api.openweathermap.org/data/2.5/forecast?q=' + location + '&APPID=APPID&units=metric'
-    }, function (err, resp) {
+      url: url
+    }, function (err, data) {
+
+      var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(new Date(list[i].dt * 1000));
+        temps.push(list[i].main.temp);
+      }
+
       self.setState({
-        data: JSON.parse(resp.body)
+        data: data,
+        dates: dates,
+        temps: temps
       });
     });
   },
@@ -30,35 +48,39 @@ var App = React.createClass({
     });
   },
   render: function() {
-    var currentTemp;
-    var plotX = [];
-    var plotY = [];
-    if (this.state.data.list && this.state.data.list.length > 0) {
-      var list = this.state.data.list;
-      currentTemp = list[0].main.temp;
-      for (var i = 0; i < list.length; i++) {
-        plotX.push(new Date(list[i].dt * 1000));
-        plotY.push(list[i].main.temp);
-      }
+    var currentTemp = 'not loaded yet';
+    if (this.state.data.list) {
+      currentTemp = this.state.data.list[0].main.temp;
     }
     return (
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City and Country: </label>
-          <input
-            value={this.state.city}
-            onChange={this.changeCity}
-            placeholder="City, Country"
-            type="text"
-          />
+          <label>City, Country
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.state.location}
+              onChange={this.changeLocation}
+            />
+          </label>
         </form>
-        <div>
-          { JSON.stringify(currentTemp, null, 2) }
-        </div>
-        {(plotX.length > 0 && plotY.length > 0) ? (
-          <ScatterPlot x={plotX} y={plotY} />
+        {/*
+          Render the current temperature and the forecast if we have data
+          otherwise return null
+        */}
+        {(this.state.data.list) ? (
+          <div>
+            <p>The current temperature is { currentTemp }!</p>
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.state.dates}
+              yData={this.state.temps}
+              type="scatter"
+            />
+          </div>
         ) : null}
+
       </div>
     );
   }

@@ -34,13 +34,13 @@ Plotly.newPlot('someDOMElementId', {
 });
 ```
 
-To actually get this done though, we need to create a new component first. We'll call it `Plotly` (what a surprise!), so add a new file in your `components/` folder called `Plotly.js`, and render just a div:
+To actually get this done though, we need to create a new component first. We'll call it `Plot` (what a surprise!), so add a new file in your `components/` folder called `Plot.js`, and render just a div:
 
 ```JS
-// components/Plotly.js
+// components/Plot.js
 var React = require('react');
 
-var Plotly = React.createClass({
+var Plot = React.createClass({
   render: function() {
     return (
       <div id="plot"></div>
@@ -48,7 +48,7 @@ var Plotly = React.createClass({
   }
 });
 
-module.exports = Plotly;
+module.exports = Plot;
 ```
 
 > As you can see, I've added a `div` with an ID of `plot` above. This is the DOM element we'll reference in our `Plotly.newPlot` call!
@@ -58,10 +58,10 @@ Now, the problem we have here is that if we called `Plotly.newPlot` in our `rend
 Thankfully, React gives us a lifecycle method called `componentDidMount`. It is called once when the component was first rendered, and never afterwards; perfect for our needs! Lets create a `componentDidMount` method and call `Plotly.newPlot` in there and pass it the ID of our `div`, `plot`, as the first argument:
 
 ```JS
-// components/Plotly.js
+// components/Plot.js
 var React = require('react');
 
-var Plotly = React.createClass({
+var Plot = React.createClass({
   componentDidMount: function() {
     Plotly.newPlot('plot');
   },
@@ -72,7 +72,7 @@ var Plotly = React.createClass({
   }
 });
 
-module.exports = Plotly;
+module.exports = Plot;
 ```
 
 That alone won't do much though, we need to give it data too! The problem is that we need the data for the x-axis and the y-axis to be separate, but the data we get from the OpenWeatherMap API doesn't make that distinction. This means we need to shape our data a little bit to suit our needs. What we want is human readable dates on the x-axis, and the degrees at that time on the y-axis!
@@ -85,6 +85,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
 
     /* … */
@@ -154,6 +155,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
 
     /* … */
@@ -162,6 +164,7 @@ var App = React.createClass({
       url: url
     }, function (err, data) {
 
+      var data = JSON.parse(data.body);
       var list = data.list;
       var dates = [];
       var temps = [];
@@ -190,6 +193,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
 
     /* … */
@@ -198,6 +202,7 @@ var App = React.createClass({
       url: url
     }, function (err, data) {
 
+      var data = JSON.parse(data.body);
       var list = data.list;
       var dates = [];
       var temps = [];
@@ -224,6 +229,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
 
     /* … */
@@ -232,6 +238,7 @@ var App = React.createClass({
       url: url
     }, function (err, data) {
 
+      var data = JSON.parse(data.body);
       var list = data.list;
       var dates = [];
       var temps = [];
@@ -262,6 +269,7 @@ var xhr = require('xhr');
 var Plot = require('./Plot.js');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) { /* … */ },
   changeLocation: function(evt) { /* … */ },
   render: function() {
@@ -295,7 +303,7 @@ var App = React.createClass({
 });
 ```
 
-We only want to render the current temperature and the forecast when we have data though, so lets add a ternary operator to check that the `typeof` `this.state.data` is `object`:
+We only want to render the current temperature and the forecast when we have data though, so lets add a ternary operator to check that `this.state.data.list` exists:
 
 ```JS
 // components/App.js
@@ -305,6 +313,7 @@ var xhr = require('xhr');
 var Plot = require('./Plot.js');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) { /* … */ },
   changeLocation: function(evt) { /* … */ },
   render: function() {
@@ -329,14 +338,16 @@ var App = React.createClass({
           Render the current temperature and the forecast if we have data
           otherwise return null
         */}
-        {(typeof this.state.data === object) ? (
-          <p>The current temperature is { currentTemp }!</p>
-          <h2>Forecast</h2>
-          <Plot
-            xData={this.state.dates}
-            yData={this.state.temps}
-            type="scatter"
-          />
+        {(this.state.data.list) ? (
+          <div>
+            <p>The current temperature is { currentTemp }!</p>
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.state.dates}
+              yData={this.state.temps}
+              type="scatter"
+            />
+          </div>
         ) : null}
 
       </div>
@@ -348,10 +359,10 @@ var App = React.createClass({
 If you try doing this now, you still won't see a plot, do you know why? Because we aren't using the data we passed to our `Plot` component! This is what it looks like at the moment:
 
 ```JS
-// components/Plotly.js
+// components/Plot.js
 var React = require('react');
 
-var Plotly = React.createClass({
+var Plot = React.createClass({
   componentDidMount: function() {
     Plotly.newPlot('plot');
   },
@@ -362,22 +373,22 @@ var Plotly = React.createClass({
   }
 });
 
-module.exports = Plotly;
+module.exports = Plot;
 ```
 
 Let's make this work by adapting the `Plotly.newPlot` call. We need to pass `this.props.xData`, `this.props.yData` and `this.props.type` to it:
 
 ```JS
-// components/Plotly.js
+// components/Plot.js
 var React = require('react');
 
-var Plotly = React.createClass({
+var Plot = React.createClass({
   componentDidMount: function() {
-    Plotly.newPlot('plot', {
+    Plotly.newPlot('plot', [{
       x: this.props.xData,
       y: this.props.yData,
       type: this.props.type
-    });
+    }]);
   },
   render: function() {
     return (
@@ -386,7 +397,7 @@ var Plotly = React.createClass({
   }
 });
 
-module.exports = Plotly;
+module.exports = Plot;
 ```
 
 Now try it! You'll see a beautiful 5 day weather forecast rendered like this:
@@ -399,4 +410,4 @@ TK Challenge
 
 # Summary of this chapter
 
-We've created a new `Plot` component, shaped the data we get from the OpenWeatherMap API to suit our needs and used Plotly.js to render a beautiful and interactive 5 day weather forecast! 
+We've created a new `Plot` component, shaped the data we get from the OpenWeatherMap API to suit our needs and used Plotly.js to render a beautiful and interactive 5 day weather forecast!
