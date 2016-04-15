@@ -1,6 +1,6 @@
 ---
 title: The Basics
-description: Starting to write our first React.js application
+description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data
 layout: post
 ---
 
@@ -398,7 +398,7 @@ var App = React.createClass({
 });
 ```
 
-Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the first element of the `list` array, so lets try to render that first:
+Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the `list` array, sorted by time. The first element of said array is thus the current temperature, so lets try to render that first:
 
 ```JS
 // components/App.js
@@ -433,5 +433,10 @@ var App = React.createClass({
 });
 ```
 
+Now  that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. TK link to part 3
+
+# Summary of this chapter
+
+We learned how to structure our application, with a common `components/` folder. We then created a controlled text input and used that to fetch our first data using `xhr`!
 
 We're not taking of rendering an error message if the API sends back an error – that part is left as an exercise to the reader. Show us your solution by sending us your code to EMAIL@PLOT.LY (TK real email) and we might do something. TK reward for sending in challenges
