@@ -259,6 +259,28 @@ var App = React.createClass({
 });
 ```
 
+We also need to add those new properties of our state to the `getInitialState` method:
+
+```JS
+// components/App.js
+var React = require('react');
+var xhr = require('xhr');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      location: '',
+      data: {},
+      dates: [],
+      temps: []
+    }
+  },
+  fetchData: function(evt) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */ }
+});
+```
+
 Now that we have that data saved in our component state, we can render our plot! `require` our `Plot` component, and pass it `this.state.dates` as the x-axis data, `this.state.temps` as the y-axis data and we'll also pass it a `type` prop of `"scatter"`!
 
 ```JS

@@ -180,6 +180,24 @@ var App = React.createClass({
 });
 ```
 
+As mentioned in Part 1, when saving anything our local state, we should predefine it in our `getInitialState` method. Lets do that:
+
+```JS
+// components/App.js
+var React = require('react');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      location: ''
+    };
+  },
+  fetchData: function(evt) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */}
+});
+```
+
 In our fetchData function, we can then access `this.state.location` to get the current location:
 
 ```JS
@@ -187,6 +205,7 @@ In our fetchData function, we can then access `this.state.location` to get the c
 var React = require('react');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
     evt.preventDefault();
     console.log('fetch data for', this.state.location);
@@ -306,6 +325,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
     evt.preventDefault();
 
@@ -324,6 +344,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
     evt.preventDefault();
 
@@ -346,6 +367,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
     evt.preventDefault();
 
@@ -376,6 +398,7 @@ var React = require('react');
 var xhr = require('xhr');
 
 var App = React.createClass({
+  getInitialState: function() { /* … */ },
   fetchData: function(evt) {
     evt.preventDefault();
 
@@ -400,7 +423,7 @@ var App = React.createClass({
 });
 ```
 
-As mentioned in Part 1, when saving anything our local state, we should predefine it in our `getInitialState` method. Lets do that:
+Lets add that to our `getInitialState` method:
 
 
 ```JS
@@ -411,6 +434,7 @@ var xhr = require('xhr');
 var App = React.createClass({
   getInitialState: function() {
     return {
+      location: '',
       data: {}
     };
   },

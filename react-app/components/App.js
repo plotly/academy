@@ -6,6 +6,7 @@ var Plot = require('./Plot');
 var App = React.createClass({
   getInitialState: function() {
     return {
+      location: '',
       data: {},
       dates: [],
       temps: []
@@ -42,9 +43,9 @@ var App = React.createClass({
       });
     });
   },
-  changeCity: function(evt) {
+  changeLocation: function(evt) {
     this.setState({
-      city: evt.target.value
+      location: evt.target.value
     });
   },
   render: function() {
