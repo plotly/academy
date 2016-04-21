@@ -8,7 +8,7 @@ collections:
   react:
     output: true
     permalink: /react/:path/index.html
-    title: "Build your first real world React.js application with @mxstbr"
+    title: "Build your first real world React.js application with <a href='https://twitter.com/mxstbr'>@mxstbr</a>"
     category: "Frontend"
   ipython-notebook:
     output: false
