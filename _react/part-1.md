@@ -32,13 +32,13 @@ React calls the smallest parts of your application "elements", which compose tog
 
 # Getting Started
 
-We'll use [`react.jsbin.com`](https://react.jsbin.com/sewaru/6/edit?js,output) for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
+We'll use [`react.jsbin.com`](https://react.jsbin.com/sewaru/11/edit?js,output) for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
 
 React consists of two libraries, `React` and `ReactDOM`. `React` allows you to create elements, which we render with `ReactDOM`. They are split because you could (theoretically) render those ReactElements anywhere, not only to the browser DOM.
 
 > Note: There are initial experiments out there for rendering React to HTML5 Canvas, WebVR and some others.
 
-Open up our [first JSBin](https://react.jsbin.com/sewaru/6/edit?js,output), and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
+Open up our [first JSBin](https://react.jsbin.com/sewaru/11/edit?js,output), and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
 
 ```JS
 ReactDOM.render(
