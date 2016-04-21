@@ -129,7 +129,7 @@ With the `list` array containing objects of this form:
 
 ```JS
 {
-  "dt": 1460235600,
+  "dt_txt": "2016-04-09 18:00:00",
   "main": {
     "temp": 6.94,
     "temp_min": 6.4,
@@ -145,7 +145,7 @@ With the `list` array containing objects of this form:
 }
 ```
 
-What we really care about is `data.list[element].dt`, which is a timestamp that we'll have to convert to a human readable date, and `data.list[element].main.temp`, the temperature at that time.
+What we really care about is `data.list[element].dt_txt`, a human-readable timestamp, and `data.list[element].main.temp`, the temperature at that time.
 
 Lets loop through all the weather information we have, making two arrays of different data. We'll use the `push` method of arrays, which adds an element to the end of an arary. Lets fill one with the timestamps, and another array with the temperatures:
 
@@ -169,45 +169,7 @@ var App = React.createClass({
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
-        dates.push(list[i].dt);
-        temps.push(list[i].main.temp);
-      }
-
-      self.setState({
-        data: data
-      });
-    });
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
-```
-
-Now we have the necessary data for our graph, but the timestamp is a huge number and not in a human readable format! This timestamp is an epoch data, meaning it's the seconds that have passed since 01.01.1970 (TK double check date, not 100% sure it's 1970). Using the JavaScript `Date` primitive, we can create a human readable date, but that takes milliseconds, so we'll have to take the timestamp times 1000 and then create a `new Date(timestamp * 1000)`.
-
-Lets save the data in that format:
-
-```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
-
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
-
-    /* … */
-
-    xhr({
-      url: url
-    }, function (err, data) {
-
-      var data = JSON.parse(data.body);
-      var list = data.list;
-      var dates = [];
-      var temps = [];
-      for (var i = 0; i < list.length; i++) {
-        dates.push(new Date(list[i].dt * 1000));
+        dates.push(list[i].dt_txt);
         temps.push(list[i].main.temp);
       }
 
@@ -243,7 +205,7 @@ var App = React.createClass({
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
-        dates.push(new Date(list[i].dt * 1000));
+        dates.push(list[i].dt_txt);
         temps.push(list[i].main.temp);
       }
 

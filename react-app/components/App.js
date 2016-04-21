@@ -32,7 +32,7 @@ var App = React.createClass({
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
-        dates.push(new Date(list[i].dt * 1000));
+        dates.push(list[i].dt_txt);
         temps.push(list[i].main.temp);
       }
 
