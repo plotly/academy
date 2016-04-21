@@ -426,7 +426,64 @@ Now try it! You'll see a beautiful 5 day weather forecast rendered like this:
 
 TK screenshot of working app
 
-Awesome! Normally, creating a graph like this would take ages, but Plotly.js makes this incredibly easy!
+Awesome! Normally, creating a graph like this would take ages, but Plotly.js makes it incredibly easy!
+
+There is one problem though: When we change the city and refetch data, the graph doesn't update. This is the case because we're solely using the `componentDidMount` lifecycle method, which is only ever called once when the component mounts. We also need to draw the plot again when new data comes in, i.e. when the component did update! (*hinthint*)
+
+Lets add a `componentDidUpdate` method to our `Plot` component, and redraw the plot there:
+
+```JS
+// components/Plot.js
+var React = require('react');
+
+var Plot = React.createClass({
+  componentDidMount: function() {
+    Plotly.newPlot('plot', [{
+      x: this.props.xData,
+      y: this.props.yData,
+      type: this.props.type
+    }]);
+  },
+  componentDidUpdate: function() {
+    Plotly.newPlot('plot', [{
+      x: this.props.xData,
+      y: this.props.yData,
+      type: this.props.type
+    }]);
+  },
+  render: function() { /* … */ }
+});
+
+module.exports = Plot;
+```
+
+Trying this out, it works perfectly! There is one tiny improvement, code wise, that could be done. Instead of copy and pasting the `Plotly.newPlot` call (which is identical), we should factor that out into a `drawPlot` method and call `this.drawPlot` from `componentDidMount/Update`:
+
+```JS
+// components/Plot.js
+var React = require('react');
+
+var Plot = React.createClass({
+  drawPlot: function() {
+    Plotly.newPlot('plot', [{
+      x: this.props.xData,
+      y: this.props.yData,
+      type: this.props.type
+    }]);
+  },
+  componentDidMount: function() {
+    this.drawPlot();
+  },
+  componentDidUpdate: function() {
+    this.drawPlot();
+  },
+  render: function() { /* … */ }
+});
+
+module.exports = Plot;
+```
+
+Beautiful, and works perfectly too!
 
 TK Challenge
 
