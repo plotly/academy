@@ -15,27 +15,7 @@ var App = React.createClass({
     var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
     var url = urlPrefix + location + urlSuffix;
 
-    var self = this;
-
-    xhr({
-      url: url
-    }, function (err, data) {
-
-      var data = JSON.parse(data.body);
-      var list = data.list;
-      var dates = [];
-      var temps = [];
-      for (var i = 0; i < list.length; i++) {
-        dates.push(list[i].dt_txt);
-        temps.push(list[i].main.temp);
-      }
-
-      self.props.dispatch(actions.setData(data));
-      self.props.dispatch(actions.setDates(dates));
-      self.props.dispatch(actions.setTemps(temps));
-      self.props.dispatch(actions.setSelectedDate(''));
-      self.props.dispatch(actions.setSelectedTemp(null));
-    });
+    this.props.dispatch(actions.loadData(url));
   },
   onPlotClick: function(data) {
     if (data.points) {
@@ -48,7 +28,6 @@ var App = React.createClass({
     this.props.dispatch(actions.setLocation(evt.target.value));
   },
   render: function() {
-    console.log(this.props);
     var currentTemp = 'not loaded yet';
     if (this.props.data.list) {
       currentTemp = this.props.data.list[0].main.temp;

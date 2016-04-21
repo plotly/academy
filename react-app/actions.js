@@ -1,4 +1,6 @@
+var xhr = require('xhr');
 var constants = require('./constants');
+var actions = require('./actions');
 
 exports.setLocation = function (location) {
   return {
@@ -40,4 +42,27 @@ exports.setSelectedTemp = function (temp) {
     type: constants.SET_SELECTED_TEMP,
     temp: temp
   };
+};
+
+exports.loadData = function (url) {
+  return function (dispatch) {
+    xhr({
+      url: url
+    }, function (err, data) {
+      var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
+      dispatch(actions.setData(data));
+      dispatch(actions.setDates(dates));
+      dispatch(actions.setTemps(temps));
+      dispatch(actions.setSelectedDate(''));
+      dispatch(actions.setSelectedTemp(null));
+    });
+  }
 };
