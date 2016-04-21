@@ -274,7 +274,7 @@ var App = React.createClass({
             />
           </label>
         </form>
-        <p>The current temperature is { currentTemp }!</p>
+        <p>The current temperature is { currentTemp }°C!</p>
         <h2>Forecast</h2>
         <Plot
           xData={this.state.dates}
@@ -324,7 +324,7 @@ var App = React.createClass({
         */}
         {(this.state.data.list) ? (
           <div>
-            <p>The current temperature is { currentTemp }!</p>
+            <p>The current temperature is { currentTemp }°C!</p>
             <h2>Forecast</h2>
             <Plot
               xData={this.state.dates}
@@ -392,7 +392,7 @@ Awesome! Normally, creating a graph like this would take ages, but Plotly.js mak
 
 There is one problem though: When we change the city and refetch data, the graph doesn't update. This is the case because we're solely using the `componentDidMount` lifecycle method, which is only ever called once when the component mounts. We also need to draw the plot again when new data comes in, i.e. when the component did update! (*hinthint*)
 
-Lets add a `componentDidUpdate` method to our `Plot` component, and redraw the plot there:
+As you might have guessed, we can use the `componentDidUpdate` lifecycle method of our `Plot` component to fix this:
 
 ```JS
 // components/Plot.js
@@ -446,6 +446,330 @@ module.exports = Plot;
 ```
 
 Beautiful, and works perfectly too!
+
+Lets add one more feature to our weather application. When clicking on a specific point of our graph, we want to show the user in text the temperature at that date!
+
+The first thing we need to do is add an event listener to our graph. Thankfully, Plotly gives us a handy `plotly_click` event to listen to, like so:
+
+```JS
+someDOMElement.on('plotly_click', function(data) {
+  /* …do something here with the data… */
+});
+```
+
+The nice thing about `plotly_click` is that it doesn't pass you the event, it passes you a very useful `data` object. We care about one particular property of that `data` object:
+
+```JS
+{
+  "points": [{
+    "pointNumber": 7,
+    /* …more data here… */
+  }]
+}
+```
+
+This `pointNumber` property of a point in the `points` array specifies the how manieth point the user clicked on. This allows us to get all the relevant data for the point that was clicked on from our downloaded data! `this.state.dates[pointNumber]` and `this.state.temps[pointNumber]` in the `App` component will give us the date and temperature (respectively) of the point that was clicked on. We'll pass a function down to the `Plot` component called `onPlotClick` that will get called when the `plotly_click` event is fired, i.e. when a point on our forecast is clicked on.
+
+Lets start off by binding that event listener in our `Plot` component. We need to somehow get the DOM node of our plot, and React makes that very easy. We add a `ref` property of `"plot"` to our `div`, which'll allow us to access the DOM node of said plot with `this.refs.plot`:
+
+```JS
+// components/Plot.js
+var React = require('react');
+
+var Plot = React.createClass({
+  drawPlot: function() { /* … */ },
+  componentDidMount: function() { /* … */ },
+  componentDidUpdate: function() { /* … */ },
+  render: function() {
+    return (
+      <div id="plot" ref="plot"></div>
+    );
+  }
+});
+
+module.exports = Plot;
+```
+
+Now we can use `this.refs.plot` anywhere in our `Plot` component to get access to the DOM node of our rendered plot! Lets use that in our `drawPlot` method to bind the `plotly_click` event to `this.props.onPlotClick`!
+
+```JS
+// components/Plot.js
+var React = require('react');
+
+var Plot = React.createClass({
+  drawPlot: function() {
+    Plotly.newPlot( /* … */ );
+    this.refs.plot.on('plotly_click', this.props.onPlotClick);
+  },
+  componentDidMount: function() { /* … */ },
+  componentDidUpdate: function() { /* … */ },
+  render: function() {
+    return (
+      <div id="plot" ref="plot"></div>
+    );
+  }
+});
+
+module.exports = Plot;
+```
+
+Perfect, but running this will not work since we don't pass a `onPropClick` prop to `Plot`. Lets jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` components (current missing) `this.onPropClick` method:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() { /* … */ },
+  fetchData: function(evt) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() {
+    /* … */
+    return (
+      { /* … */ }
+      <Plot
+        xData={this.state.dates}
+        yData={this.state.temps}
+        onPlotClick={this.onPlotClick}
+        type="scatter"
+      />
+      { /* … */ }
+    );
+  }
+});
+
+module.exports = App;
+```
+
+The we add a first version of the `onPlotClick` method to our `App` component where we only log out the passed `data`:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() { /* … */ },
+  fetchData: function(evt) { /* … */ },
+  onPlotClick: function(data) {
+    console.log(data);
+  },
+  changeLocation: function(evt) { /* … */ },
+  render: function() {
+    /* … */
+    return (
+      { /* … */ }
+      <Plot
+        xData={this.state.dates}
+        yData={this.state.temps}
+        onPlotClick={this.onPlotClick}
+        type="scatter"
+      />
+      { /* … */ }
+    );
+  }
+});
+
+module.exports = App;
+```
+
+Now try opening your application, select a city and, when the forecast has rendered, click on a specific data point in the plot. If you see an object logged in your console containing an array called `points`, you're golden!
+
+Instead of logging the data, we now want to save that data in our state. Lets add a new object to our initial state called `selected`, which contains a `date` and a `temp` field. The date field will be an empty string by default, and the temp `null`:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      location: '',
+      data: {},
+      dates: [],
+      temps: [],
+      selected: {
+        date: '',
+        temp: null
+      }
+    };
+  },
+  fetchData: function(evt) { /* … */ },
+  onPlotClick: function(data) {
+    console.log(data);
+  },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */ }
+});
+
+module.exports = App;
+```
+
+Now, when our `onPlotClick` method is called we'll set the `selected.date` to `this.state.dates[data.points[0].pointNumber]`, and the the `selected.temp` to `this.state.temps[data.points[0].pointNumber]`:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      location: '',
+      data: {},
+      dates: [],
+      temps: [],
+      selected: {
+        date: '',
+        temp: null
+      }
+    };
+  },
+  fetchData: function(evt) { /* … */ },
+  onPlotClick: function(data) {
+    if (data.points) {
+      var number = data.points[0].pointNumber;
+      this.setState({
+        selected: {
+          date: this.state.dates[number],
+          temp: this.state.temps[number]
+        }
+      });
+    }
+  },
+  changeLocation: function(evt) { /* … */ },
+  render: function() {
+    /* … */
+    return (
+      { /* … */ }
+      <Plot
+        xData={this.state.dates}
+        yData={this.state.temps}
+        onPlotClick={this.onPlotClick}
+        type="scatter"
+      />
+      { /* … */ }
+    );
+  }
+});
+
+module.exports = App;
+```
+
+Now that we have the necessary data in our state, we need to do something with it! Lets render some text saying "The current temperature on some-date is some-temperature°C!" if we have a date selected, and otherwise show the current date. We thus need to adapt the `render` method of our `App` component to include that. We check if `this.state.selected.temp` exists (i.e. isn't `null`, the default value), and if it does we render the text with `this.state.selected`:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() { /* … */ },
+  fetchData: function(evt) { /* … */ },
+  onPlotClick: function(data) {
+    if (data.points) {
+      var number = data.points[0].pointNumber;
+      this.setState({
+        selected: {
+          date: this.state.dates[number],
+          temp: this.state.temps[number]
+        }
+      });
+    }
+  },
+  changeLocation: function(evt) { /* … */ },
+  render: function() {
+    var currentTemp = 'not loaded yet';
+    if (this.state.data.list) {
+      currentTemp = this.state.data.list[0].main.temp;
+    }
+    return (
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label>City, Country
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.state.location}
+              onChange={this.changeLocation}
+            />
+          </label>
+        </form>
+        {(this.state.data.list) ? (
+          <div>
+            {/* Render the current temperature if no specific date is selected */}
+            {(this.state.selected.temp) ? (
+              <p>The temperature on { this.state.selected.date } will be { this.state.selected.temp }°C</p>
+            ) : (
+              <p>The current temperature is { currentTemp }°C!</p>
+            )}
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.state.dates}
+              yData={this.state.temps}
+              onPlotClick={this.onPlotClick}
+              type="scatter"
+            />
+          </div>
+        ) : null}
+
+      </div>
+    );
+  }
+});
+
+module.exports = App;
+```
+
+Try opening your app again and clicking on a point on the graph, and you'll see our new functionality! There is one small user experience improvement we could do. When switching to a new city, the text persists because `this.state.selected.temp` still references the old data—in reality want to show the current temperature though!
+
+To fix this, we set `selected` back to the default values in our `fetchData` method when the request has returned data:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() { /* … */ },
+  fetchData: function(evt) {
+    /* … */
+    xhr({
+      url: url
+    }, function (err, data) {
+
+      /* … */
+      /* Save the data, and reset the selected time to the default values */
+      self.setState({
+        data: data,
+        dates: dates,
+        temps: temps,
+        selected: {
+          date: '',
+          temp: null
+        }
+      });
+    });
+  },
+  onPlotClick: function(data) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */ }
+});
+
+module.exports = App;
+```
+
+Perfect, this now works beautifully! As you can see, another huge benefit of Plotly.js is that it makes interactivity really easy in combination with React.
+Congratulations, you've built your first working application!
 
 TK Challenge
 

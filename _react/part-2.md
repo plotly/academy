@@ -473,7 +473,7 @@ var App = React.createClass({
             />
           </label>
         </form>
-        <p>The current temperature is { currentTemp }!</p>
+        <p>The current temperature is { currentTemp }°C!</p>
       </div>
     );
   }
