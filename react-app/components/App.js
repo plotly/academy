@@ -9,7 +9,11 @@ var App = React.createClass({
       location: '',
       data: {},
       dates: [],
-      temps: []
+      temps: [],
+      selected: {
+        date: '',
+        temp: null
+      }
     };
   },
   fetchData: function(evt) {
@@ -39,9 +43,24 @@ var App = React.createClass({
       self.setState({
         data: data,
         dates: dates,
-        temps: temps
+        temps: temps,
+        selected: {
+          date: '',
+          temp: null
+        }
       });
     });
+  },
+  onPlotClick: function(data) {
+    if (data.points) {
+      var number = data.points[0].pointNumber;
+      this.setState({
+        selected: {
+          date: this.state.dates[number],
+          temp: this.state.temps[number]
+        }
+      });
+    }
   },
   changeLocation: function(evt) {
     this.setState({
@@ -72,11 +91,17 @@ var App = React.createClass({
         */}
         {(this.state.data.list) ? (
           <div>
-            <p>The current temperature is { currentTemp }!</p>
+            {/* Render the current temperature if no specific date is selected */}
+            {(this.state.selected.temp) ? (
+              <p>The temperature on { this.state.selected.date } will be { this.state.selected.temp }°C</p>
+            ) : (
+              <p>The current temperature is { currentTemp }°C!</p>
+            )}
             <h2>Forecast</h2>
             <Plot
               xData={this.state.dates}
               yData={this.state.temps}
+              onPlotClick={this.onPlotClick}
               type="scatter"
             />
           </div>

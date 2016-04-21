@@ -8,6 +8,7 @@ var Plot = React.createClass({
       y: this.props.yData,
       type: this.props.type
     }]);
+    this.refs.plot.on('plotly_click', this.props.onPlotClick);
   },
   componentDidMount: function() {
     this.drawPlot();
@@ -17,7 +18,7 @@ var Plot = React.createClass({
   },
   render: function() {
     return (
-      <div id="plot"></div>
+      <div id="plot" ref="plot"></div>
     );
   }
 });
