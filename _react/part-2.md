@@ -105,7 +105,7 @@ var App = React.createClass({
       <div>
         <h1>Weather</h1>
         <form>
-          <label>City, Country
+          <label>I want to know the weather for
             <input placeholder={"City, Country"} type="text" />
           </label>
         </form>
@@ -133,7 +133,7 @@ var App = React.createClass({
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City, Country
+          <label>I want to know the weather for
             <input placeholder={"City, Country"} type="text" />
           </label>
         </form>
@@ -165,7 +165,7 @@ var App = React.createClass({
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City, Country
+          <label>I want to know the weather for
             <input
               placeholder={"City, Country"}
               type="text"
@@ -464,7 +464,7 @@ var App = React.createClass({
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City, Country
+          <label>I want to know the weather for
             <input
               placeholder={"City, Country"}
               type="text"
@@ -473,7 +473,10 @@ var App = React.createClass({
             />
           </label>
         </form>
-        <p>The current temperature is { currentTemp }°C!</p>
+        <p className="temp-wrapper">
+          <span className="temp">{ currentTemp }</span>
+          <span className="temp-symbol">°C</span>
+        </p>
       </div>
     );
   }

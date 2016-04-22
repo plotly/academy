@@ -36,7 +36,7 @@ var App = React.createClass({
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City, Country
+          <label>I want to know the weather for
             <input
               placeholder={"City, Country"}
               type="text"
@@ -50,13 +50,17 @@ var App = React.createClass({
           otherwise return null
         */}
         {(this.props.data.list) ? (
-          <div>
+          <div className="wrapper">
             {/* Render the current temperature if no specific date is selected */}
-            {(this.props.selected.temp) ? (
-              <p>The temperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
-            ) : (
-              <p>The current temperature is { currentTemp }°C!</p>
-            )}
+            <p className="temp-wrapper">
+              <span className="temp">
+                { this.props.selected.temp ? this.props.selected.temp : currentTemp }
+              </span>
+              <span className="temp-symbol">°C</span>
+              <span className="temp-date">
+                { this.props.selected.temp ? this.props.selected.date : ''}
+              </span>
+            </p>
             <h2>Forecast</h2>
             <Plot
               xData={this.props.dates}

@@ -1,0 +1,48 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  border: none;
+  border-bottom: 1px dotted black;
+  margin-left: 0.5em;
+  font-size: 1em;
+  outline: none;
+}
+
+.wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.temp-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.temp {
+  font-size: 64px;
+}
+
+.temp-symbol {
+  position: absolute;
+  top: 13px;
+  margin-left: 4px;
+}
+
+.temp-date {
+  position: absolute;
+  bottom: -1em;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 0, 0, 0.5);
+}
