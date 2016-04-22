@@ -20,19 +20,34 @@ Including this script gives us access to the `Ploty` variable in our code. Using
 Plotly.newPlot();
 ```
 
-A plot without data doesn't showcase much though, we need to parse the data we get from the OpenWeatherMap API and pass it to our `newPlot` call! The first argument is the id of the DOM element we want to render our plot into. The second argument is an array of objects with a few properties for our plot, with `x`, `y` and `type` being the most relevant for us. Plotly.js makes it easy to create a wide variety of plots, the one we care about the most at the moment is a `scatter` plot, which looks like this:
+A plot without data doesn't showcase much though, we need to parse the data we get from the OpenWeatherMap API and pass it to our `newPlot` call! The first argument is the id of the DOM element we want to render our plot into.
+
+The second argument is an array of objects with a few properties for our plot, with `x`, `y` and `type` being the most relevant for us. Plotly.js makes it easy to create a wide variety of plots, the one we care about the most at the moment is a `scatter` plot, which looks like this:
 
 TK screenshot of plotly.js scatter plot
 
 As you can see, it's perfect for a weather forecast! This is structurally what our `Plotly.newPlot` call will look like:
 
 ```JS
-Plotly.newPlot('someDOMElementId', {
+Plotly.newPlot('someDOMElementId', [{
   x: ourXAxisData,
   y: ourYAxisData,
   type: 'scatter'
+}], {
+  margin: {
+    t: 0, r: 0, l: 30
+  },
+  xaxis: {
+    gridcolor: 'transparent'
+  }
+}, {
+  displayModeBar: false
 });
 ```
+
+As you can see, we also pass in some styling information as the third argument (we specify a few margins and hide the xaxis grid lines), and some options as the fourth argument. (we hide the mode bar)
+
+Plotly.js has tons of options, I encourage you to check out the [excellent documentation](https://plot.ly/javascript/) and play around with a few of them!
 
 To actually get this done though, we need to create a new component first. We'll call it `Plot` (what a surprise!), so add a new file in your `components/` folder called `Plot.js`, and render just a div:
 
@@ -368,7 +383,7 @@ var Plot = React.createClass({
 module.exports = Plot;
 ```
 
-Let's make this work by adapting the `Plotly.newPlot` call. We need to pass `this.props.xData`, `this.props.yData` and `this.props.type` to it:
+Let's make this work by adapting the `Plotly.newPlot` call. We need to pass our styling and options, and `this.props.xData`, `this.props.yData` and `this.props.type`:
 
 ```JS
 // components/Plot.js
@@ -380,7 +395,16 @@ var Plot = React.createClass({
       x: this.props.xData,
       y: this.props.yData,
       type: this.props.type
-    }]);
+    }], {
+      margin: {
+        t: 0, r: 0, l: 30
+      },
+      xaxis: {
+        gridcolor: 'transparent'
+      }
+    }, {
+      displayModeBar: false
+    });
   },
   render: function() {
     return (
@@ -412,14 +436,32 @@ var Plot = React.createClass({
       x: this.props.xData,
       y: this.props.yData,
       type: this.props.type
-    }]);
+    }], {
+      margin: {
+        t: 0, r: 0, l: 30
+      },
+      xaxis: {
+        gridcolor: 'transparent'
+      }
+    }, {
+      displayModeBar: false
+    });
   },
   componentDidUpdate: function() {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
       y: this.props.yData,
       type: this.props.type
-    }]);
+    }], {
+      margin: {
+        t: 0, r: 0, l: 30
+      },
+      xaxis: {
+        gridcolor: 'transparent'
+      }
+    }, {
+      displayModeBar: false
+    });
   },
   render: function() { /* … */ }
 });
@@ -439,7 +481,16 @@ var Plot = React.createClass({
       x: this.props.xData,
       y: this.props.yData,
       type: this.props.type
-    }]);
+    }], {
+      margin: {
+        t: 0, r: 0, l: 30
+      },
+      xaxis: {
+        gridcolor: 'transparent'
+      }
+    }, {
+      displayModeBar: false
+    });
   },
   componentDidMount: function() {
     this.drawPlot();
