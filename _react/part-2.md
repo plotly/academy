@@ -287,7 +287,7 @@ The top level `list` array contains time sorted weather data reaching forward 5 
 }
 ```
 
-The five properties we care about are: `dt`, the epoch time of the weather prediction, `temp`, the expected temperature, `temp_min` and `temp_max`, the, respectively, minimum and maximum expected temperature, and `weather[0].main`, a string description of the weather at that time. OpenWeatherMap gives us a lot more data than that though, and I encourage you to snoop around a bit more and see what you could use to make the application more comprehensive!
+The five properties we care about are: `dt_txt`, the time of the weather prediction, `temp`, the expected temperature, `temp_min` and `temp_max`, the, respectively, minimum and maximum expected temperature, and `weather[0].main`, a string description of the weather at that time. OpenWeatherMap gives us a lot more data than that though, and I encourage you to snoop around a bit more and see what you could use to make the application more comprehensive!
 
 Now that we know what we need, lets get down to it – how do we actually fetch the data here? (by now `xhr` should have finished installing)
 
@@ -300,8 +300,6 @@ xhr({
   /* Called when the request is finished */
 });
 ```
-
-> TK: Show how horrible the native XMLHttpRequest version is, maybe
 
 As you can see, everything we really need to take care of is constructing the url and saving the returned data somewhere!
 
