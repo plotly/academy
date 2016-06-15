@@ -82,20 +82,7 @@ function changeLocation(location) {
 }
 ```
 
-This action thus has a type of `'CHANGE_LOCATION'` and passes along some data with the `location` property. We'll now need to `dispatch` this action when the location changes:
-
-```JS
-var App = React.createClass({
-  fetchData: function(evt) { /* … */ },
-  onPlotClick: function(data)  { /* … */ },
-  changeLocation: function(evt) {
-    this.props.dispatch(actions.setLocation(evt.target.value));
-  },
-  render: function() { /* … */ }
-});
-```
-
-> Don't worry about where `this.props.dispatch` comes from for now, we'll get to that!
+This action thus has a type of `'CHANGE_LOCATION'` and passes along some data with the `location` property.
 
 That's nice and all, but this won't change the store automatically. We have to tell Redux what to do when this action comes in, which we do in a so-called reducer.
 
@@ -119,10 +106,56 @@ function appReducer(state, action) {
 }
 ```
 
-// TODO MUTATION VS NO MUTATION
-// TODO DEFAULT RETURN STATE
+What we're doing here is _mutating_ the state. We assign `state.location` the value of `action.location`. This is discouraged by Redux because it introduces potential bugs and side effects. What we instead should be doing is _returning a new object_ which is a copy of the state!
 
-Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when `dispatch` this action:
+JavaScript has a handy function called `Object.assign`, which allows you to do that. Let's take a look at the solution first:
+
+```JS
+function appReducer(state, action) {
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assing({}, state, {
+        location: action.location
+      });
+  }
+}
+```
+
+By passing in a new, empty object (`{}`) as the first argument and the current `state` as the second one, we create a carbon copy of the state. The third argument of the function (`{ location: action.location }`) is _just the changes to our state_!
+
+This creates a new object, meaning the state stays the same which is A+ behaviour and will keep us from a lot of bugs!
+
+With a bit of glue this'll already work, but we should also return the state unchanged if no action we want to handle comes in:
+
+```JS
+function appReducer(state, action) {
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assing({}, state, {
+        location: action.location
+      });
+    default:
+      return state;
+  }
+}
+```
+
+We'll now need to `dispatch` this action when the location changes:
+
+```JS
+var App = React.createClass({
+ fetchData: function(evt) { /* … */ },
+ onPlotClick: function(data)  { /* … */ },
+ changeLocation: function(evt) {
+   this.props.dispatch(actions.setLocation(evt.target.value));
+ },
+ render: function() { /* … */ }
+});
+```
+
+> Don't worry about where `this.props.dispatch` comes from for now, we'll get to that!
+
+Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when `dispatch` the `setLocation` action:
 
 ```JS
 {
