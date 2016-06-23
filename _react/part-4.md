@@ -71,6 +71,8 @@ We'll now need to introduce some terminology before we can finally start impleme
 
 TK Image of Redux specific state management cycle
 
+## Writing our first Redux parts
+
 Lets write our first action! We'll start with the location field, since it's a very typical example. An action function in Redux returns an object with a `type` and can optionally also pass some data along the way. Our `changeLocation` action looks like this:
 
 ```JS
@@ -86,7 +88,7 @@ This action thus has a type of `'CHANGE_LOCATION'` and passes along some data wi
 
 That's nice and all, but this won't change the store automatically. We have to tell Redux what to do when this action comes in, which we do in a so-called reducer.
 
-A reducer is a simple function that takes two arguments, the current state and the action that was called:
+A reducer is a simple function that takes two arguments, the current state and the action that was dispatched:
 
 ```JS
 function appReducer(state, action) {
@@ -114,7 +116,7 @@ JavaScript has a handy function called `Object.assign`, which allows you to do t
 function appReducer(state, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
-      return Object.assing({}, state, {
+      return Object.assign({}, state, {
         location: action.location
       });
   }
@@ -131,7 +133,7 @@ With a bit of glue this'll already work, but we should also return the state unc
 function appReducer(state, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
-      return Object.assing({}, state, {
+      return Object.assign({}, state, {
         location: action.location
       });
     default:
