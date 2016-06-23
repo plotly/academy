@@ -1,5 +1,5 @@
 ---
-title: The Basics
+title: The first app
 description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data
 layout: post
 ---
@@ -48,10 +48,16 @@ $ npm install react react-dom babelify babel-preset-react
 Then transpile our first `app.js` with this browserify command:
 
 ```
-browserify app.js -o bundle.js -t [ babelify --presets [ react ] ]
+$ browserify app.js -o bundle.js -t [ babelify --presets [ react ] ]
 ```
 
 Finally open our `index.html` in the browser and you should see some text saying "Hello World!"!
+
+Again, we don't really want to manually run this command everytime we change a file, so we'll use `watchify` to do that for us. Replace `browserify` with `watchify` and the app is going to rebuild when you change something!
+
+```
+$ watchify app.js -o bundle.js -t [ babelify --presets [ react ] ]
+```
 
 # First steps
 
