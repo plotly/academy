@@ -6,19 +6,17 @@ layout: post
 
 # What we'll build (app preview)
 
+TK
+
 # Prerequisites
 
 ## Node
 
-TK
-
-## `npm`
-
-TK
+Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to https://nodejs.org, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
 # Why React.js?
 
-The big benefits of React are performance and reusability.
+The big benefits of React are performance and reusability:
 
 ## Performance
 
@@ -410,11 +408,29 @@ This is telling browserify to transpile the `main.js` file and all modules found
 
 When you open this file in your browser now, you should see a message in the console saying "Hello World!". Congratulations, you just used your first build tool!
 
+There's one problem though, we don't really want to be running a command in our terminal everytime we change something in our code. The solution to this is another tool called `watchify`!
+
 #### Watchify
+
+Again, install `watchify` with `npm`:
+
+```Sh
+$ npm install -g watchify
+```
+
+Now you have access to the `watchify` command! (Try entering `$ watchify` in the terminal, and you should see an error message!) Watchify watches our files and reruns browserify when something changes, meaning we don't have to do it manually. Replace `browserify` in our command above with `watchify` and everything's going to work exactly as before:
+
+```Sh
+$ watchify main.js -o bundle.js
+```
+
+Now try changing a file and reloading the browser. You should see the changes without having to run any commands, awesome!
 
 ### Node Modules
 
-TK
+What we've done above when we ran the `npm install` command was that we installed a module. This means that somebody has pushed a module (just like our `add` module above!) to `npm` (Node Package Manager), which we can then install and use in our code!
+
+This way we can use React and build our app without having to globally attach anything, a big benefit it terms of understanding what is going on!
 
 ## Babel
 
