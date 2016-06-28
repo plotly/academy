@@ -121,7 +121,7 @@ var App = React.createClass({
 });
 ```
 
-> TK: Why do we nest inputs inside labels
+> We nest the `input` inside the `label` so the input is focussed when users click on the label!
 
 When entering something into the input field and pressing "Enter", the page refreshes and nothing happens. What we really want to do is fetch the data when a city and a country are input. Lets add an `onSubmit` handler to the `form` and a `fetchData` function to our component!
 
@@ -311,7 +311,7 @@ As you can see, everything we really need to take care of is constructing the ur
 
 We know that the URL has a prefix that's always the same, `http://api.openweathermap.org/data/2.5/forecast?q=`, and a suffix that's always the same, `&APPID=YOURAPIKEY&units=metric`. The sole thing we need to do is insert the location the user entered into the URL!
 
-TK explanation how to change the units of the data we get back via the `units` URL parameter
+You can also change the units you get back by setting `units` to `imperial`: `http://api.openweathermap.org/data/2.5/forecast?q=something&APPID=YOURAPIKEY&units=imperial`
 
 Now, if you're thinking this through you know what might happen – the user might enter spaces in the input! URLs with spaces aren't valid, so it wouldn't work and everything would break! While that is true, JavaScript gives us a very handy method to escape non-URL-friendly characters. It is called `encodeURIComponent()`, and this is how one uses it:
 
@@ -394,8 +394,6 @@ var App = React.createClass({
 
 Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component.
 
-TK explanation why we need to save the instance of the component to `self`
-
 ```JS
 // components/App.js
 var React = require('react');
@@ -426,6 +424,8 @@ var App = React.createClass({
   render: function() { /* … */ }
 });
 ```
+
+> Note: `var self = this;` is necessary because the context (== `this`) of the inner function is no longer the component, but the inner function.
 
 Lets add that to our `getInitialState` method:
 
