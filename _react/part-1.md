@@ -430,11 +430,59 @@ Now try changing a file and reloading the browser. You should see the changes wi
 
 What we've done above when we ran the `npm install` command was that we installed a module. This means that somebody has pushed a module (just like our `add` module above!) to `npm` (Node Package Manager), which we can then install and use in our code!
 
-This way we can use React and build our app without having to globally attach anything, a big benefit it terms of understanding what is going on!
+This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
 ## Babel
 
-TK
+Babel is a tool that transforms JavaScript. This allows us to use JSX in our files, which Babel then replaces with `React.createElement` calls throughout our code.
+
+First, install `babelify` and the babel preset for React code, `babel-preset-react`:
+
+```Sh
+$ npm install babelify babel-preset-react
+```
+
+We can then bundle our code with browserify and "transpile" (i.e. transform our JavaScript to JavaScript) the JSX! Let's create a dummy component to illustrate:
+
+```JS
+// main.js
+
+var SomeComponent = React.createClass({
+  render: function() {
+    return (
+      <h1>Hello World!</h1>
+    );
+  }
+});
+```
+
+Now babelify this component with browserify:
+
+```Sh
+$ browserify main.js -o bundle.js -t [ babelify --presets [ react ] ]
+```
+
+> The -t option tells browserify which transforms it should use – in our case, we want to babelify our code with the React preset!
+
+When you now take a look into the component, what you'll see is a bunch of garbled code nobody understands and this:
+
+```JS
+// bundle.js
+
+var SomeComponent = React.createClass({
+  displayName: "SomeComponent",
+
+  render: function () {
+    return React.createElement(
+      "h1",
+      null,
+      "Hello World!"
+    );
+  }
+});
+```
+
+As you can see, our original JSX (`<h1>Hello World!</h1>`) is now a `React.createElement` call that the browser understands!
 
 # Summary of this chapter
 
