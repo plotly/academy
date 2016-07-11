@@ -91,7 +91,7 @@ That's nice and all, but this won't change the store automatically. We have to t
 A reducer is a simple function that takes two arguments, the current state and the action that was dispatched:
 
 ```JS
-function appReducer(state, action) {
+function mainReducer(state, action) {
   return state;
 }
 ```
@@ -99,7 +99,7 @@ function appReducer(state, action) {
 Right now, no matter what action comes in and what data it has the state will always stay the same – that's not quite optimal, as nobody will be able to work with the app! Let's change the `location` field in the state based on the data in the action with the `'CHANGE_LOCATION'` type.
 
 ```JS
-function appReducer(state, action) {
+function mainReducer(state, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       state.location = action.location;
@@ -113,7 +113,7 @@ What we're doing here is _mutating_ the state. We assign `state.location` the va
 JavaScript has a handy function called `Object.assign`, which allows you to do that. Let's take a look at the solution first:
 
 ```JS
-function appReducer(state, action) {
+function mainReducer(state, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -130,7 +130,7 @@ This creates a new object, meaning the state stays the same which is A+ behaviou
 With a bit of glue this'll already work, but we should also return the state unchanged if no action we want to handle comes in:
 
 ```JS
-function appReducer(state, action) {
+function mainReducer(state, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -165,3 +165,189 @@ Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global sta
   /* …the rest stays the same… */
 }
 ```
+
+## Tying it all together
+
+Now that we understand the basic parts that are involved, let's tie it all together! First, we need to install two new modules:
+
+```
+$ npm install redux react-redux
+```
+
+> `redux` is the main package and is framework agnostic. `react-redux` provides bindings for react, as we'll see shortly!
+
+Then we need to create a store for our state and provide the state to our root `App` component. We do this in our main `app.js` file, and we'll use the `createStore` function from the `redux` package and the `Provider` component from the `react-redux` package.
+
+First, `require` those functions:
+
+```JS
+// app.js
+
+/* … */
+var ReactDOM = require('react-dom');
+
+var redux = require('redux');
+var createStore = redux.createStore;
+
+var reactRedux = require('react-redux');
+var Provider = reactRedux.Provider;
+
+var App = require('./components/App.js');
+/* … */
+```
+
+Then we need to create our store:
+
+```JS
+// app.js
+
+/* … */
+var App = require('./components/App.js');
+
+var store = createStore();
+
+ReactDOM.render(
+/* … */
+);
+```
+
+Lastly, we need to wrap our `App` component in the `Provider` and pass in the store:
+
+```JS
+/* … */
+ReactDOM.render(
+	<Provider store={store}>
+		<App />
+	</Provider>
+);
+/* … */
+```
+
+And that's it, our Redux integration is done! 🎉
+
+Well, except it doesn't do anything yet. Let's create an `actions.js` file and put our `changeLocation` action from above inside:
+
+```JS
+// actions.js
+
+function changeLocation(location) {
+  return {
+    type: 'CHANGE_LOCATION',
+    location: location
+  };
+}
+```
+
+We'll want to import it in other files, so we need to prefix `exports.changeLocation` for that to work:
+
+```JS
+// actions.js
+
+exports.changeLocation = function changeLocation(location) {
+	return {
+		type: 'CHANGE_LOCATION',
+		location: location
+	};
+}
+```
+
+Awesome, we've got our first action – now we need to add our reducer!
+
+Same deal as with the action, add a `reducers.js` file and export our previously written reducer from there:
+
+```JS
+// reducers.js
+
+exports.mainReducer = function mainReducer(state, action) {
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assign({}, state, {
+        location: action.location
+      });
+    default:
+      return state;
+  }
+}
+```
+
+Now we need to tell our store to use that reducer, so we `require` and pass it into the `createStore` call in the `app.js`:
+
+```JS
+// app.js
+
+/* … */
+var App = require('./components/App.js');
+
+var main = require('./reducer').mainReducer;
+var store = createStore(main);
+
+ReactDOM.render(
+/* … */
+);
+```
+
+Awesome, now everything's wired up except our `App` component! We need to connect it to the store, which the `react-redux` module thankfully has a handy function for. Instead of exporting the raw `App` component, we export the `connect`ed component:
+
+```JS
+// components/App.js
+
+/* … */
+
+module.exports = connect()(App);
+```
+
+While this is nice, we also need to tell `connect` that it should inject the `location` field we have in our reducer into this component. We do this by passing in a function as the first argument that takes the entire state, and then we return what we want to inject as props into our component. (this automatically injects `dispatch` to run our actions, which is why we can use `this.props.dispatch` in the `App` component)
+
+```JS
+// components/App.js
+
+/* … */
+
+module.exports = connect(function (state) {
+	return {
+		location: state.location
+	};
+})(App);
+```
+
+This function is called `mapStateToProps`, let's make that an external function so it's a bit clearer:
+
+```JS
+// components/App.js
+
+/* … */
+
+function mapStateToProps(state) {
+	return {
+		location: state.location
+	};
+}
+
+module.exports = connect(mapStateToProps)(App);
+```
+
+And that's everything need to get our App to get the location from the Redux store! Let's adapt our `App` to get the location from the props:
+
+```JS
+var App = React.createClass({
+	fetchData: function(evt) { /* … */ },
+	onPlotClick: function(data)  { /* … */ },
+	changeLocation: function(evt) {
+		this.props.dispatch(actions.setLocation(evt.target.value));
+	},
+	render: function() {
+		<div>
+			{/* … */}
+					<input
+						placeholder={"City, Country"}
+						type="text"
+						value={this.props.location}
+						onChange={this.changeLocation}
+					/>
+			{/* … */}
+		</div>
+	}
+});
+```
+
+That's everything needed to get the initial wiring done! Open this in your browser and change the location input, you should see the value adjusting – this means redux is working as expected!
