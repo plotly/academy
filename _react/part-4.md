@@ -270,6 +270,30 @@ exports.mainReducer = function mainReducer(state, action) {
 }
 ```
 
+We'll also need to tell redux what our initial state is and return that if no state is passed in:
+
+```JS
+// reducers.js
+
+var initialState = {
+  location: ''
+};
+
+exports.mainReducer = function mainReducer(state, action) {
+  state = state || initialState;
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assign({}, state, {
+        location: action.location
+      });
+    default:
+      return state;
+  }
+}
+```
+
+That's our reducer done,
+
 Now we need to tell our store to use that reducer, so we `require` and pass it into the `createStore` call in the `app.js`:
 
 ```JS
@@ -329,8 +353,20 @@ module.exports = connect(mapStateToProps)(App);
 And that's everything need to get our App to get the location from the Redux store! Let's adapt our `App` to get the location from the props:
 
 ```JS
+// components/App.js
+
+/* … */
+
+var actions = require('./actions');
+
 var App = React.createClass({
-	fetchData: function(evt) { /* … */ },
+	fetchData: function(evt) {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.props.location);
+
+    /* … */
+  },
 	onPlotClick: function(data)  { /* … */ },
 	changeLocation: function(evt) {
 		this.props.dispatch(actions.setLocation(evt.target.value));
@@ -351,3 +387,155 @@ var App = React.createClass({
 ```
 
 That's everything needed to get the initial wiring done! Open this in your browser and change the location input, you should see the value adjusting – this means redux is working as expected!
+
+## Wiring up the rest
+
+Let's wire up some other actions, the goal here is to get rid of the entire component state of the `App` component! Let's take a look at the selected date and temperature. The first we'll write is two actions, `setSelectedDate` and `setSelectedTemp`, that pass on the value that they get passed in.
+
+```JS
+// actions.js
+
+exports.setSelectedDate = function setSelectedDate(date) {
+  return {
+    type: 'SET_SELECTED_DATE',
+    date: date
+  };
+}
+
+exports.setSelectedTemp = function setSelectedTemp(temp) {
+  return {
+    type: 'SET_SELECTED_TEMP',
+    temp: temp
+  };
+}
+```
+
+Nothing fancy here, standard actions like the `setLocation` one.
+
+Let's add those two constants to our reducer, and also adjust the initial state a bit to include those fields:
+
+```JS
+// reducers.js
+
+var initialState = {
+  location: '',
+  selected: {
+    date: '',
+    temp: null
+  }
+};
+
+exports.mainReducer = function mainReducer(state, action) {
+  state = state || initialState;
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assign({}, state, {
+        location: action.location
+      });
+    case 'SET_SELECTED_TEMP':
+      return state;
+    case 'SET_SELECTED_DATE':
+      return state;
+    default:
+      return state;
+  }
+}
+```
+
+Now our reducer just needs to return the changed state for those actions:
+
+```JS
+// reducers.js
+
+var initialState = {
+  location: '',
+  selected: {
+    date: '',
+    temp: null
+  }
+};
+
+exports.mainReducer = function mainReducer(state, action) {
+  state = state || initialState;
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return Object.assign({}, state, {
+        location: action.location
+      });
+    case 'SET_SELECTED_TEMP':
+      return Object.assign({}, state, {
+        selected: {
+          temp: action.temp,
+          date: state.selected.date
+        }
+      });
+    case 'SET_SELECTED_DATE':
+      return Object.assign({}, state, {
+        selected: {
+          date: action.date,
+          temp: state.selected.temp
+        }
+      });;
+    default:
+      return state;
+  }
+}
+```
+
+Now let's wire it all up again in our `App` component:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+
+var Plot = require('./Plot');
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      location: '',
+      data: {},
+      dates: [],
+      temps: [],
+    };
+  },
+  fetchData: function(evt) {
+    /* … */
+
+      self.setState({
+        data: data,
+        dates: dates,
+        temps: temps,
+      });
+
+      this.props.dispatch(actions.setSelectedTemp(null));
+      this.props.dispatch(actions.setSelectedDate(''));
+    /* … */
+  },
+  onPlotClick: function(data) {
+    if (data.points) {
+      var number = data.points[0].pointNumber;
+      this.props.dispatch(actions.setSelectedDate(this.state.dates[number]));
+      this.props.dispatch(actions.setSelectedTemp(this.state.temps[number]));
+    }
+  },
+  changeLocation: function(evt) { /* … */ },
+  render: function() {
+    /* … */
+    return (
+      {/* … */}
+              <p>The temperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
+      {/* … */}
+    );
+  }
+});
+
+function mapStateToProps(state) {
+	return {
+		location: state.location,
+    selected: state.selected
+	};
+}
+```
+
+There's three more actions (and constants and reducer cases) that need to be implemented here: `setData`, `setDates` and `setTemps`. I'll leave it up to you here to implement them, taking inspiration from our already implemented actions!
