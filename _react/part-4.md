@@ -539,3 +539,322 @@ function mapStateToProps(state) {
 ```
 
 There's three more actions (and constants and reducer cases) that need to be implemented here: `setData`, `setDates` and `setTemps`. I'll leave it up to you here to implement them, taking inspiration from our already implemented actions!
+
+----
+
+Are you done? This is what your `App` component should look like now:
+
+```JS
+var React = require('react');
+var xhr = require('xhr');
+var connect = require('react-redux').connect;
+
+var Plot = require('./Plot');
+var actions = require('../actions');
+
+var App = React.createClass({
+  fetchData: function(evt) {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.props.location);
+
+    var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+    var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
+    var url = urlPrefix + location + urlSuffix;
+
+    var self = this;
+
+    xhr({
+      url: url
+    }, function (err, data) {
+
+      var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
+      self.props.dispatch(actions.setData(data));
+      self.props.dispatch(actions.setDates(dates));
+      self.props.dispatch(actions.setTemps(temps));
+      self.props.dispatch(actions.setSelectedDate(''));
+      self.props.dispatch(actions.setSelectedTemp(null));
+    });
+  },
+  onPlotClick: function(data) {
+    if (data.points) {
+      var number = data.points[0].pointNumber;
+      this.props.dispatch(actions.setSelectedDate(this.props.dates[number]));
+      this.props.dispatch(actions.setSelectedTemp(this.props.temps[number]))
+    }
+  },
+  changeLocation: function(evt) {
+    this.props.dispatch(actions.setLocation(evt.target.value));
+  },
+  render: function() {
+    var currentTemp = 'not loaded yet';
+    if (this.props.data.list) {
+      currentTemp = this.props.data.list[0].main.temp;
+    }
+    return (
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label>City, Country
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.props.location}
+              onChange={this.changeLocation}
+            />
+          </label>
+        </form>
+        {/*
+          Render the current temperature and the forecast if we have data
+          otherwise return null
+        */}
+        {(this.props.data.list) ? (
+          <div>
+            {/* Render the current temperature if no specific date is selected */}
+            {(this.props.selected.temp) ? (
+              <p>The temperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
+            ) : (
+              <p>The current temperature is { currentTemp }°C!</p>
+            )}
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.props.dates}
+              yData={this.props.temps}
+              onPlotClick={this.onPlotClick}
+              type="scatter"
+            />
+          </div>
+        ) : null}
+
+      </div>
+    );
+  }
+});
+
+// Since we want to have the entire state anyway, we can simply return it as is!
+function mapStateToProps(state) {
+  return state;
+}
+
+module.exports = connect(mapStateToProps)(App);
+```
+
+As you can see, everything is handled by our actions and reducer. Let's take a look at the reducer before we move on to make sure we're on the same page:
+
+```JS
+var initialState = {
+  location: '',
+  data: {},
+  dates: [],
+  temps: [],
+  selected: {
+    date: '',
+    temp: null
+  }
+};
+
+module.exports = function mainReducer(state, action) {
+  state = state || initialState;
+  switch (action.type) {
+    case 'SET_LOCATION':
+      return Object.assign({}, state, {
+        location: action.location
+      });
+    case 'SET_DATA':
+      return Object.assign({}, state, {
+        data: action.data
+      });
+    case 'SET_DATES':
+      return Object.assign({}, state, {
+        dates: action.dates
+      });
+    case 'SET_TEMPS':
+      return Object.assign({}, state, {
+        temps: action.temps
+      });
+    case 'SET_SELECTED_DATE':
+      return Object.assign({}, state, {
+        selected: {
+          date: action.date,
+          temp: state.selected.temp
+        }
+      });
+    case 'SET_SELECTED_TEMP':
+      return Object.assign({}, state, {
+        selected: {
+          date: state.selected.date,
+          temp: action.temp
+        }
+      });
+    default:
+      return state;
+  }
+}
+```
+
+We still have that ugly `xhr({})` call in our `fetchData` function though. This works, but as we add more and more components to our application it'll become hard to figure out where what data is fetched.
+
+That's why the redux community has adopted `redux-thunk` as a new standard for fetching data!
+
+## `redux-thunk`
+
+The idea behind `redux-thunk` is that we return a function from an action that gets passed `dispatch`. This allows us to do asynchronous things (like data fetching) in our actions:
+
+```JS
+function someAction()
+  // Notice how we return a function – this is what's called a "thunk"!
+  return function thisIsAThunk(dispatch) {
+    // Do something asynchronous in here
+  }
+}
+```
+
+### First implementation
+
+Let's try to write an action called `fetchData` that fetches our data! Start with the basic structure:
+
+```JS
+// actions.js
+
+/* …more actions here… */
+
+exports.fetchData = function() {
+  return function thunk(dispatch) {
+    // LET'S FETCH OUR DATA HERE
+  }
+}
+```
+
+Now let's copy and paste the `xhr` call from the `App` component and put it in there:
+
+```JS
+// actions.js
+
+/* …more actions here… */
+
+exports.fetchData = function() {
+  return function thunk(dispatch) {
+    xhr({
+      url: url
+    }, function (err, data) {
+
+      var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
+      self.props.dispatch(actions.setData(data));
+      self.props.dispatch(actions.setDates(dates));
+      self.props.dispatch(actions.setTemps(temps));
+      self.props.dispatch(actions.setSelectedDate(''));
+      self.props.dispatch(actions.setSelectedTemp(null));
+    });
+  }
+}
+```
+
+Now we need to fix four things: 1) We need to require `xhr`, 2) we need to get the URL from the action, 3) we need to rename all `self.props.dispatch` calls to `dispatch` and 4) we need to remove the references to `actions.SOMETHING`, since those functions are now in the same file:
+
+```JS
+// actions.js
+
+// REQUIRE xhr
+var xhr = require('xhr')
+
+/* …more actions here… */
+
+// PASS URL IN HERE
+exports.fetchData = function(url) {
+  return function thunk(dispatch) {
+    xhr({
+      url: url
+    }, function (err, data) {
+
+      var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+      // RENAME self.props.dispatch TO dispatch
+      // RENAME actions.something TO something
+      dispatch(setData(data));
+      dispatch(setDates(dates));
+      dispatch(setTemps(temps));
+      dispatch(setSelectedDate(''));
+      dispatch(setSelectedTemp(null));
+    });
+  }
+}
+```
+
+Well, that was easy! That's our thunked action done – let's call it from our `App` component:
+
+```JS
+/* … */
+
+var App = React.createClass({
+  fetchData: function(evt) {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.props.location);
+
+    var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+    var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
+    var url = urlPrefix + location + urlSuffix;
+
+    this.props.dispatch(actions.fetchData(url));
+  },
+  onPlotClick: function(data) { /* … */ },
+  changeLocation: function(evt) { /* … */ },
+  render: function() { /* … */ }
+});
+
+/* … */
+```
+
+That makes our `App` so much nicer to work with already!
+
+### Wiring it up
+
+The last step is wiring up `redux-thunk`. `redux-thunk` is a so-called "middleware". Middlewares sit in between the action and the reducers, every action you dispatch gets passed to all middlewares you add. (that's why they're called _middle_ ware)!
+
+First, we need to install `redux-thunk`:
+
+```Sh
+$ npm install redux-thunk
+```
+
+Second, we need to `apply` the `thunk` middleware in our `createStore` call in `app.js`:
+
+```JS
+// app.js
+
+/* … */
+var applyMiddleware = Redux.applyMiddleware;
+var thunkMiddleware = require('redux-thunk').default;
+
+/* … */
+
+var store = createStore(
+  mainReducer,
+  applyMiddleware(thunkMiddleware)
+);
+/* … */
+```
+
+And that's it, everything should be working again now. Look how easy to handle our components are, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
