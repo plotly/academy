@@ -1,4 +1,3 @@
-var assign = require('object-assign');
 var constants = require('./constants');
 var immutable = require('immutable');
 
@@ -17,35 +16,17 @@ module.exports = function mainReducer(state, action) {
   state = state || initialState;
   switch (action.type) {
     case constants.SET_LOCATION:
-      return assign({}, state, {
-        location: action.location
-      });
+      return state.set('location', action.location);
     case constants.SET_DATA:
-      return assign({}, state, {
-        data: action.data
-      });
+      return state.set('data', immutable.fromJS(action.data));
     case constants.SET_DATES:
-      return assign({}, state, {
-        dates: action.dates
-      });
+      return state.set('dates', immutable.fromJS(action.dates));
     case constants.SET_TEMPS:
-      return assign({}, state, {
-        temps: action.temps
-      });
+      return state.set('temps', immutable.fromJS(action.temps));
     case constants.SET_SELECTED_DATE:
-      return assign({}, state, {
-        selected: {
-          date: action.date,
-          temp: state.selected.temp
-        }
-      });
+      return state.setIn(['selected', 'date'], action.date);
     case constants.SET_SELECTED_TEMP:
-      return assign({}, state, {
-        selected: {
-          date: state.selected.date,
-          temp: action.temp
-        }
-      });
+      return state.setIn(['selected', 'temp'], action.temp);
     default:
       return state;
   }
