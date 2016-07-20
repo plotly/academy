@@ -1,7 +1,8 @@
 var assign = require('object-assign');
 var constants = require('./constants');
+var immutable = require('immutable');
 
-var initialState = {
+var initialState = immutable.fromJS({
   location: '',
   data: {},
   dates: [],
@@ -10,7 +11,7 @@ var initialState = {
     date: '',
     temp: null
   }
-};
+});
 
 module.exports = function mainReducer(state, action) {
   state = state || initialState;
