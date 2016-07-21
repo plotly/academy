@@ -6,10 +6,11 @@ var Plot = require('./Plot');
 var actions = require('../actions');
 
 var App = React.createClass({
+
   fetchData: function(evt) {
     evt.preventDefault();
 
-    var location = encodeURIComponent(this.props.location);
+    var location = encodeURIComponent(this.props.state.get('location'));
 
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
@@ -20,8 +21,8 @@ var App = React.createClass({
   onPlotClick: function(data) {
     if (data.points) {
       var number = data.points[0].pointNumber;
-      this.props.dispatch(actions.setSelectedDate(this.props.dates[number]));
-      this.props.dispatch(actions.setSelectedTemp(this.props.temps[number]))
+      this.props.dispatch(actions.setSelectedDate(this.props.state.getIn(['dates', number])));
+      this.props.dispatch(actions.setSelectedTemp(this.props.state.getIn(['temps', number])));
     }
   },
   changeLocation: function(evt) {
@@ -29,8 +30,8 @@ var App = React.createClass({
   },
   render: function() {
     var currentTemp = 'not loaded yet';
-    if (this.props.data.list) {
-      currentTemp = this.props.data.list[0].main.temp;
+    if (this.props.state.getIn(['data', 'list'])) {
+      currentTemp = this.props.state.getIn(['data', 'list', '0', 'main', 'temp']);
     }
     return (
       <div>
@@ -40,7 +41,7 @@ var App = React.createClass({
             <input
               placeholder={"City, Country"}
               type="text"
-              value={this.props.location}
+              value={this.props.state.get('location')}
               onChange={this.changeLocation}
             />
           </label>
@@ -49,22 +50,22 @@ var App = React.createClass({
           Render the current temperature and the forecast if we have data
           otherwise return null
         */}
-        {(this.props.data.list) ? (
+        {(this.props.state.getIn(['data', 'list'])) ? (
           <div className="wrapper">
             {/* Render the current temperature if no specific date is selected */}
             <p className="temp-wrapper">
               <span className="temp">
-                { this.props.selected.temp ? this.props.selected.temp : currentTemp }
+                { this.props.state.getIn(['selected', 'temp']) ? this.props.state.getIn(['selected', 'temp']) : currentTemp }
               </span>
               <span className="temp-symbol">°C</span>
               <span className="temp-date">
-                { this.props.selected.temp ? this.props.selected.date : ''}
+                { this.props.state.getIn(['selected', 'temp']) ? this.props.state.getIn(['selected', 'date']) : ''}
               </span>
             </p>
             <h2>Forecast</h2>
             <Plot
-              xData={this.props.dates}
-              yData={this.props.temps}
+              xData={this.props.state.get('dates')}
+              yData={this.props.state.get('temps')}
               onPlotClick={this.onPlotClick}
               type="scatter"
             />
@@ -77,5 +78,7 @@ var App = React.createClass({
 });
 
 module.exports = connect(function (state) {
-  return state;
+  return {
+    state: state
+  };
 })(App);

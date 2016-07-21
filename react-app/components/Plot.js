@@ -4,8 +4,8 @@ var React = require('react');
 var Plot = React.createClass({
   drawPlot: function() {
     Plotly.newPlot('plot', [{
-      x: this.props.xData,
-      y: this.props.yData,
+      x: this.props.xData.toJS(),
+      y: this.props.yData.toJS(),
       type: this.props.type
     }], {
       margin: {
