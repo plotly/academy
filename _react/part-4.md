@@ -858,3 +858,7 @@ var store = createStore(
 ```
 
 And that's it, everything should be working again now. Look how easy to handle our components are, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
+
+## Summary of this chapter
+
+TK
