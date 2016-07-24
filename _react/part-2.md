@@ -43,29 +43,27 @@ Thankfully, `create-react-app` includes a simple server so instead of having to 
 
 # First steps
 
-If you take a look into the `src/App.js` component, you'll see a bunch of boilerplate code in there. Delete the `import logo from './logo.svg';` and all of the JSX, and instead render a heading saying "Weather":
+If you take a look into the `src/App.js` component, you'll see a bunch of boilerplate code in there. Delete the `import logo from './logo.svg';` (and the `logo.svg` file if you want) and all of the JSX, and instead render a heading saying "Weather":
 
 ```JS
-// components/App.js
-var React = require('react');
+// App.js
+import React, { Component } from 'react';
 
-var App = React.createClass({
-  render: function() {
+class App extends Component {
+  render() {
     return (
       <h1>Weather</h1>
     );
   }
-});
+}
 ```
 
-Refreshing the `index.html` file in your browser should now show a heading saying "Weather"! That's nice, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
+Save the file, go back to your browser and you should see a heading saying "Weather"! That's nice, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
 
 ```JS
-// components/App.js
-var React = require('react');
-
-var App = React.createClass({
-  render: function() {
+// App.js
+class App extends Component {
+  render() {
     return (
       <div>
         <h1>Weather</h1>
@@ -77,7 +75,7 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
 > We nest the `input` inside the `label` so the input is focussed when users click on the label!
@@ -85,15 +83,14 @@ var App = React.createClass({
 When entering something into the input field and pressing "Enter", the page refreshes and nothing happens. What we really want to do is fetch the data when a city and a country are input. Lets add an `onSubmit` handler to the `form` and a `fetchData` function to our component!
 
 ```JS
-// components/App.js
-var React = require('react');
-
-var App = React.createClass({
-  fetchData: function(evt) {
+// App.js
+class App extends React.Component {
+  fetchData = (evt) => {
     evt.preventDefault();
     console.log('fetch data!');
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         <h1>Weather</h1>
@@ -105,7 +102,7 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
 By running `evt.preventDefault()` in fetchData (which is called when we press enter in the form), we tell the browser to not refresh the page and instead ignore whatever it wanted to and do what we tell it to. Right now, it logs "fetch data!" in the console over and over again whenever you submit the form. How do we get the entered city and country in that function though?
@@ -115,17 +112,17 @@ By storing the value of the text input in our local component state, we can grab
 We'll store the currently entered location in `this.state.location`, and add a utility method to our component called `changeLocation` that is called `onChange` of the text input and sets the state to the current text:
 
 ```JS
-// components/App.js
-var React = require('react');
+// App.js
+class App extends React.Component {
+  fetchData = (evt) => { /* … */ };
 
-var App = React.createClass({
-  fetchData: function(evt) { /* … */ },
-  changeLocation: function(evt) {
+  changeLocation = (evt) => {
     this.setState({
       location: evt.target.value
     });
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         <h1>Weather</h1>
@@ -142,42 +139,63 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
-As mentioned in Part 1, when saving anything our local state, we should predefine it in our `getInitialState` method. Lets do that:
+As mentioned in Part 1, when saving anything our local state, we have to predefine it. Lets do that:
 
 ```JS
-// components/App.js
-var React = require('react');
+// App.js
+class App extends React.Component {
+  state = {
+    location: ''
+  };
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {
-      location: ''
-    };
-  },
-  fetchData: function(evt) { /* … */ },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */}
-});
+  fetchData = (evt) => { /* … */ };
+
+  changeLocation = (evt) => {
+    this.setState({
+      location: evt.target.value
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label>I want to know the weather for
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.state.location}
+              onChange={this.changeLocation}
+            />
+          </label>
+        </form>
+      </div>
+    );
+  }
+}
 ```
 
 In our fetchData function, we can then access `this.state.location` to get the current location:
 
 ```JS
-// components/App.js
-var React = require('react');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => {
     evt.preventDefault();
     console.log('fetch data for', this.state.location);
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+  };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 Now, whichever location you enter it should log "fetch data for MyCity, MyCountry"!
@@ -192,14 +210,14 @@ TK screenshot of account page
 
 Now that we have access to all the weather data our heart could desire, lets get on with our app!
 
-Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install xhr` to get it! While that's installing, `require` it in your App component at the top:
+Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install xhr` to get it! While that's installing, `import` it in your App component at the top:
 
 ```JS
 // components/App.js
-var React = require('react');
-var xhr = require('xhr');
+import React, { Component } from 'react';
+import xhr from 'xhr';
 
-var App = React.createClass({ /* … */ });
+class App extends Component { /* … */ };
 ```
 
 To get the data, the structure of the URL we'll request looks like this:
@@ -270,7 +288,7 @@ As you can see, everything we really need to take care of is constructing the ur
 
 We know that the URL has a prefix that's always the same, `http://api.openweathermap.org/data/2.5/forecast?q=`, and a suffix that's always the same, `&APPID=YOURAPIKEY&units=metric`. The sole thing we need to do is insert the location the user entered into the URL!
 
-You can also change the units you get back by setting `units` to `imperial`: `http://api.openweathermap.org/data/2.5/forecast?q=something&APPID=YOURAPIKEY&units=imperial`
+> You can also change the units you get back by setting `units` to `imperial`: `http://api.openweathermap.org/data/2.5/forecast?q=something&APPID=YOURAPIKEY&units=imperial`
 
 Now, if you're thinking this through you know what might happen – the user might enter spaces in the input! URLs with spaces aren't valid, so it wouldn't work and everything would break! While that is true, JavaScript gives us a very handy method to escape non-URL-friendly characters. It is called `encodeURIComponent()`, and this is how one uses it:
 
@@ -283,32 +301,36 @@ Combine this method with the URL structure we need, the `xhr` explanation and th
 First, lets encode the location from the state:
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.state.location);
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+  };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 Second, lets construct the URL we need using that escaped location:
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.state.location);
@@ -316,22 +338,25 @@ var App = React.createClass({
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=YOURAPIKEY&units=metric';
     var url = urlPrefix + location + urlSuffix;
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+  };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 The last thing we need to do to get the data from the server is call `xhr` with that url!
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.state.location);
@@ -345,22 +370,25 @@ var App = React.createClass({
     }, function (err, data) {
       /* …save the data here */
     });
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+  };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component.
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) {
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.state.location);
@@ -378,47 +406,51 @@ var App = React.createClass({
         data: data
       });
     });
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+  };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 > Note: `var self = this;` is necessary because the context (== `this`) of the inner function is no longer the component, but the inner function.
 
-Lets add that to our `getInitialState` method:
-
+Let's define that `data` in our state:
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {
-      location: '',
-      data: {}
-    };
-  },
-  fetchData: function(evt) { /* … */ },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
-});
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = {
+    location: '',
+    data: {}
+  };
+
+  fetchData = (evt) => { /* … */ };
+
+  changeLocation = (evt) => { /* … */ };
+
+  render() { /* … */ }
+}
 ```
 
 Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the `list` array, sorted by time. The first element of said array is thus the current temperature, so lets try to render that first:
 
 ```JS
-// components/App.js
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var App = React.createClass({
-  getInitialState: function() { /* … */ },
-  fetchData: function(evt) { /* … */ },
-  changeLocation: function(evt) { /* … */ },
-  render: function() {
+import xhr from 'xhr';
+
+class App extends React.Component {
+  state = { /* … */ };
+
+  fetchData = (evt) => { /* … */ };
+  changeLocation = (evt) => { /* … */ };
+
+  render() {
     var currentTemp = 'not loaded yet';
     if (this.state.data.list) {
       currentTemp = this.state.data.list[0].main.temp;
@@ -443,7 +475,7 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
 Now  that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. TK link to part 3
