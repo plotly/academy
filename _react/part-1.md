@@ -124,18 +124,18 @@ You might have seen React code samples floating around, and something that might
 
 Instead of calling `React.createElement`, we can use JSX:
 
-```JS
-React.createElement(Wrapper, null,
-  React.createElement('h1', {className: 'heading'}, 'Hello World')
-)
-```
-
-is the same thing as
-
 ```HTML
 <Wrapper>
   <h1 className="heading">Hello World</h1>
 </Wrapper>
+```
+
+which is the same thing as
+
+```JS
+React.createElement(Wrapper, null,
+  React.createElement('h1', {className: 'heading'}, 'Hello World')
+)
 ```
 
 Using JSX is a bit tricky, since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!

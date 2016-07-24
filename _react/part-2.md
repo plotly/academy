@@ -8,83 +8,42 @@ Lets use our knowledge to write an actual app! What we'll build is a weather app
 
 # Setup
 
-Start by creating a file called `app.js`. Require `react` and `react-dom`, and `ReactDOM.render` a simple "Hello World" heading:
+Facebook recently open sourced a neat little tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) that allows us to very easily get started with our react app! It includes all the necessary build tools and transpilation steps to just get stuff done.
+
+Let's install it with `npm`:
+
+```Sh
+npm install -g create-react-app
+```
+
+As soon as that's finished you now have access to the `create-react-app` command in your terminal! Let's create our barebones weather app:
+
+```Sh
+create-react-app weather-app
+```
+
+> The argument to `create-react-app`, in our case `weather-app`, tells the utility what to name the folder it'll create. Since we're creating a weather app, `weather-app` seems like a solid choice!
+
+Take a look into the `src/index.js` file and you'll see something like this:
 
 ```JS
-// app.js
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-ReactDOM.render(
-  <h1>Hello World!</h1>,
-  document.getElementById('react-root')
-);
-```
-
-This on its own won't do anything, lets create an `index.html` file with some basic content:
-
-```HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Weather</title>
-</head>
-<body>
-  <div id="react-root"></div>
-  <script src="bundle.js"></script>
-</body>
-</html>
-```
-
-If you look closely above, you'll see that we reference a script called `bundle.js`. Didn't we just create a file called `app.js`?! Well yes, but we have to transpile it with browserify.
-
-First, install a few modules we'll need:
-
-```sh
-$ npm install react react-dom babelify babel-preset-react
-```
-
-Then transpile our first `app.js` with this browserify command:
-
-```
-$ browserify app.js -o bundle.js -t [ babelify --presets [ react ] ]
-```
-
-Finally open our `index.html` in the browser and you should see some text saying "Hello World!"!
-
-Again, we don't really want to manually run this command everytime we change a file, so we'll use `watchify` to do that for us. Replace `browserify` with `watchify` and the app is going to rebuild when you change something!
-
-```
-$ watchify app.js -o bundle.js -t [ babelify --presets [ react ] ]
-```
-
-# First steps
-
-Instead of rendering `<h1>Hello World!</h1>`, we'll render a to-be-made `<App />` component. Create a subfolder called `components`, which all our React.js components will live in, and add a file called `App.js` in there. This is what your folder structure should look like:
-
-```
-weather-app/
-├── app.js
-└── components/
-    └── App.js
-```
-
-Require and render said (still non-existant) `App` component from our main javascript entry point `app.js`:
-
-```JS
-// app.js
-var React = require('react');
-var ReactDOM = require('react-dom');
-var App = require('./components/App.js');
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
 
 ReactDOM.render(
   <App />,
-  document.getElementById('react-root')
+  document.getElementById('root')
 );
 ```
 
-In the `components/App.js`, render a first heading saying "Weather".
+Thankfully, `create-react-app` includes a simple server so instead of having to open the `index.html` file manually we can simply run `npm run start` in the `weather-app` directory and see our application at `localhost:3000`!
+
+# First steps
+
+If you take a look into the `src/App.js` component, you'll see a bunch of boilerplate code in there. Delete the `import logo from './logo.svg';` and all of the JSX, and instead render a heading saying "Weather":
 
 ```JS
 // components/App.js
