@@ -1,17 +1,61 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import xhr from 'xhr';
 
 class App extends Component {
+  state = {
+    location: '',
+    data: {}
+  };
+
+  fetchData = (evt) => {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.state.location);
+
+    var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+    var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
+    var url = urlPrefix + location + urlSuffix;
+
+    var self = this;
+
+    xhr({
+      url: url
+    }, function (err, data) {
+      var data = JSON.parse(data.body);
+      self.setState({
+        data: data
+      });
+    });
+  };
+
+  changeLocation = (evt) => {
+    this.setState({
+      location: evt.target.value
+    });
+  };
+
   render() {
+    console.log(this.state);
+    var currentTemp = 'not loaded yet';
+    if (this.state.data.list) {
+      currentTemp = this.state.data.list[0].main.temp;
+    }
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label>I want to know the weather for
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.state.location}
+              onChange={this.changeLocation}
+            />
+          </label>
+        </form>
+        <p className="temp-wrapper">
+          <span className="temp">{ currentTemp }</span>
+          <span className="temp-symbol">°C</span>
         </p>
       </div>
     );
