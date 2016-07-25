@@ -378,7 +378,7 @@ class App extends React.Component {
 }
 ```
 
-Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component.
+Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component. Also, network request data is a string so we'll need to parse that with `JSON.parse` to make it an object.
 
 ```JS
 // App.js
@@ -403,7 +403,7 @@ class App extends React.Component {
       url: url
     }, function (err, data) {
       self.setState({
-        data: data
+        data: JSON.parse(data.body)
       });
     });
   };
@@ -478,7 +478,9 @@ class App extends React.Component {
 }
 ```
 
-Now  that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. TK link to part 3
+Go open that in your browser, enter your current location and you'll see the current temperature! 🎉 Awesome!
+
+Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. TK link to part 3
 
 # Summary of this chapter
 
