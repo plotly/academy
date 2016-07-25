@@ -184,7 +184,6 @@ case 'SET_SELECTED_TEMP':
 This is what our reducer looks like finally:
 
 ```JS
-var constants = require('./constants');
 var immutable = require('immutable');
 
 var initialState = immutable.fromJS({
@@ -201,20 +200,34 @@ var initialState = immutable.fromJS({
 module.exports = function mainReducer(state, action) {
   state = state || initialState;
   switch (action.type) {
-    case constants.SET_LOCATION:
+    case 'SET_LOCATION':
       return state.set('location', action.location);
-    case constants.SET_DATA:
+    case 'SET_DATA':
       return state.set('data', immutable.fromJS(action.data));
-    case constants.SET_DATES:
+    case 'SET_DATES':
       return state.set('dates', immutable.fromJS(action.dates));
-    case constants.SET_TEMPS:
+    case 'SET_TEMPS':
       return state.set('temps', immutable.fromJS(action.temps));
-    case constants.SET_SELECTED_DATE:
+    case 'SET_SELECTED_DATE':
       return state.setIn(['selected', 'date'], action.date);
-    case constants.SET_SELECTED_TEMP:
+    case 'SET_SELECTED_TEMP':
       return state.setIn(['selected', 'temp'], action.temp);
     default:
       return state;
   }
 }
 ```
+
+If you now try to run your app though, nothing will work and you'll get an error.
+
+This is because in our `App` component we have a `mapStateToProps` function that simply returns the entire state! An easy trick would be to return `state.toJS`, kind of like this:
+
+```JS
+function mapStateToProps(state) {
+  return {
+    state: state.toJS()
+  };
+}
+```
+
+In fact, try this and you'll see that works! The problem with that approach is that you're missing out on almost the entire benefit of ImmutableJS though, which we'll get to very soon!
