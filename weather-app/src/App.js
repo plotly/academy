@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import xhr from 'xhr';
 
+import Plot from './Plot';
+
 class App extends Component {
   state = {
     location: '',
-    data: {}
+    data: {},
+    dates: [],
+    temps: [],
+    selected: {
+      date: '',
+      temp: null
+    }
   };
 
   fetchData = (evt) => {
@@ -22,8 +30,22 @@ class App extends Component {
       url: url
     }, function (err, data) {
       var data = JSON.parse(data.body);
+      var list = data.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
       self.setState({
-        data: data
+        data: data,
+        dates: dates,
+        temps: temps,
+        selected: {
+          date: '',
+          temp: null
+        }
       });
     });
   };
@@ -34,8 +56,18 @@ class App extends Component {
     });
   };
 
+  onPlotClick = (data) => {
+    if (data.points) {
+      this.setState({
+        selected: {
+          date: data.points[0].x,
+          temp: data.points[0].y
+        }
+      })
+    }
+  };
+
   render() {
-    console.log(this.state);
     var currentTemp = 'not loaded yet';
     if (this.state.data.list) {
       currentTemp = this.state.data.list[0].main.temp;
@@ -53,10 +85,28 @@ class App extends Component {
             />
           </label>
         </form>
-        <p className="temp-wrapper">
-          <span className="temp">{ currentTemp }</span>
-          <span className="temp-symbol">°C</span>
-        </p>
+        {(this.state.data.list) ? (
+          <div className="wrapper">
+            {/* Render the current temperature if no specific date is selected */}
+            <p className="temp-wrapper">
+              <span className="temp">
+                { this.state.selected.temp ? this.state.selected.temp : currentTemp }
+              </span>
+              <span className="temp-symbol">°C</span>
+              <span className="temp-date">
+                { this.state.selected.temp ? this.state.selected.date : ''}
+              </span>
+            </p>
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.state.dates}
+              yData={this.state.temps}
+              onPlotClick={this.onPlotClick}
+              type="scatter"
+            />
+          </div>
+        ) : null}
+
       </div>
     );
   }
