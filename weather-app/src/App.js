@@ -13,7 +13,7 @@ class App extends React.Component {
   fetchData = (evt) => {
     evt.preventDefault();
 
-    var location = encodeURIComponent(this.props.location);
+    var location = encodeURIComponent(this.props.redux.get('location'));
 
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
@@ -24,9 +24,8 @@ class App extends React.Component {
 
   onPlotClick = (data) => {
     if (data.points) {
-      var number = data.points[0].pointNumber;
-      this.props.dispatch(setSelectedDate(this.props.dates[number]));
-      this.props.dispatch(setSelectedTemp(this.props.temps[number]))
+      this.props.dispatch(setSelectedDate(data.points[0].x));
+      this.props.dispatch(setSelectedTemp(data.points[0].y))
     }
   };
 
@@ -36,18 +35,18 @@ class App extends React.Component {
 
   render() {
     var currentTemp = 'not loaded yet';
-    if (this.props.data.list) {
-      currentTemp = this.props.data.list[0].main.temp;
+    if (this.props.redux.getIn(['data', 'list'])) {
+      currentTemp = this.props.redux.getIn(['data', 'list', '0', 'main', 'temp']);
     }
     return (
       <div>
         <h1>Weather</h1>
         <form onSubmit={this.fetchData}>
-          <label>City, Country
+          <label>I want to know the weather for
             <input
               placeholder={"City, Country"}
               type="text"
-              value={this.props.location}
+              value={this.props.redux.get('location')}
               onChange={this.changeLocation}
             />
           </label>
@@ -56,18 +55,22 @@ class App extends React.Component {
           Render the current temperature and the forecast if we have data
           otherwise return null
         */}
-        {(this.props.data.list) ? (
-          <div>
+        {(this.props.redux.getIn(['data', 'list'])) ? (
+          <div className="wrapper">
             {/* Render the current temperature if no specific date is selected */}
-            {(this.props.selected.temp) ? (
-              <p>The temperature on { this.props.selected.date } will be { this.props.selected.temp }°C</p>
-            ) : (
-              <p>The current temperature is { currentTemp }°C!</p>
-            )}
+            <p className="temp-wrapper">
+              <span className="temp">
+                { this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'temp']) : currentTemp }
+              </span>
+              <span className="temp-symbol">°C</span>
+              <span className="temp-date">
+                { this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'date']) : ''}
+              </span>
+            </p>
             <h2>Forecast</h2>
             <Plot
-              xData={this.props.dates}
-              yData={this.props.temps}
+              xData={this.props.redux.get('dates').toJS()}
+              yData={this.props.redux.get('temps').toJS()}
               onPlotClick={this.onPlotClick}
               type="scatter"
             />
@@ -81,7 +84,9 @@ class App extends React.Component {
 
 // Since we want to have the entire state anyway, we can simply return it as is!
 function mapStateToProps(state) {
-  return state.toJS();
+  return {
+    redux: state
+  };
 }
 
 export default connect(mapStateToProps)(App);
