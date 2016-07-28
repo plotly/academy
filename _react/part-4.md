@@ -12,10 +12,10 @@ Thankfully, [Dan Abramov](https://twitter.com/dan_abramov) stepped in and create
 
 ## The concept
 
-Remember the `getInitialState` function of our `App` component? It looks like this:
+Remember the initial state of our `App` component? It looks like this:
 
 ```JS
-getInitialState: function() {
+state = {
   return {
     location: '',
     data: {},
@@ -26,7 +26,7 @@ getInitialState: function() {
       temp: null
     }
   };
-},
+};
 ```
 
 The object we return from this function is our entire application state. At the first start of our application, our state thus looks like this:
@@ -49,7 +49,13 @@ When users now change the location input field, the `location` field of our stat
 ```JS
 {
   location: 'Vienna, Austria',
-  /* …the rest stays the same… */
+  data: {},
+  dates: [],
+  temps: [],
+  selected: {
+    date: '',
+    temp: null
+  }
 }
 ```
 
@@ -127,10 +133,21 @@ By passing in a new, empty object (`{}`) as the first argument and the current `
 
 This creates a new object, meaning the state stays the same which is A+ behaviour and will keep us from a lot of bugs!
 
-With a bit of glue this'll already work, but we should also return the state unchanged if no action we want to handle comes in:
+With a bit of glue this'll already work! We should do two more small things to make this better: we should return the state unchanged if no action we want to handle comes in and we should use the initial state if state is undefined:
 
 ```JS
-function mainReducer(state, action) {
+var initialState = {
+  location: '',
+  data: {},
+  dates: [],
+  temps: [],
+  selected: {
+    date: '',
+    temp: null
+  }
+};
+
+function mainReducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -145,19 +162,19 @@ function mainReducer(state, action) {
 We'll now need to `dispatch` this action when the location changes:
 
 ```JS
-var App = React.createClass({
- fetchData: function(evt) { /* … */ },
- onPlotClick: function(data)  { /* … */ },
- changeLocation: function(evt) {
-   this.props.dispatch(actions.setLocation(evt.target.value));
- },
- render: function() { /* … */ }
+class App extends Component {
+ fetchData = (evt) => { /* … */ };
+ onPlotClick = (data) =>  { /* … */ };
+ changeLocation = (evt) => {
+   this.props.dispatch(changeLocation(evt.target.value));
+ };
+ render() { /* … */ }
 });
 ```
 
 > Don't worry about where `this.props.dispatch` comes from for now, we'll get to that!
 
-Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when `dispatch` the `setLocation` action:
+Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when `dispatch` the `changeLocation` action:
 
 ```JS
 {
@@ -176,23 +193,21 @@ $ npm install redux react-redux
 
 > `redux` is the main package and is framework agnostic. `react-redux` provides bindings for react, as we'll see shortly!
 
-Then we need to create a store for our state and provide the state to our root `App` component. We do this in our main `app.js` file, and we'll use the `createStore` function from the `redux` package and the `Provider` component from the `react-redux` package.
+Then we need to create a store for our state and provide the state to our root `App` component. We do this in our main `index.js` file, and we'll use the `createStore` function from the `redux` package and the `Provider` component from the `react-redux` package.
 
-First, `require` those functions:
+First, `import` those functions:
 
 ```JS
 // app.js
 
 /* … */
-var ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 
-var redux = require('redux');
-var createStore = redux.createStore;
+import { createStore } from 'redux';
 
-var reactRedux = require('react-redux');
-var Provider = reactRedux.Provider;
+import { Provider } from 'react-redux';
 
-var App = require('./components/App.js');
+import App from './App.js';
 /* … */
 ```
 
@@ -202,7 +217,7 @@ Then we need to create our store:
 // app.js
 
 /* … */
-var App = require('./components/App.js');
+import App from './App.js';
 
 var store = createStore();
 
@@ -238,12 +253,12 @@ function changeLocation(location) {
 }
 ```
 
-We'll want to import it in other files, so we need to prefix `exports.changeLocation` for that to work:
+We'll want to import it in other files, so we need to `export` it for that to work:
 
 ```JS
 // actions.js
 
-exports.changeLocation = function changeLocation(location) {
+export function changeLocation(location) {
 	return {
 		type: 'CHANGE_LOCATION',
 		location: location
@@ -258,29 +273,18 @@ Same deal as with the action, add a `reducers.js` file and export our previously
 ```JS
 // reducers.js
 
-exports.mainReducer = function mainReducer(state, action) {
-  switch (action.type) {
-    case 'CHANGE_LOCATION':
-      return Object.assign({}, state, {
-        location: action.location
-      });
-    default:
-      return state;
-  }
-}
-```
-
-We'll also need to tell redux what our initial state is and return that if no state is passed in:
-
-```JS
-// reducers.js
-
 var initialState = {
-  location: ''
+  location: '',
+  data: {},
+  dates: [],
+  temps: [],
+  selected: {
+    date: '',
+    temp: null
+  }
 };
 
-exports.mainReducer = function mainReducer(state, action) {
-  state = state || initialState;
+export default function mainReducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -291,19 +295,22 @@ exports.mainReducer = function mainReducer(state, action) {
   }
 }
 ```
+
+> We export the reducer by default since it'll be the only thing we're exporting from that file
 
 That's our reducer done,
 
-Now we need to tell our store to use that reducer, so we `require` and pass it into the `createStore` call in the `app.js`:
+Now we need to tell our store to use that reducer, so we `import` and pass it into the `createStore` call in the `app.js`:
 
 ```JS
 // app.js
 
 /* … */
-var App = require('./components/App.js');
+import App from './App.js';
 
-var main = require('./reducer').mainReducer;
-var store = createStore(main);
+import mainReducer from './reducer';
+
+var store = createStore(mainReducer);
 
 ReactDOM.render(
 /* … */
@@ -313,21 +320,23 @@ ReactDOM.render(
 Awesome, now everything's wired up except our `App` component! We need to connect it to the store, which the `react-redux` module thankfully has a handy function for. Instead of exporting the raw `App` component, we export the `connect`ed component:
 
 ```JS
-// components/App.js
+// App.js
+
+import { connect } from 'react-redux';
 
 /* … */
 
-module.exports = connect()(App);
+export default connect()(App);
 ```
 
 While this is nice, we also need to tell `connect` that it should inject the `location` field we have in our reducer into this component. We do this by passing in a function as the first argument that takes the entire state, and then we return what we want to inject as props into our component. (this automatically injects `dispatch` to run our actions, which is why we can use `this.props.dispatch` in the `App` component)
 
 ```JS
-// components/App.js
+// App.js
 
 /* … */
 
-module.exports = connect(function (state) {
+export default connect(function (state) {
 	return {
 		location: state.location
 	};
@@ -347,7 +356,7 @@ function mapStateToProps(state) {
 	};
 }
 
-module.exports = connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App);
 ```
 
 And that's everything need to get our App to get the location from the Redux store! Let's adapt our `App` to get the location from the props:
@@ -357,21 +366,23 @@ And that's everything need to get our App to get the location from the Redux sto
 
 /* … */
 
-var actions = require('./actions');
+import {
+  changeLocation
+} from './actions';
 
-var App = React.createClass({
-	fetchData: function(evt) {
+class App extends Component {
+	fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.props.location);
 
     /* … */
-  },
-	onPlotClick: function(data)  { /* … */ },
-	changeLocation: function(evt) {
-		this.props.dispatch(actions.setLocation(evt.target.value));
-	},
-	render: function() {
+  };
+	onPlotClick = (data) => { /* … */ };
+	changeLocation = (evt) => {
+		this.props.dispatch(changeLocation(evt.target.value));
+	};
+	render() {
 		<div>
 			{/* … */}
 					<input
@@ -383,7 +394,7 @@ var App = React.createClass({
 			{/* … */}
 		</div>
 	}
-});
+}
 ```
 
 That's everything needed to get the initial wiring done! Open this in your browser and change the location input, you should see the value adjusting – this means redux is working as expected!
@@ -395,14 +406,14 @@ Let's wire up some other actions, the goal here is to get rid of the entire comp
 ```JS
 // actions.js
 
-exports.setSelectedDate = function setSelectedDate(date) {
+export function setSelectedDate(date) {
   return {
     type: 'SET_SELECTED_DATE',
     date: date
   };
 }
 
-exports.setSelectedTemp = function setSelectedTemp(temp) {
+export function setSelectedTemp(temp) {
   return {
     type: 'SET_SELECTED_TEMP',
     temp: temp
@@ -410,23 +421,13 @@ exports.setSelectedTemp = function setSelectedTemp(temp) {
 }
 ```
 
-Nothing fancy here, standard actions like the `setLocation` one.
+Nothing fancy here, standard actions like the `changeLocation` one.
 
 Let's add those two constants to our reducer, and also adjust the initial state a bit to include those fields:
 
 ```JS
 // reducers.js
-
-var initialState = {
-  location: '',
-  selected: {
-    date: '',
-    temp: null
-  }
-};
-
-exports.mainReducer = function mainReducer(state, action) {
-  state = state || initialState;
+export default function mainReducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -447,16 +448,7 @@ Now our reducer just needs to return the changed state for those actions:
 ```JS
 // reducers.js
 
-var initialState = {
-  location: '',
-  selected: {
-    date: '',
-    temp: null
-  }
-};
-
-exports.mainReducer = function mainReducer(state, action) {
-  state = state || initialState;
+export default function mainReducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
@@ -475,7 +467,7 @@ exports.mainReducer = function mainReducer(state, action) {
           date: action.date,
           temp: state.selected.temp
         }
-      });;
+      });
     default:
       return state;
   }
@@ -485,21 +477,24 @@ exports.mainReducer = function mainReducer(state, action) {
 Now let's wire it all up again in our `App` component:
 
 ```JS
-var React = require('react');
-var xhr = require('xhr');
+// App.js
 
-var Plot = require('./Plot');
+import {
+  changeLocation,
+  setSelectedTemp,
+  setSelectedDate
+} from './actions';
 
-var App = React.createClass({
-  getInitialState: function() {
+class App extends Component{
+  state = {
     return {
-      location: '',
       data: {},
       dates: [],
       temps: [],
     };
-  },
-  fetchData: function(evt) {
+  };
+
+  fetchData = (evt) => {
     /* … */
 
       self.setState({
@@ -508,19 +503,19 @@ var App = React.createClass({
         temps: temps,
       });
 
-      this.props.dispatch(actions.setSelectedTemp(null));
-      this.props.dispatch(actions.setSelectedDate(''));
+      self.props.dispatch(setSelectedTemp(null));
+      self.props.dispatch(setSelectedDate(''));
     /* … */
-  },
-  onPlotClick: function(data) {
+  };
+  onPlotClick = (data) => {
     if (data.points) {
       var number = data.points[0].pointNumber;
-      this.props.dispatch(actions.setSelectedDate(this.state.dates[number]));
-      this.props.dispatch(actions.setSelectedTemp(this.state.temps[number]));
+      this.props.dispatch(setSelectedDate(data.points[0].x));
+      this.props.dispatch(setSelectedTemp(data.points[0].y));
     }
-  },
-  changeLocation: function(evt) { /* … */ },
-  render: function() {
+  };
+  changeLocation = (evt) => { /* … */ };
+  render() {
     /* … */
     return (
       {/* … */}
@@ -528,7 +523,7 @@ var App = React.createClass({
       {/* … */}
     );
   }
-});
+}
 
 function mapStateToProps(state) {
 	return {
@@ -545,15 +540,22 @@ There's three more actions (and constants and reducer cases) that need to be imp
 Are you done? This is what your `App` component should look like now:
 
 ```JS
-var React = require('react');
-var xhr = require('xhr');
-var connect = require('react-redux').connect;
+import React from 'react';
+import xhr from 'xhr';
+import { connect } from 'react-redux';
 
-var Plot = require('./Plot');
-var actions = require('../actions');
+import Plot from './Plot';
+import {
+  changeLocation,
+  setData,
+  setDates,
+  setTemps,
+  setSelectedDate,
+  setSelectedTemp
+} from './actions';
 
-var App = React.createClass({
-  fetchData: function(evt) {
+class App extends React.Component {
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.props.location);
@@ -577,24 +579,27 @@ var App = React.createClass({
         temps.push(list[i].main.temp);
       }
 
-      self.props.dispatch(actions.setData(data));
-      self.props.dispatch(actions.setDates(dates));
-      self.props.dispatch(actions.setTemps(temps));
-      self.props.dispatch(actions.setSelectedDate(''));
-      self.props.dispatch(actions.setSelectedTemp(null));
+      self.props.dispatch(setData(data));
+      self.props.dispatch(setDates(dates));
+      self.props.dispatch(setTemps(temps));
+      self.props.dispatch(setSelectedDate(''));
+      self.props.dispatch(setSelectedTemp(null));
     });
-  },
-  onPlotClick: function(data) {
+  };
+
+  onPlotClick = (data) => {
     if (data.points) {
       var number = data.points[0].pointNumber;
-      this.props.dispatch(actions.setSelectedDate(this.props.dates[number]));
-      this.props.dispatch(actions.setSelectedTemp(this.props.temps[number]))
+      this.props.dispatch(setSelectedDate(this.props.dates[number]));
+      this.props.dispatch(setSelectedTemp(this.props.temps[number]))
     }
-  },
-  changeLocation: function(evt) {
-    this.props.dispatch(actions.setLocation(evt.target.value));
-  },
-  render: function() {
+  };
+
+  changeLocation = (evt) => {
+    this.props.dispatch(changeLocation(evt.target.value));
+  };
+
+  render() {
     var currentTemp = 'not loaded yet';
     if (this.props.data.list) {
       currentTemp = this.props.data.list[0].main.temp;
@@ -637,14 +642,14 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 
 // Since we want to have the entire state anyway, we can simply return it as is!
 function mapStateToProps(state) {
   return state;
 }
 
-module.exports = connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App);
 ```
 
 As you can see, everything is handled by our actions and reducer. Let's take a look at the reducer before we move on to make sure we're on the same page:
@@ -661,10 +666,9 @@ var initialState = {
   }
 };
 
-module.exports = function mainReducer(state, action) {
-  state = state || initialState;
+export default function mainReducer(state = initialState, action) {
   switch (action.type) {
-    case 'SET_LOCATION':
+    case 'CHANGE_LOCATION':
       return Object.assign({}, state, {
         location: action.location
       });
@@ -726,7 +730,7 @@ Let's try to write an action called `fetchData` that fetches our data! Start wit
 
 /* …more actions here… */
 
-exports.fetchData = function() {
+export function fetchData() {
   return function thunk(dispatch) {
     // LET'S FETCH OUR DATA HERE
   }
@@ -740,7 +744,7 @@ Now let's copy and paste the `xhr` call from the `App` component and put it in t
 
 /* …more actions here… */
 
-exports.fetchData = function() {
+export function fetchData() {
   return function thunk(dispatch) {
     xhr({
       url: url
@@ -755,28 +759,28 @@ exports.fetchData = function() {
         temps.push(list[i].main.temp);
       }
 
-      self.props.dispatch(actions.setData(data));
-      self.props.dispatch(actions.setDates(dates));
-      self.props.dispatch(actions.setTemps(temps));
-      self.props.dispatch(actions.setSelectedDate(''));
-      self.props.dispatch(actions.setSelectedTemp(null));
+      self.props.dispatch(setData(data));
+      self.props.dispatch(setDates(dates));
+      self.props.dispatch(setTemps(temps));
+      self.props.dispatch(setSelectedDate(''));
+      self.props.dispatch(setSelectedTemp(null));
     });
   }
 }
 ```
 
-Now we need to fix four things: 1) We need to require `xhr`, 2) we need to get the URL from the action, 3) we need to rename all `self.props.dispatch` calls to `dispatch` and 4) we need to remove the references to `actions.SOMETHING`, since those functions are now in the same file:
+Now we need to fix three things: 1) We need to import `xhr`, 2) we need to get the URL from the action and 3) we need to rename all `self.props.dispatch` calls to `dispatch`:
 
 ```JS
 // actions.js
 
 // REQUIRE xhr
-var xhr = require('xhr')
+import xhr from 'xhr';
 
 /* …more actions here… */
 
 // PASS URL IN HERE
-exports.fetchData = function(url) {
+export function fetchData(url) {
   return function thunk(dispatch) {
     xhr({
       url: url
@@ -791,7 +795,6 @@ exports.fetchData = function(url) {
         temps.push(list[i].main.temp);
       }
       // RENAME self.props.dispatch TO dispatch
-      // RENAME actions.something TO something
       dispatch(setData(data));
       dispatch(setDates(dates));
       dispatch(setTemps(temps));
@@ -807,8 +810,8 @@ Well, that was easy! That's our thunked action done – let's call it from our `
 ```JS
 /* … */
 
-var App = React.createClass({
-  fetchData: function(evt) {
+class App extends React.Component {
+  fetchData = (evt) => {
     evt.preventDefault();
 
     var location = encodeURIComponent(this.props.location);
@@ -817,11 +820,11 @@ var App = React.createClass({
     var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
     var url = urlPrefix + location + urlSuffix;
 
-    this.props.dispatch(actions.fetchData(url));
+    this.props.dispatch(fetchData(url));
   },
-  onPlotClick: function(data) { /* … */ },
-  changeLocation: function(evt) { /* … */ },
-  render: function() { /* … */ }
+  onPlotClick = (data) => { /* … */ },
+  changeLocation = (evt) => { /* … */ },
+  render() { /* … */ }
 });
 
 /* … */
@@ -845,8 +848,8 @@ Second, we need to `apply` the `thunk` middleware in our `createStore` call in `
 // app.js
 
 /* … */
-var applyMiddleware = Redux.applyMiddleware;
-var thunkMiddleware = require('redux-thunk').default;
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 /* … */
 
