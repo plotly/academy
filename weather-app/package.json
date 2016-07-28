@@ -1,5 +1,6 @@
 {
   "name": "weather-app",
+  "homepage": "http://blog.mxstbr.com/weather",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
