@@ -1,15 +1,12 @@
 import React from 'react';
-import xhr from 'xhr';
 import { connect } from 'react-redux';
 
 import Plot from './Plot';
 import {
   changeLocation,
-  setData,
-  setDates,
-  setTemps,
   setSelectedDate,
-  setSelectedTemp
+  setSelectedTemp,
+  fetchData
 } from './actions';
 
 class App extends React.Component {
@@ -22,27 +19,7 @@ class App extends React.Component {
     var urlSuffix = '&APPID=dbe69e56e7ee5f981d76c3e77bbb45c0&units=metric';
     var url = urlPrefix + location + urlSuffix;
 
-    var self = this;
-
-    xhr({
-      url: url
-    }, function (err, data) {
-
-      var data = JSON.parse(data.body);
-      var list = data.list;
-      var dates = [];
-      var temps = [];
-      for (var i = 0; i < list.length; i++) {
-        dates.push(list[i].dt_txt);
-        temps.push(list[i].main.temp);
-      }
-
-      self.props.dispatch(setData(data));
-      self.props.dispatch(setDates(dates));
-      self.props.dispatch(setTemps(temps));
-      self.props.dispatch(setSelectedDate(''));
-      self.props.dispatch(setSelectedTemp(null));
-    });
+    this.props.dispatch(fetchData(url));
   };
 
   onPlotClick = (data) => {
