@@ -17,9 +17,9 @@ Facebook released a second library called `Immutable.js` that adds immutable dat
 ImmutableJS exports this nice little `fromJS` function that allows us to create immutable data structures from your standard JavaScript objects and arrays. (also adds a `toJS` method to make objects and arrays out of them again) Let's create an immutable object:
 
 ```JS
-var immutable = require('immutable');
+import { fromJS } from 'immutable';
 
-var immutableObject = immutable.fromJS({
+var immutableObject = fromJS({
 	some: 'object',
 	some: {
 		nested: 'object'
@@ -32,9 +32,9 @@ If you now tried to do `object.some = 'notobject'`, i.e. tried to change the dat
 Now you might be thinking "But then how can we set a property?". Well, ImmutableJS still let's us set properties with the `set` and `setIn` methods! Let's take a look at an example:
 
 ```JS
-var immutable = require('immutable');
+import { fromJS } from 'immutable';
 
-var immutableObject = immutable.fromJS({
+var immutableObject = fromJS({
 	some: 'object'
 });
 
@@ -48,9 +48,9 @@ Well, since `immutableObject` is immutable, what happens when you `immutableObje
 Let's see if that works:
 
 ```JS
-var immutable = require('immutable');
+import { fromJS } from 'immutable';
 
-var immutableObject = immutable.fromJS({
+var immutableObject = fromJS({
 	some: 'object'
 });
 
@@ -77,14 +77,14 @@ First, we need to install ImmutableJS from `npm`:
 $ npm install immutable
 ```
 
-Then we make the initial state in our reducer an immutable object by using the `fromJS` function! We simply wrap the object that we assign to `initialState` in `immutable.fromJS` like so:
+Then we make the initial state in our reducer an immutable object by using the `fromJS` function! We simply wrap the object that we assign to `initialState` in `fromJS` like so:
 
 ```JS
 // reducer.js
 /* … */
-var immutable = require('immutable');
+import { fromJS } from 'immutable';
 
-var initialState = immutable.fromJS({
+var initialState = fromJS({
   /* … */
 });
 
@@ -131,12 +131,12 @@ case 'SET_TEMPS':
 This whole block becomes:
 
 ```JS
-case constants.SET_DATA:
- return state.set('data', immutable.fromJS(action.data));
-case constants.SET_DATES:
- return state.set('dates', immutable.fromJS(action.dates));
-case constants.SET_TEMPS:
- return state.set('temps', immutable.fromJS(action.temps));
+case 'SET_DATA':
+ return state.set('data', fromJS(action.data));
+case 'SET_DATES':
+ return state.set('dates', fromJS(action.dates));
+case 'SET_TEMPS':
+ return state.set('temps', fromJS(action.temps));
 ```
 
 Isn't that nice? Now, here's the last trickery in our reducer, because what do we do for `SET_SELECTED_TEMP` and `SET_SELECTED_DATE`? How do we set `state.selected.temp`?
@@ -184,9 +184,9 @@ case 'SET_SELECTED_TEMP':
 This is what our reducer looks like finally:
 
 ```JS
-var immutable = require('immutable');
+import { fromJS } from 'immutable';
 
-var initialState = immutable.fromJS({
+var initialState = fromJS({
   location: '',
   data: {},
   dates: [],
@@ -197,17 +197,16 @@ var initialState = immutable.fromJS({
   }
 });
 
-module.exports = function mainReducer(state, action) {
-  state = state || initialState;
+export default function mainReducer(state = initialState, action) {
   switch (action.type) {
-    case 'SET_LOCATION':
+    case 'CHANGE_LOCATION':
       return state.set('location', action.location);
     case 'SET_DATA':
-      return state.set('data', immutable.fromJS(action.data));
+      return state.set('data', fromJS(action.data));
     case 'SET_DATES':
-      return state.set('dates', immutable.fromJS(action.dates));
+      return state.set('dates', fromJS(action.dates));
     case 'SET_TEMPS':
-      return state.set('temps', immutable.fromJS(action.temps));
+      return state.set('temps', fromJS(action.temps));
     case 'SET_SELECTED_DATE':
       return state.setIn(['selected', 'date'], action.date);
     case 'SET_SELECTED_TEMP':
@@ -224,9 +223,7 @@ This is because in our `App` component we have a `mapStateToProps` function that
 
 ```JS
 function mapStateToProps(state) {
-  return {
-    state: state.toJS()
-  };
+  return state.toJS();
 }
 ```
 
