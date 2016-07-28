@@ -227,4 +227,62 @@ function mapStateToProps(state) {
 }
 ```
 
-In fact, try this and you'll see that works! The problem with that approach is that you're missing out on almost the entire benefit of ImmutableJS though, which we'll get to very soon!
+In fact, try this and you'll see that works! There's two downsides to this approach though:
+
+1. Converting from (`fromJS`) and to (`toJS`) JavaScript objects to immutable data structures is _very performance expensive and slow_. This is fine for the `initialState` because we only ever convert that once, but doing that on every render will have an impact on your app.
+
+2. You thus loose the main benefit of ImmutableJS, which is performance!
+
+Now you might be thinking "But if it's so expensive, how can ImmutableJS have performance as its main benefit?". To explain that we have to quickly go over how ImmutableJS works.
+
+## How ImmutableJS works
+
+Immutable data structures can't be changed. So when we convert a regular JavaScript object with `fromJS` what ImmutableJS does is loop over every single property and value in the object (including nested object and arrays) and transfers it to a new, immutable one. (the same thing applies in the other direction for `toJS`)
+
+The problem with standard JavaScript objects is that they have reference equality. That means even when two objects have the same content, they're not the same:
+
+```JS
+var object1 = {
+	twitter: '@mxstbr'
+};
+
+var object2 = {
+	twitter: '@mxstbr'
+};
+
+console.log(object1 === object2); // -> false
+```
+
+In the above example, even though `object1` and `object2` have the exact same contents, they aren't the exact same object and thus aren't equal. To properly check if two variables contain the same thing in JavaScript we'd have to loop over every property and value in those variables (including nested things) and check it against the other object.
+
+That's very very slow.
+
+Since immutable objects can't ever be changed again, ImmutableJS can _compute a hash based on the contents of the object_ and store that in a private field. Since this hash is based on the contents, when Immutable then compares two objects it only has to compare two hashes, i.e. two strings! That's a lot faster than looping over every property and value and comparing those!
+
+```JS
+var object1 = fromJS({
+	twitter: '@mxstbr'
+});
+
+var object2 = fromJS({
+	twitter: '@mxstbr'
+});
+
+console.log(object1.equals(object2)); // -> true 🎉
+```
+
+That's nice and all, but how is this helpful in our app?
+
+## Utilising ImmutableJS for top performance
+
+In our `mapStateToProps` function, instead of returning `state.toJS()` we should just return the immutable state. The problem is that redux expects the value we return from `mapStateToProps` to be a standard javascript object, and it'll throw an error if we just do `return state;` and nothing will work.
+
+So let's return an object from `mapStateToProps` that has a `redux` field instead:
+
+```JS
+function mapStateToProps(state) {
+  return {
+		redux: state
+	};
+}
+```
