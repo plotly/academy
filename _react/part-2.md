@@ -487,3 +487,8 @@ Now that we have the current temperature, we need to render the 5 day forecast! 
 We learned how to structure our application, with a common `components/` folder. We then created a controlled text input and used that to fetch our first data using `xhr`!
 
 We're not taking of rendering an error message if the API sends back an error – that part is left as an exercise to the reader. Show us your solution by sending us your code to EMAIL@PLOT.LY (TK real email) and we might do something. TK reward for sending in challenges
+
+<!-- Syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css">
+<!-- /Syntax highlighting -->

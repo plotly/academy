@@ -487,3 +487,8 @@ As you can see, our original JSX (`<h1>Hello World!</h1>`) is now a `React.creat
 # Summary of this chapter
 
 TK
+
+<!-- Syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css">
+<!-- /Syntax highlighting -->

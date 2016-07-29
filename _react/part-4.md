@@ -865,3 +865,8 @@ And that's it, everything should be working again now. Look how easy to handle o
 ## Summary of this chapter
 
 TK
+
+<!-- Syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css">
+<!-- /Syntax highlighting -->
