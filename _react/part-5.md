@@ -275,6 +275,67 @@ That's nice and all, but how is this helpful in our app?
 
 ## Utilising ImmutableJS for top performance
 
+As a short experiment, try putting a `console.log('RENDER PLOT')` into the `render` method of the `Plot` component:
+
+```JS
+class Plot extends React.Component {
+	/* … */
+	render() {
+		console.log('RENDER PLOT');
+    return (
+      <div id="plot" ref="plot"></div>
+    );
+  }
+}
+```
+
+Now try using the app for a bit, clicking around, request data for different cities. What you might notice is _that the `Plot` rerenders even if we only change the location field and the plot itself stays the exact same_!
+
+This is a react feature, react rerenders your entire app whenever something changes. This doesn't necessarily have a massive performance impact on our current application, but it'll definitely bite you in a production application! So, what can we do against that?
+
+### `shouldComponentUpdate`
+
+
+React provides us with a nice lifecycle method called `shouldComponentUpdate` which allows us to regulate when our components should rerender. As an example, try putting this into your `Plot`:
+
+```JS
+class Plot extends React.Component {
+	shouldComponentUpdate(nextProps) {
+		return false;
+	}
+	/* … */
+}
+```
+
+Now try loading some data and rendering a plot. What you see is that _the plot never renders_. This is because we're basically telling react above that no matter what data comes into our component, it should never render the `Plot`! On the other hand, if we `return true` from there we'd have the default behaviour back, i.e. rerender whenever new data comes in.
+
+
+As I've hinted with the variable above, `shouldComponentUpdate` gets passed `nextProps`. This means, in theory, we could check if the props of the `Plot` have changed and only rerender if that happens, right? Something like this:
+
+```JS
+class Plot extends React.Component {
+	shouldComponentUpdate(nextProps) {
+		return this.props !== nextProps;
+	}
+	/* … */
+}
+```
+
+Well, here we hit the problem we talked about above. (`{ twitter: '@mxstbr' } !== { twitter: '@mxstbr' }`) Those will always be different since they might have the same content, but they won't be the same object!
+
+This is where ImmutableJS comes in, because while we could do a _deep comparison_ of those two objects, it's a lot cheaper if we could just do this:
+
+```JS
+class Plot extends React.Component {
+	shouldComponentUpdate(nextProps) {
+		return !this.props.equals(nextProps);
+	}
+	/* … */
+}
+```
+
+Let's try getting some immutable data to our `Plot`!
+
 In our `mapStateToProps` function, instead of returning `state.toJS()` we should just return the immutable state. The problem is that redux expects the value we return from `mapStateToProps` to be a standard javascript object, and it'll throw an error if we just do `return state;` and nothing will work.
 
 So let's return an object from `mapStateToProps` that has a `redux` field instead:
@@ -286,3 +347,247 @@ function mapStateToProps(state) {
 	};
 }
 ```
+
+Then, in our `App` we now have access to `this.props.redux`! We can access properties in there with `this.props.redux.get` (and `getIn`), so let's replace all instances where we access the state with that.
+
+Let's start from the top, in `fetchData`. There's only a single `this.props.location` in there, which we replace with `this.props.redux.get('location')`:
+
+```JS
+class App extends React.Component {
+  fetchData = (evt) => {
+    evt.preventDefault();
+
+    var location = encodeURIComponent(this.props.redux.get('location'));
+
+    /* … */
+  };
+
+  onPlotClick = (data) => {/* … */};
+
+  changeLocation = (evt) => {/* … */};
+
+  render() {/* … */}
+}
+```
+
+We don't access the props at all in `onPlotClick` and `changeLocation`, so we can skip those!
+
+In `render`, the first access is already a bit more difficult – we want to replace `this.props.data.list`… Do you remember how to do that?
+
+…
+
+With `getIn`! Like this:
+
+```JS
+class App extends React.Component {
+	fetchData = (evt) => {/* … */};
+
+	onPlotClick = (data) => {/* … */};
+
+	changeLocation = (evt) => {/* … */};
+
+	render() {
+		var currentTemp = 'not loaded yet';
+		if (this.props.redux.getIn(['data', 'list'])) {
+			/* … */
+		}
+		return (/* … */);
+	}
+}
+```
+
+Now, for the next one (`this.props.data.list[0].main.temp`) you might think of writing `this.props.redux.getIn(['data', 'list'])[0].main.temp`, but the problem is that `this.props.redux.getIn(['data', 'list'])` is an immutable array too!
+
+So, instead we can just further use `getIn`:
+
+```JS
+class App extends React.Component {
+  fetchData = (evt) => {/* … */};
+
+  onPlotClick = (data) => {/* … */};
+
+  changeLocation = (evt) => {/* … */};
+
+  render() {
+    var currentTemp = 'not loaded yet';
+    if (this.props.redux.getIn(['data', 'list'])) {
+      currentTemp = this.props.redux.getIn(['data', 'list', '0', 'main', 'temp']);
+    }
+    return (/* … */);
+  }
+}
+```
+
+Now try doing the other `this.props.something` on your own! I'll be here waiting…
+
+----
+
+Done? This is what your `render` method should look like:
+
+```JS
+class App extends React.Component {
+  fetchData = (evt) => {/* … */};
+
+  onPlotClick = (data) => {/* … */};
+
+  changeLocation = (evt) => {/* … */};
+
+  render() {
+    var currentTemp = 'not loaded yet';
+    if (this.props.redux.getIn(['data', 'list'])) {
+      currentTemp = this.props.redux.getIn(['data', 'list', '0', 'main', 'temp']);
+    }
+    return (
+      <div>
+        <h1>Weather</h1>
+        <form onSubmit={this.fetchData}>
+          <label>I want to know the weather for
+            <input
+              placeholder={"City, Country"}
+              type="text"
+              value={this.props.redux.get('location')}
+              onChange={this.changeLocation}
+            />
+          </label>
+        </form>
+        {/*
+          Render the current temperature and the forecast if we have data
+          otherwise return null
+        */}
+        {(this.props.redux.getIn(['data', 'list'])) ? (
+          <div className="wrapper">
+            {/* Render the current temperature if no specific date is selected */}
+            <p className="temp-wrapper">
+              <span className="temp">
+                { this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'temp']) : currentTemp }
+              </span>
+              <span className="temp-symbol">°C</span>
+              <span className="temp-date">
+                { this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'date']) : ''}
+              </span>
+            </p>
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.props.redux.get('dates')}
+              yData={this.props.redux.get('temps')}
+              onPlotClick={this.onPlotClick}
+              type="scatter"
+            />
+          </div>
+        ) : null}
+
+      </div>
+    );
+  }
+}
+```
+
+As you might've noticed, this doesn't work though, the Plot doesn't render. Why? Well, take a look at how we pass in the data:
+
+```HTML
+<Plot
+	xData={this.props.redux.get('dates')}
+	yData={this.props.redux.get('temps')}
+	onPlotClick={this.onPlotClick}
+	type="scatter"
+/>
+```
+
+As you can see, we pass in `this.props.redux.get('…')` – which is an immutable object! The `Plot` component cannot handle those at the moment though, so we need to update it a bit.
+
+Let's take a peek at the only method where we use `this.props.xData` and `this.props.yData` in our `Plot` component:
+
+```JS
+// Plot.js
+
+class Plot extends Component {
+  drawPlot = () => {
+    Plotly.newPlot('plot', [{
+      x: this.props.xData,
+      y: this.props.yData,
+      type: this.props.type
+    }], {/* … */}, {/* … */});
+    /* … */
+  }
+  componentDidUpdate() {/* … */}
+
+  componentDidMount() {/* … */}
+
+  render() {/* … */}
+}
+```
+
+This is where `toJS` comes in! Let's do this:
+
+```JS
+// Plot.js
+
+class Plot extends Component {
+  drawPlot = () => {
+    Plotly.newPlot('plot', [{
+      x: this.props.xData.toJS(),
+      y: this.props.yData.toJS(),
+      type: this.props.type
+    }], {/* … */}, {/* … */});
+    /* … */
+  }
+  componentDidUpdate() {/* … */}
+
+  componentDidMount() {/* … */}
+
+  render() {/* … */}
+}
+```
+
+And everything works again!
+
+We still haven't solved the original problem though, the `Plot` still rerenders everytime something changes, even if it's not related to the Plot. Really, _the only time we ever want that component to rerender is when either `xData` or `yData` changes!_
+
+Let's apply our knowledge of ImmutableJS and of `shouldComponentUpdate`, and fix this together. Let's check if `this.props.xData` and `this.props.yData` are the same and only rerender if one of them changed:
+
+```JS
+// Plot.js
+
+class Plot extends Component {
+  drawPlot = () => {/* … */}
+
+	shouldComponentUpdate(nextProps) {
+		const xDataChanged = !this.props.xData.equals(nextProps.xData);
+		const yDataChanged = !this.props.yData.equals(nextProps.yData);
+
+		return xDataChanged || yDataChanged;
+	}
+
+  componentDidUpdate() {/* … */}
+
+  componentDidMount() {/* … */}
+
+  render() {/* … */}
+}
+```
+
+> Since these two (`xData` and `yData`) are immutable, we can really quickly compare their contents, which means this won't have an unnecessary performance impact!
+
+Try putting a `console.log` into your render function again:
+
+```JS
+class Plot extends React.Component {
+	/* … */
+	render() {
+		console.log('RENDER PLOT');
+    return (
+      <div id="plot" ref="plot"></div>
+    );
+  }
+}
+```
+
+Now try clicking around and loading different cities.
+
+**The `Plot` component now only rerenders when new data comes in! 🎉**
+
+We've entirely gotten rid of the continuous rerenders, and only rerender when it's _really_ necessary! This is awesome!
+
+## Summary of this chapter
+
+TK
