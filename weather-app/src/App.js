@@ -69,8 +69,8 @@ class App extends React.Component {
             </p>
             <h2>Forecast</h2>
             <Plot
-              xData={this.props.redux.get('dates').toJS()}
-              yData={this.props.redux.get('temps').toJS()}
+              xData={this.props.redux.get('dates')}
+              yData={this.props.redux.get('temps')}
               onPlotClick={this.onPlotClick}
               type="scatter"
             />
