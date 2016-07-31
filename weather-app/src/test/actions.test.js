@@ -1,3 +1,4 @@
+import expect from 'expect';
 import {
 	changeLocation,
 	setSelectedDate,
@@ -6,7 +7,6 @@ import {
 	setDates,
 	setTemps
 } from '../actions';
-import expect from 'expect';
 
 describe('actions', function() {
 	describe('changeLocation', function() {
