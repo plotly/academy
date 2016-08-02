@@ -210,7 +210,7 @@ TK screenshot of account page
 
 Now that we have access to all the weather data our heart could desire, lets get on with our app!
 
-Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install xhr` to get it! While that's installing, `import` it in your App component at the top:
+Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install --save xhr` to get it! While that's installing, `import` it in your App component at the top:
 
 ```JS
 // components/App.js

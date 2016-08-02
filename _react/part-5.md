@@ -74,7 +74,7 @@ As I mentioned before, this is kind of what we did in our redux reducer right? S
 First, we need to install ImmutableJS from `npm`:
 
 ```
-$ npm install immutable
+$ npm install --save immutable
 ```
 
 Then we make the initial state in our reducer an immutable object by using the `fromJS` function! We simply wrap the object that we assign to `initialState` in `fromJS` like so:

@@ -188,7 +188,7 @@ Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global sta
 Now that we understand the basic parts that are involved, let's tie it all together! First, we need to install two new modules:
 
 ```
-$ npm install redux react-redux
+$ npm install --save redux react-redux
 ```
 
 > `redux` is the main package and is framework agnostic. `react-redux` provides bindings for react, as we'll see shortly!
@@ -839,7 +839,7 @@ The last step is wiring up `redux-thunk`. `redux-thunk` is a so-called "middlewa
 First, we need to install `redux-thunk`:
 
 ```Sh
-$ npm install redux-thunk
+$ npm install --save redux-thunk
 ```
 
 Second, we need to `apply` the `thunk` middleware in our `createStore` call in `app.js`:
