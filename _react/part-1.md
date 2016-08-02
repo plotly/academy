@@ -156,30 +156,30 @@ var Wrapper = function(props) {
 
 > JSX is the preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
 
-### `React.createClass()`
+### Classes
 
 As mentioned in the "Why React?" section, React has the virtual DOM to minimize rerendering when the application state changes. But, how do we manage application state in React?
 
 Above we had our `Wrapper` component, which was written as a *functional component*. We can also write our React components in a slightly different way so we can make it stateful. Let's write a `Counter` component that counts how often we've clicked a button!
 
-React exports a separate function which we can use to create components which is `React.createClass()`. This function takes an object as its first argument, and we can pass it a `render` property, like so:
+React exports an instance which we can use to create components which is `React.Component`. We create a new `class` that extends `React.Component` and we can pass it a `render` function, like so:
 
 ```JS
-var Counter = React.createClass({
-  render: function() { /* component here */ }
-});
+class Counter extends React.Component {
+  render() { /* component here */ }
+}
 ```
 
 This render function doesn't work any differently from the functional component we have seen before, we simply return some elements in there and they will be rendered:
 
 ```JS
-var Counter = React.createClass({
-  render: function() {
+class Counter extends React.Component {
+  render() {
     return (
       <p>This is the Counter component!</p>
     );
   }
-});
+}
 ```
 
 We can then render this component just like the other components with `ReactDOM.render`:
@@ -191,7 +191,7 @@ ReactDOM.render(
 );
 ```
 
-*([JSBin](http://react.jsbin.com/xitatudiyo/1/edit?js,output))*
+*([JSBin](http://react.jsbin.com/gakawe/1/edit?js,output))*
 
 Lets make a separate `Button` component, which'll take a prop called `text`. We'll make this component a functional one again, since it won't need to store any state:
 
@@ -206,8 +206,8 @@ var Button = function(props) {
 Then we render our `Button` into our `Counter` with a text of `Click me!`:
 
 ```JS
-var Counter = React.createClass({
-  render: function() {
+class Counter extends React.Component {
+  render() {
     return (
       <div>
         <p>This is the Counter component!</p>
@@ -215,16 +215,16 @@ var Counter = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
-*([JSBin](http://react.jsbin.com/xokunazoku/1/edit?js,output))*
+*([JSBin](http://react.jsbin.com/dewoseb/1/edit?js,output))*
 
 Now lets increase a number everytime out `Button` is clicked by using an `onClick` handler:
 
 ```JS
-var Counter = React.createClass({
-  render: function() {
+class Counter extends React.Component {
+  render() {
     return (
       <div>
         <p>This is the Counter component!</p>
@@ -232,7 +232,7 @@ var Counter = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
 With only that code though, you can click the `Button` however much you like and you will never see `click!` in the console. That is because right now, we specified the `onClick` prop on a ReactComponent. To use this in the browser DOM, we have to attach it to the native DOM `button` node inside the React component:
@@ -245,29 +245,37 @@ var Button = function(props) {
 }
 ```
 
-*([JSBin](http://react.jsbin.com/xokunazoku/2/edit?js,output))*
+*([JSBin](http://react.jsbin.com/povesiv/1/edit?js,output))*
 
 This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
-The first thing we need to do is set the initial state. `React.createClass` lets us pass a `getInitialState` function to our component where we return an object which'll be the initial state:
+The first thing we need to do is set the initial state. Classes have a `constructor` that is called when the class is first initialized, which we can use to assign the initial state to our component:
 
 ```JS
-var Counter = React.createClass({
-  getInitialState: function() {
-    return {
+class Counter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       clicks: 0
     };
-  },
-  render: function() { /* ... */ }
-});
+  }
+
+  render() { /* ... */ }
+}
 ```
 
 That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](react.jsbin.com/tovekeqoto/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
 
 ```JS
-var Counter = React.createClass({
-  getInitialState: function() { /* ... */ },
-  render: function() {
+class Counter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      clicks: 0
+    };
+  }
+
+  render() {
     return (
       <div>
         <p>This is the Counter component! The button was clicked { this.state.clicks } times.</p>
@@ -275,10 +283,10 @@ var Counter = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
-*([JSBin](react.jsbin.com/tovekeqoto/2/edit?js,output))*
+*([JSBin](https://react.jsbin.com/kakawi/1/edit?js,output))*
 
 > The `{ }` notation in JSX works with any variable.
 > `var favoriteFood = 'Pizza';` in combination with `I love { favoriteFood }!` will output "I love Pizza!"!
@@ -290,14 +298,21 @@ Our `Counter` now looks like this, but clicking on the button doesn't increment 
 To change the state of a component, we use the `this.setState` helper function which React provides. Lets add a `increment` method to our `Counter`, which increments the `clicks` state by one, and call `this.increment` when our `Button` is clicked!
 
 ```JS
-var Counter = React.createClass({
-  getInitialState: function() { /* ... */ },
-  increment: function() {
+class Counter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      clicks: 0
+    };
+  }
+
+  increment() {
     this.setState({
       clicks: this.state.clicks + 1
     });
-  },
-  render: function() {
+  };
+
+  render() {
     return (
       <div>
         <p>This is the Counter component! The button was clicked { this.state.clicks } times.</p>
@@ -305,10 +320,39 @@ var Counter = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
-*([JSBin](http://react.jsbin.com/qebenenozo/1/edit?js,output))*
+The problem here is that `this` is in undefined in `increment` – the easiest way to fix this is to `bind` the context of `increment` to the class in the constructor like so:
+
+```JS
+class Counter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      clicks: 0
+    };
+    this.increment = this.increment.bind(this);
+  }
+
+  increment() {
+    this.setState({
+      clicks: this.state.clicks + 1
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <p>This is the Counter component! The button was clicked { this.state.clicks } times.</p>
+        <Button text="Click me!" onClick={this.increment} />
+      </div>
+    );
+  }
+}
+```
+
+*([JSBin](https://react.jsbin.com/cuvono/1/edit?js,output))*
 
 Now it works, our `Counter` correctly increments the number when the button is clicked!
 
