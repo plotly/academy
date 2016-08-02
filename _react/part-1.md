@@ -482,7 +482,7 @@ And as a third step, add an `index.html` file with this content:
 <!doctype html>
 <head></head>
 <body>
-  <script src="./main.js" />
+  <script src="./main.js"></script>
 </body>
 ```
 
@@ -498,7 +498,7 @@ This is telling browserify to transpile the `main.js` file and all modules found
 <!doctype html>
 <head></head>
 <body>
-  <script src="./bundle.js" />
+  <script src="./main.js"></script>
 </body>
 ```
 
