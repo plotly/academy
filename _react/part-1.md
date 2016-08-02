@@ -360,6 +360,8 @@ Now it works, our `Counter` correctly increments the number when the button is c
 
 Real world applications can have any number of components, ranging from a handful to thousands. Having all of them in a single file is impractical, so we structure them into **modules**. This allows us to keep our applications well structured and easy to work with.
 
+#### Default exports
+
 Lets say we want to have a `add` function, that adds two numbers together. We write this function into its own file, `add.js`:
 
 ```JS
@@ -370,7 +372,7 @@ function add(x, y) {
 }
 ```
 
-If we have all our functions in one file, reusing this function is no problem. By having this function in its own file, we can only use it that one file! To change that, we export this function using `module.exports`:
+If we have all our functions in one file, reusing this function is no problem. By having this function in its own file, we can only use it that one file! To change that, we export this function using `export default <functionname>`:
 
 ```JS
 // add.js
@@ -379,20 +381,70 @@ function add(x, y) {
   return x + y;
 }
 
-module.exports = add;
+export default add;
 ```
 
-To use this function in a separate file, we `require()` it, referencing the file name:
+To use this function in a separate file, we `import` it `from` the file name:
 
 ```JS
 // someotherfile.js
 
-var add = require('./add.js');
+import add from './add.js';
 
 console.log(add(2, 2)); // => 4
 ```
 
-Now, before you go ahead and try it, this won't work! We need special tools to take advantage of this feature. These build tools compile our possibly thousands of modules in different files into one file so we can use them in the browser. One of the most popular build tools to do this is Browserify.
+#### Multiple exports
+
+Now let's say we want to add a second function called `subtract`, but we don't want to add a second file. We rename `add.js` to `maths.js`, and add our `subtract` function in there:
+
+```JS
+// maths.js
+
+function add(x, y) {
+  return x + y;
+}
+
+function subtract(x, y) {
+  return x - y;
+}
+
+export default add;
+```
+
+You might be thinking "Hah, just add another `export default` and everything will be fine!", but sadly that's not the case. Every file can only have a single default export, but thankfully we can export multiple things if we just leave away the `default`:
+
+```JS
+// maths.js
+
+function add(x, y) {
+  return x + y;
+}
+
+function subtract(x, y) {
+  return x - y;
+}
+
+export {
+  add,
+  subtract
+};
+```
+
+Now we have to tell the import in our `someotherfile.js` to specifically import those two functions by again using curly braces:
+
+```JS
+// someotherfile.js
+
+import { add, subtract } from './maths.js';
+
+console.log(add(2, 2)); // => 4
+console.log(subtract(3, 2)); // => 1
+```
+
+The import here is telling `someotherfile.js` to import the `add` and `subtract` functions from our `maths.js` file.
+
+Now, before you go ahead and try it, this won't work! We need special tools to take advantage of this feature. These build tools compile our possibly thousands of modules in different files into one file so we can use them in the browser.
 
 #### Browserify
 
@@ -411,7 +463,7 @@ function log(message) {
   console.log(message);
 }
 
-module.exports = log;
+export default log;
 ```
 
 This is a simple function called `log()`, that will log a message to the console. Now create a second file called `main.js`, and fill it with this content:
@@ -419,7 +471,7 @@ This is a simple function called `log()`, that will log a message to the console
 ```JS
 // main.js
 
-var log = require('./log.js');
+import log from './log.js';
 
 log('Hello World!');
 ```
@@ -434,7 +486,7 @@ And as a third step, add an `index.html` file with this content:
 </body>
 ```
 
-If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "require is undefined". This is because we haven't transpiled our JavaScript files with Browserify yet – lets do that! Run this command in your terminal:
+If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "unexpected character import". This is because we haven't transpiled our JavaScript files with Browserify yet – lets do that! Run this command in your terminal:
 
 ```sh
 $ browserify main.js -o bundle.js
@@ -475,58 +527,6 @@ Now try changing a file and reloading the browser. You should see the changes wi
 What we've done above when we ran the `npm install` command was that we installed a module. This means that somebody has pushed a module (just like our `add` module above!) to `npm` (Node Package Manager), which we can then install and use in our code!
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
-
-### Babel
-
-Babel is a tool that transforms JavaScript. This allows us to use JSX in our files, which Babel then replaces with `React.createElement` calls throughout our code.
-
-First, install `babelify` and the babel preset for React code, `babel-preset-react`:
-
-```Sh
-$ npm install babelify babel-preset-react
-```
-
-We can then bundle our code with browserify and "transpile" (i.e. transform our JavaScript to JavaScript) the JSX! Let's create a dummy component to illustrate:
-
-```JS
-// main.js
-
-var SomeComponent = React.createClass({
-  render: function() {
-    return (
-      <h1>Hello World!</h1>
-    );
-  }
-});
-```
-
-Now babelify this component with browserify:
-
-```Sh
-$ browserify main.js -o bundle.js -t [ babelify --presets [ react ] ]
-```
-
-> The -t option tells browserify which transforms it should use – in our case, we want to babelify our code with the React preset!
-
-When you now take a look into the component, what you'll see is a bunch of garbled code nobody understands and this:
-
-```JS
-// bundle.js
-
-var SomeComponent = React.createClass({
-  displayName: "SomeComponent",
-
-  render: function () {
-    return React.createElement(
-      "h1",
-      null,
-      "Hello World!"
-    );
-  }
-});
-```
-
-As you can see, our original JSX (`<h1>Hello World!</h1>`) is now a `React.createElement` call that the browser understands!
 
 ## Summary of this chapter
 
