@@ -3,38 +3,7 @@
 ***************************/
 
 h1, h2, h3, h4, h5, h6 {
-  @include sans_light;
   color: $brand-color;
-}
-
-h1 {
-  font-size: 4.333em;
-  font-height: 4.4em; // font-size + 1px
-  letter-spacing: -0.25px;
-}
-
-h2 {
-  font-size: 2.0666em;
-  font-height: 2.1333em; // font-size + 1px
-}
-
-h3 {
-  font-size: 1.8666em;
-  font-height: 1.9333em; // font-size + 1px
-  letter-spacing: -0.25px;
-}
-
-h4 {
-  font-size: 1.4em;
-  font-height: 1.4666em; // font-size + 1px
-  line-height: 1.4666em; // font-size + 1px
-}
-
-p {
-  @include sans_light;
-  font-size: $copy-font-size;
-  line-height: $copy-line-height;
-  color: $text-color;
 }
 
 p.big-copy {
@@ -48,13 +17,9 @@ p.small-copy {
 }
 
 blockquote {
-  border-left: 4px solid $light-text-color;
-  margin: 1.5 3em;
-  margin-left: 0;
-  padding-left: 1em;
+  border-color: $light-text-color;
 }
 
 blockquote p {
   color: $light-text-color;
-  font-size: $small-copy-font-size;
 }
