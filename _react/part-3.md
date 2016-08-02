@@ -10,7 +10,7 @@ To use `plotly.js`, we need to add it to our application first. Copy and paste t
 <script src="https://cdn.plot.ly/plotly-1.8.0.min.js"></script>
 ```
 
-# Plotly
+## Plotly
 
 Including this script gives us access to the `Ploty` variable in our code. Using `Plotly.newPlot`, we can easily create graphs to showcase the weather data:
 
@@ -830,7 +830,7 @@ Congratulations, you've built your first working application!
 
 TK Challenge
 
-# Summary of this chapter
+## Summary of this chapter
 
 We've created a new `Plot` component, shaped the data we get from the OpenWeatherMap API to suit our needs and used Plotly.js to render a beautiful and interactive 5 day weather forecast!
 

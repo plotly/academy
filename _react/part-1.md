@@ -1,34 +1,34 @@
 ---
-title: Introduction
-description: Learn the basics of the tools we use to build web apps
+title: Introduction to React.js
+description: Learn the basics of the tools we'll use to build our app
 layout: post
 ---
 
-# What we'll build (app preview)
+## What we'll build (app preview)
 
-TK
+<iframe src="http://blog.mxstbr.com/weather-app/"></iframe>
 
-# Prerequisites
+## Prerequisites
 
-## Node
+### Node
 
 Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to https://nodejs.org, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
-# Why React.js?
+## Why React.js?
 
 The big benefits of React are performance and reusability:
 
-## Performance
+### Performance
 
 Normally, when your application state changes and some part of the page has to render again, the entire page renders. This is a huge performance problem for bigger applications. React circumvents with its "virtual DOM".
 
 The virtual DOM is a virtual representation of the browsers DOM. When the state changes, React calculates a virtual DOM with the new state and compares it with the virtual representation of the currently rendered DOM. If something changed, React renders the changes – only the changes. This means we no longer rerender the entire page for the tiniest changes, instead we only render the parts we need to.
 
-## Reusability
+### Reusability
 
 React calls the smallest parts of your application "elements", which compose together into "components". These components are encapsulated parts, e.g. a `Button` component, which combine together to make the page.
 
-# Getting Started
+## Getting Started
 
 We'll use [`react.jsbin.com`](https://react.jsbin.com/sewaru/11/edit?js,output) for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
 
@@ -47,7 +47,7 @@ ReactDOM.render(
 
 We use the `ReactDOM.render()` function to render a ReactElement created with the `React.createElement()` function.
 
-## `ReactDOM.render()`
+### `ReactDOM.render()`
 
 The `ReactDOM.render()` function takes two arguments: The ReactElement to render, and the DOM node we want to render into. (the "entry point")
 
@@ -60,7 +60,7 @@ ReactDOM.render(
 
 Now you might think creating a `ReactDOM.render()` function for every ReactElement you have is the way to go. That's not a very good idea – it empties the DOM node we use as an entry point. How do we render multiple ReactElements then? To find that out we have to examine the `React.createElement()` function.
 
-## `React.createElement()`
+### `React.createElement()`
 
 This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the elements "children" as the third argument.
 
@@ -93,7 +93,7 @@ which'll render this HTML:
 
 This `.wrapper` div might have a `max-width` and other styling associated with it, and we might want to reuse it someplace else. Doing this makes our application consistent across all pages, since we use the same element everywhere! In React, this is easily doable by creating components.
 
-## Components
+### Components
 
 To create a new `ReactComponent`, we make a new function that returns our `ReactElement`. That function gets passed the properties we give it when creating an element from it, plus a few extras. One of those extras is `children`, which is an array of all children.
 
@@ -118,7 +118,7 @@ React.createElement(Wrapper, null,
 
 Now we can reuse our `Wrapper` component across our application and have consistent styling!
 
-## JSX
+### JSX
 
 You might have seen React code samples floating around, and something that might've struck you is the weird HTML-ish syntax in the JavaScript code that is used by most of the community. This syntactic sugar is called "JSX", and is nothing but a wrapper for `React.createElement`.
 
@@ -156,7 +156,7 @@ var Wrapper = function(props) {
 
 > JSX is the preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
 
-## `React.createClass()`
+### `React.createClass()`
 
 As mentioned in the "Why React?" section, React has the virtual DOM to minimize rerendering when the application state changes. But, how do we manage application state in React?
 
@@ -312,7 +312,7 @@ var Counter = React.createClass({
 
 Now it works, our `Counter` correctly increments the number when the button is clicked!
 
-## Modules
+### Modules
 
 Real world applications can have any number of components, ranging from a handful to thousands. Having all of them in a single file is impractical, so we structure them into **modules**. This allows us to keep our applications well structured and easy to work with.
 
@@ -350,7 +350,7 @@ console.log(add(2, 2)); // => 4
 
 Now, before you go ahead and try it, this won't work! We need special tools to take advantage of this feature. These build tools compile our possibly thousands of modules in different files into one file so we can use them in the browser. One of the most popular build tools to do this is Browserify.
 
-### Browserify
+#### Browserify
 
 First, we have to install Browserify. Open your terminal and enter this command:
 
@@ -410,7 +410,7 @@ When you open this file in your browser now, you should see a message in the con
 
 There's one problem though, we don't really want to be running a command in our terminal everytime we change something in our code. The solution to this is another tool called `watchify`!
 
-#### Watchify
+##### Watchify
 
 Again, install `watchify` with `npm`:
 
@@ -426,13 +426,13 @@ $ watchify main.js -o bundle.js
 
 Now try changing a file and reloading the browser. You should see the changes without having to run any commands, awesome!
 
-### Node Modules
+#### Node Modules
 
 What we've done above when we ran the `npm install` command was that we installed a module. This means that somebody has pushed a module (just like our `add` module above!) to `npm` (Node Package Manager), which we can then install and use in our code!
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
-## Babel
+### Babel
 
 Babel is a tool that transforms JavaScript. This allows us to use JSX in our files, which Babel then replaces with `React.createElement` calls throughout our code.
 
@@ -484,7 +484,7 @@ var SomeComponent = React.createClass({
 
 As you can see, our original JSX (`<h1>Hello World!</h1>`) is now a `React.createElement` call that the browser understands!
 
-# Summary of this chapter
+## Summary of this chapter
 
 TK
 

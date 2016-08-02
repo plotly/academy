@@ -10,7 +10,7 @@ Together with React, Facebook released something called Flux. Flux is a methodol
 
 Thankfully, [Dan Abramov](https://twitter.com/dan_abramov) stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
 
-## The concept
+## The Concept
 
 Remember the initial state of our `App` component? It looks like this:
 

@@ -6,7 +6,7 @@ layout: post
 
 Lets use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
 
-# Setup
+## Setup
 
 Facebook recently open sourced a neat little tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) that allows us to very easily get started with our react app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
@@ -41,7 +41,7 @@ ReactDOM.render(
 
 Thankfully, `create-react-app` includes a simple server so instead of having to open the `index.html` file manually we can simply run `npm run start` in the `weather-app` directory and see our application at `localhost:3000`!
 
-# First steps
+## First steps
 
 If you take a look into the `src/App.js` component, you'll see a bunch of boilerplate code in there. Delete the `import logo from './logo.svg';` (and the `logo.svg` file if you want) and all of the JSX, and instead render a heading saying "Weather":
 
@@ -200,7 +200,7 @@ class App extends React.Component {
 
 Now, whichever location you enter it should log "fetch data for MyCity, MyCountry"!
 
-# Fetching data
+## Fetching data
 
 Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](api.openweathermap.org) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [api.openweathermap.org](http://api.openweathermap.org) and register for a free account.
 
@@ -482,7 +482,7 @@ Go open that in your browser, enter your current location and you'll see the cur
 
 Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. TK link to part 3
 
-# Summary of this chapter
+## Summary of this chapter
 
 We learned how to structure our application, with a common `components/` folder. We then created a controlled text input and used that to fetch our first data using `xhr`!
 
