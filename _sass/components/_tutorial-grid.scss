@@ -21,6 +21,11 @@
 	margin-bottom: 0.75em;
 }
 
+.tutorial__title a {
+	color: inherit;
+	text-decoration: underline;
+}
+
 .tutorial__parts {
   width: 100%;
   border: 1px solid $grey-5;
