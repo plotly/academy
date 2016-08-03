@@ -89,7 +89,7 @@ which'll render this HTML:
 </div>
 ```
 
-*([JSBin](https://react.jsbin.com/sewaru/7/edit?css,js,output))*
+*([JSBin](https://react.jsbin.com/sewaru/7/edit?js,output))*
 
 This `.wrapper` div might have a `max-width` and other styling associated with it, and we might want to reuse it someplace else. Doing this makes our application consistent across all pages, since we use the same element everywhere! In React, this is easily doable by creating components.
 
@@ -245,7 +245,7 @@ var Button = function(props) {
 }
 ```
 
-*([JSBin](http://react.jsbin.com/yufagoneje/1/edit))*
+*([JSBin](http://react.jsbin.com/welihac/1/edit?js,output))*
 
 This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
@@ -264,7 +264,7 @@ class Counter extends React.Component {
 }
 ```
 
-That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](https://react.jsbin.com/tuwohaqude/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
+That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](https://react.jsbin.com/xeroja/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
 
 ```JS
 class Counter extends React.Component {
