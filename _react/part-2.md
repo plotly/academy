@@ -202,7 +202,7 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](api.openweathermap.org) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [api.openweathermap.org](http://api.openweathermap.org) and register for a free account.
+Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](openweathermap.org/api) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [openweathermap.org/api](http://openweathermap.org/api) and register for a free account.
 
 As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
 
