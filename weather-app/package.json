@@ -1,10 +1,10 @@
 {
   "name": "weather-app",
-  "homepage": "http://blog.mxstbr.com/weather",
+  "homepage": "https://blog.mxstbr.com/weather-app",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.1.0"
+    "react-scripts": "0.2.0"
   },
   "dependencies": {
     "react": "^15.2.1",
