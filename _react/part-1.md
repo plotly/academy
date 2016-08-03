@@ -12,7 +12,7 @@ layout: post
 
 ### Node
 
-Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to https://nodejs.org, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
+Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to [nodejs.org](https://nodejs.org), follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
 ## Why React.js?
 
@@ -22,7 +22,7 @@ The big benefits of React are performance and reusability:
 
 Normally, when your application state changes and some part of the page has to render again, the entire page renders. This is a huge performance problem for bigger applications. React circumvents with its "virtual DOM".
 
-The virtual DOM is a virtual representation of the browsers DOM. When the state changes, React calculates a virtual DOM with the new state and compares it with the virtual representation of the currently rendered DOM. If something changed, React renders the changes – only the changes. This means we no longer rerender the entire page for the tiniest changes, instead we only render the parts we need to.
+The virtual DOM is a virtual representation of the browsers DOM. When the state changes, React calculates a virtual DOM with the new state and compares it with the currently rendered virtual DOM. If something changed, React renders the changes – only the changes. This means we no longer rerender the entire page for the tiniest changes, instead we only render the parts we need to.
 
 ### Reusability
 
@@ -107,7 +107,7 @@ var Wrapper = function(props) {
 };
 ```
 
-By using `props.children` as the third argument, this component will render it's children! We simply pass it to `createElement` as the first argument without passing any special properties, and our heading as the child:
+By using `props.children` as the third argument, this component will render its children! We simply pass it to `createElement` as the first argument without passing any special properties, and our heading as the child:
 
 ```JS
 React.createElement(Wrapper, null,
@@ -245,7 +245,7 @@ var Button = function(props) {
 }
 ```
 
-*([JSBin](http://react.jsbin.com/povesiv/1/edit?js,output))*
+*([JSBin](http://react.jsbin.com/yufagoneje/1/edit))*
 
 This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
@@ -264,7 +264,7 @@ class Counter extends React.Component {
 }
 ```
 
-That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](react.jsbin.com/tovekeqoto/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
+That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](https://react.jsbin.com/tuwohaqude/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
 
 ```JS
 class Counter extends React.Component {
@@ -451,10 +451,10 @@ Now, before you go ahead and try it, this won't work! We need special tools to t
 First, we have to install Browserify. Open your terminal and enter this command:
 
 ```sh
-$ npm install -g browserify
+npm install -g browserify
 ```
 
-Now you have access to the `browserify` command! (Try entering `$ browserify` in the terminal, and you should see a help message!) To try it out, create a new file called `log.js`, and fill it with this content:
+Now you have access to the `browserify` command! (Try entering `browserify` in the terminal, and you should see a help message!) To try it out, create a new file called `log.js`, and fill it with this content:
 
 ```JS
 // log.js
@@ -489,7 +489,7 @@ And as a third step, add an `index.html` file with this content:
 If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "unexpected character import". This is because we haven't transpiled our JavaScript files with Browserify yet – lets do that! Run this command in your terminal:
 
 ```sh
-$ browserify main.js -o bundle.js
+browserify main.js -o bundle.js
 ```
 
 This is telling browserify to transpile the `main.js` file and all modules found within, and to generate an output file called `bundle.js`. Lets edit our `index.html` and reference that transpiled bundle instead of our `main.js`!
@@ -511,13 +511,13 @@ There's one problem though, we don't really want to be running a command in our 
 Again, install `watchify` with `npm`:
 
 ```Sh
-$ npm install -g watchify
+npm install -g watchify
 ```
 
-Now you have access to the `watchify` command! (Try entering `$ watchify` in the terminal, and you should see an error message!) Watchify watches our files and reruns browserify when something changes, meaning we don't have to do it manually. Replace `browserify` in our command above with `watchify` and everything's going to work exactly as before:
+Now you have access to the `watchify` command! (Try entering `watchify` in the terminal, and you should see an error message!) Watchify watches our files and reruns browserify when something changes, meaning we don't have to do it manually. Replace `browserify` in our command above with `watchify` and everything's going to work exactly as before:
 
 ```Sh
-$ watchify main.js -o bundle.js
+watchify main.js -o bundle.js
 ```
 
 Now try changing a file and reloading the browser. You should see the changes without having to run any commands, awesome!

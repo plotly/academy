@@ -437,6 +437,31 @@ Perfect, that part of our app is now comprehensively tested and we'll know as so
 
 ### Reducer
 
+The reducer is, again, a pure function! It's quite easy to see what we need to validate actually, basically every `case` of our `switch` needs to have a test:
+
+```JS
+export default function mainReducer(state = initialState, action) {
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return state.set('location', action.location);
+    case 'SET_DATA':
+      return state.set('data', fromJS(action.data));
+    case 'SET_DATES':
+      return state.set('dates', fromJS(action.dates));
+    case 'SET_TEMPS':
+      return state.set('temps', fromJS(action.temps));
+    case 'SET_SELECTED_DATE':
+      return state.setIn(['selected', 'date'], action.date);
+    case 'SET_SELECTED_TEMP':
+      return state.setIn(['selected', 'temp'], action.temp);
+    default:
+      return state;
+  }
+}
+```
+
+Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `test/` directory and
+
 
 ```
 actions
