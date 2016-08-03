@@ -56,6 +56,8 @@ class App extends Component {
     );
   }
 }
+
+export default App;
 ```
 
 Save the file, go back to your browser and you should see a heading saying "Weather"! That's nice, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
