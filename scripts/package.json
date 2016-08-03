@@ -1,0 +1,22 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Various scripts for plotly academy website",
+  "main": "index.js",
+  "scripts": {
+    "write-typography": "babel-node write-typography.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gray-percentage": "^1.1.2",
+    "typography": "^0.12.0",
+    "typography-breakpoint-constants": "^0.10.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0"
+  }
+}

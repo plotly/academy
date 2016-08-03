@@ -1,14 +1,9 @@
----
----
-
-// Vendor
-@import "vendor/normalize";
-
 // Utils
 @import "utils/variables";
 @import "utils/mixins";
 
 // Generic
+@import "base/generated-typography";
 @import "base/base";
 @import "base/typography";
 @import "base/grid";
@@ -18,6 +13,7 @@
 
 // Components
 @import "components/code";
+@import "components/prism";
 @import "components/tutorial-grid";
 @import "components/buttons";
 @import "components/hero";
