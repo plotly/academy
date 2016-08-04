@@ -15,10 +15,7 @@ We use Sass + [Typography.js](https://github.com/KyleAMathews/typography.js)
 
 To setup Typography.js, go to the scripts folder and run `npm install`.
 
-Then to make changes to the generated typography css, make changes to
-`write-typography.js` and then run `npm run write-typography`. This will
-write out a file to the \_sass src directory. Then just rebuild main.css
-by running from the root directory `sass css/main.scss --load-path _sass/ > css/main.css`
+Then to make changes to the generated typography css, make changes to `write-typography.js` and then run `npm run write-typography`. This will write out a file to the \_sass src directory. Then you can just start jekyll like normally and the new typography will be applied!
 
 ### Running locally
 
