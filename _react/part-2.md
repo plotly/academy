@@ -2,6 +2,11 @@
 title: The first app
 description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data
 layout: post
+author:
+  name: Max Stoiber
+  avatar: http://mxstbr.com/headshot.jpeg
+  twitter: "@mxstbr"
+  bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
 Lets use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
