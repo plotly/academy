@@ -2,6 +2,11 @@
 title: The first app
 description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data
 layout: post
+author:
+  name: Max Stoiber
+  avatar: http://mxstbr.com/headshot.jpeg
+  twitter: "@mxstbr"
+  bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
 Lets use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
@@ -56,6 +61,8 @@ class App extends Component {
     );
   }
 }
+
+export default App;
 ```
 
 Save the file, go back to your browser and you should see a heading saying "Weather"! That's nice, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
@@ -202,7 +209,7 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](api.openweathermap.org) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [api.openweathermap.org](http://api.openweathermap.org) and register for a free account.
+Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](openweathermap.org/api) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [openweathermap.org/api](http://openweathermap.org/api) and register for a free account.
 
 As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
 

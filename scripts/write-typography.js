@@ -27,8 +27,8 @@ const theme = {
   boldWeight: 700,
   overrideStyles: ({ adjustFontSizeTo, adjustFontSizeToMSValue, rhythm }, options) => ({
     a: {
-      color: '#f92300',
-      textDecoration: 'none',
+      color: '#69738A',
+      textDecoration: 'underline',
     },
     'a:hover,a:active': {
       textDecoration: 'underline',

@@ -2,6 +2,11 @@
 title: Redux
 description: Properly handling application state
 layout: post
+author:
+  name: Max Stoiber
+  avatar: http://mxstbr.com/headshot.jpeg
+  twitter: "@mxstbr"
+  bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
 We've been using a top-level component called `App` to manage our global application state. That works fine for a small application, but as we add more and more functionality it becomes very tedious to work with.
@@ -188,7 +193,7 @@ Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global sta
 Now that we understand the basic parts that are involved, let's tie it all together! First, we need to install two new modules:
 
 ```
-$ npm install --save redux react-redux
+npm install --save redux react-redux
 ```
 
 > `redux` is the main package and is framework agnostic. `react-redux` provides bindings for react, as we'll see shortly!
@@ -839,7 +844,7 @@ The last step is wiring up `redux-thunk`. `redux-thunk` is a so-called "middlewa
 First, we need to install `redux-thunk`:
 
 ```Sh
-$ npm install --save redux-thunk
+npm install --save redux-thunk
 ```
 
 Second, we need to `apply` the `thunk` middleware in our `createStore` call in `app.js`:

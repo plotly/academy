@@ -2,6 +2,11 @@
 title: Testing
 description: Testing React.js applications
 layout: post
+author:
+  name: Max Stoiber
+  avatar: http://mxstbr.com/headshot.jpeg
+  twitter: "@mxstbr"
+  bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
 ## Unit testing
@@ -436,6 +441,31 @@ describe('actions', function() {
 Perfect, that part of our app is now comprehensively tested and we'll know as soon as somebody breaks something! Onwards to the reducer!
 
 ### Reducer
+
+The reducer is, again, a pure function! It's quite easy to see what we need to validate actually, basically every `case` of our `switch` needs to have a test:
+
+```JS
+export default function mainReducer(state = initialState, action) {
+  switch (action.type) {
+    case 'CHANGE_LOCATION':
+      return state.set('location', action.location);
+    case 'SET_DATA':
+      return state.set('data', fromJS(action.data));
+    case 'SET_DATES':
+      return state.set('dates', fromJS(action.dates));
+    case 'SET_TEMPS':
+      return state.set('temps', fromJS(action.temps));
+    case 'SET_SELECTED_DATE':
+      return state.setIn(['selected', 'date'], action.date);
+    case 'SET_SELECTED_TEMP':
+      return state.setIn(['selected', 'temp'], action.temp);
+    default:
+      return state;
+  }
+}
+```
+
+Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `test/` directory and
 
 
 ```

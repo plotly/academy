@@ -14,5 +14,24 @@ layout: default
     <article class="post__content">
       {{ content }}
     </article>
+
+    {% if page.author != nil %}
+      <div class="divider"></div>
+
+      <div class="post__author">
+        <h2>Author</h2>
+        {% if page.author.avatar != nil %}
+          <img class="post__author-avatar" src="{{ page.author.avatar }}" />
+        {% endif %}
+        <p class="post__author-name">{{ page.author.name }} – <a href="https://twitter.com/{{ page.author.twitter }}">{{ page.author.twitter }}</a></p>
+        <p>{{ page.author.bio }}</p>
+      </div>
+
+      <script>
+        document.querySelector('.post__author').addEventListener('click', function (evt) {
+          window.location.href = 'https://twitter.com/{{ page.author.twitter }}';
+        });
+      </script>
+    {% endif %}
   </div>
 </div>

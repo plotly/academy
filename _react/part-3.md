@@ -2,6 +2,11 @@
 title: React with Plotly.js
 description: How to use Plotly.js with React
 layout: post
+author:
+  name: Max Stoiber
+  avatar: http://mxstbr.com/headshot.jpeg
+  twitter: "@mxstbr"
+  bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
 To use `plotly.js`, we need to add it to our application first. Copy and paste this snippet into our `index.html`:

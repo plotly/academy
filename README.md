@@ -10,20 +10,20 @@
 
 > Note: See [`Prerequisites.md`](prerequisites.md) if you encounter a problem with the initial setup.
 
-### CSS
-We use Sass + [Typography.js](https://github.com/KyleAMathews/typography.js)
-
-To setup Typography.js, go to the scripts folder and run `npm install`.
-
-Then to make changes to the generated typography css, make changes to
-`write-typography.js` and then run `npm run write-typography`. This will
-write out a file to the \_sass src directory. Then just rebuild main.css
-by running from the root directory `sass css/main.scss --load-path _sass/ > css/main.css`
-
 ### Running locally
 
 1. Enter `bundle exec jekyll serve` into your terminal
 2. Open `localhost:4000` in your browser
+
+#### Typography
+
+We use [Typography.js](https://github.com/KyleAMathews/typography.js) to set up our typography styles. If you need to adjust the typography, follow the steps below:
+
+1. Go to the `scripts/` folder and run `npm install`.
+2. Make changes to the generated typography css, make changes to `write-typography.js`
+3. Run `npm run write-typography`. This will write out a file to the \_sass src directory.
+
+NOw you can just start jekyll like normally and the new styles will be there!
 
 ### Adding a new tutorial
 
