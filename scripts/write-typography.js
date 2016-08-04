@@ -66,19 +66,30 @@ const theme = {
         paddingLeft: rhythm(9/16),
       },
     },
-    [TABLET_MEDIA_QUERY]: {
-      h1: {
-        ...adjustFontSizeToMSValue(5/5),
-      },
-    },
     'h1,h2,h3,h4,h5,h6': {
       marginTop: rhythm(2),
     },
+    // Use steeper curve for header sizes.
+    // Polynomial created using mycurvefit.
+    // y = 0.18 - 0.1228571*x + 0.05714286*x^2
     h1: {
-      ...adjustFontSizeToMSValue(6/5),
+      ...adjustFontSizeToMSValue(1),
       letterSpacing: '-2px',
     },
+    h2: {
+      ...adjustFontSizeToMSValue(.6028),
+    },
+    h3: {
+      ...adjustFontSizeToMSValue(.3257),
+    },
+    h4: {
+      ...adjustFontSizeToMSValue(.1628),
+    },
+    h5: {
+      ...adjustFontSizeToMSValue(.1143),
+    },
     h6: {
+      ...adjustFontSizeToMSValue(0),
       fontStyle: 'italic',
     },
     '.post__title': {
