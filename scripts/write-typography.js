@@ -34,7 +34,6 @@ const theme = {
       textDecoration: 'underline',
     },
     blockquote: {
-      ...adjustFontSizeToMSValue(1/5),
       color: gray(41),
       fontStyle: 'italic',
       paddingLeft: rhythm(13/16),
@@ -45,7 +44,6 @@ const theme = {
       marginBottom: 0,
     },
     'blockquote cite': {
-      ...adjustFontSizeTo(options.baseFontSize),
       color: gray(options.bodyGray),
       fontWeight: options.bodyWeight,
     },
