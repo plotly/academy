@@ -505,7 +505,7 @@ Let's take a peek at the only method where we use `this.props.xData` and `this.p
 ```JS
 // Plot.js
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
@@ -527,7 +527,7 @@ This is where `toJS` comes in! Let's do this:
 ```JS
 // Plot.js
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot('plot', [{
       x: this.props.xData.toJS(),
@@ -553,7 +553,7 @@ Let's apply our knowledge of ImmutableJS and of `shouldComponentUpdate`, and fix
 ```JS
 // Plot.js
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => {/* … */}
 
 	shouldComponentUpdate(nextProps) {

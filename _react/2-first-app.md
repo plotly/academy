@@ -52,10 +52,10 @@ If you take a look into the `src/App.js` component, you'll see a bunch of boiler
 
 ```JS
 // App.js
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <h1>Weather</h1>
@@ -72,7 +72,7 @@ That's nice and all, but we'll need to be able to tell our app for which locatio
 
 ```JS
 // App.js
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -224,10 +224,10 @@ Inside our `fetchData` function, we'll have to make a request to the API. I like
 
 ```JS
 // App.js
-import React, { Component } from 'react';
+import React from 'react';
 import xhr from 'xhr';
 
-class App extends Component { /* … */ };
+class App extends React.Component { /* … */ };
 ```
 
 To get the data, the structure of the URL we'll request looks like this:

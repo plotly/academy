@@ -167,7 +167,7 @@ function mainReducer(state = initialState, action) {
 We'll now need to `dispatch` this action when the location changes:
 
 ```JS
-class App extends Component {
+class App extends React.Component {
  fetchData = (evt) => { /* … */ };
  onPlotClick = (data) =>  { /* … */ };
  changeLocation = (evt) => {
@@ -375,7 +375,7 @@ import {
   changeLocation
 } from './actions';
 
-class App extends Component {
+class App extends React.Component {
 	fetchData = (evt) => {
     evt.preventDefault();
 
@@ -490,7 +490,7 @@ import {
   setSelectedDate
 } from './actions';
 
-class App extends Component{
+class App extends React.Component{
   state = {
     return {
       data: {},

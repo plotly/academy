@@ -56,9 +56,9 @@ To actually get this done though, we need to create a new component first. We'll
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   render() {
     return (
       <div id="plot"></div>
@@ -77,9 +77,9 @@ Thankfully, React gives us a lifecycle method called `componentDidMount`. It is 
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   componentDidMount() {
     Plotly.newPlot('plot');
   }
@@ -99,9 +99,9 @@ You'll now see a warning in the console though – "Plotly is not defined". Sinc
 ```JS
 /* global Plotly */
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   componentDidMount() {
     Plotly.newPlot('plot');
   }
@@ -123,7 +123,7 @@ Lets jump back to our `App` component, and start changing the data a little bit.
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
 
   fetchData = (evt) => {
@@ -195,7 +195,7 @@ Lets loop through all the weather information we have, making two arrays of diff
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
 
   fetchData = (evt) => {
@@ -232,7 +232,7 @@ Now we have exactly what we want, we just need to save it to our component state
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
 
   fetchData = (evt) => {
@@ -271,7 +271,7 @@ We also need to add those new properties to our initial state:
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = {
     location: '',
     data: {},
@@ -294,7 +294,7 @@ Now that we have that data saved in our component state, we can render our plot!
 
 import Plot from './Plot.js';
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
 
   fetchData = (evt) => { /* … */ };
@@ -342,7 +342,7 @@ We only want to render the current temperature and the forecast when we have dat
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
 
   fetchData = (evt) => { /* … */ };
@@ -396,9 +396,9 @@ If you try doing this now, you still won't see a plot, do you know why? Because 
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   componentDidMount() {
     Plotly.newPlot('plot');
   }
@@ -417,9 +417,9 @@ Let's make this work by adapting the `Plotly.newPlot` call. We need to pass our 
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   componentDidMount() {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
@@ -459,9 +459,9 @@ As you might have guessed, we can use the `componentDidUpdate` lifecycle method 
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   componentDidUpdate() {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
@@ -510,9 +510,9 @@ Trying this out, it works perfectly! There is one tiny improvement, code wise, t
 
 ```JS
 // Plot.js
-import React, { Component } from 'react';
+import React from 'react';
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
@@ -578,7 +578,7 @@ Lets start off by binding that event listener in our `Plot` component. We need t
 ```JS
 // Plot.js
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => { /* … */ },
   componentDidMount() { /* … */ },
   componentDidUpdate() { /* … */ },
@@ -598,7 +598,7 @@ Lets use that in our `drawPlot` method to bind the `plotly_click` event to `this
 ```JS
 // Plot.js
 
-class Plot extends Component {
+class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot( /* … */ );
     this.refs.plot.on('plotly_click', this.props.onPlotClick);
@@ -621,7 +621,7 @@ Perfect, but running this will not work since we don't pass a `onPropClick` prop
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
   fetchData = (evt) => { /* … */ };
   changeLocation = (evt) => { /* … */ };
@@ -647,7 +647,7 @@ The we add a first version of the `onPlotClick` method to our `App` component wh
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
   fetchData = (evt) => { /* … */ };
   changeLocation = (evt) => { /* … */ };
@@ -678,7 +678,7 @@ Instead of logging the data, we now want to save that data in our state. Lets ad
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = {
     location: '',
     data: {},
@@ -716,7 +716,7 @@ Now, when our `onPlotClick` method is called we'll set the `selected.date` to `d
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = {
     location: '',
     data: {},
@@ -761,7 +761,7 @@ Now that we have the necessary data in our state, we need to do something with i
 ```JS
 // App.js
 
-class App extends Component {
+class App extends React.Component {
   state = { /* … */ };
   fetchData = (evt) => { /* … */ };
   changeLocation = (evt) => { /* … */ };
