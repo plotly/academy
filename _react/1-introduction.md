@@ -9,9 +9,42 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
-## What we'll build (app preview)
+## What we'll build
 
-<iframe src="http://blog.mxstbr.com/weather-app/"></iframe>
+<div class="post__example">
+  <div class="post__example-bar">
+    <div class="post__example-controls"></div>
+  </div>
+  <div class="post__example-content">
+    <iframe class="preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE" src="http://blog.mxstbr.com/weather-app/"></iframe>
+  </div>
+</div>
+
+<style>
+/* Fix post__example class to be 90vw instead of the size of the wrapper for just this time */
+.post__example {
+  width: 90vw;
+  height: 75vh;
+  max-height: 750px;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -45vw;
+  margin-right: -45vw;
+  border: 1px solid black;
+  padding: 1em 0em;
+  border: 1px solid #f2f2f2;
+  border-radius: 3px;
+  padding-top: 0;
+}
+
+.preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE {
+  width: 100%;
+  border: none;
+  height: 100%;
+  margin: 0;
+}
+</style>
 
 ## Prerequisites
 
