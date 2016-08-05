@@ -1,24 +1,49 @@
-.App {
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #222;
+}
+
+h1 {
   text-align: center;
 }
 
-.App-logo {
-  animation: spin infinite 20s linear;
-  height: 80px;
+form {
+  text-align: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+input {
+  border: none;
+  border-bottom: 1px dotted black;
+  margin-left: 0.5em;
+  font-size: 1em;
+  outline: none;
 }
 
-.App-intro {
-  font-size: large;
+.wrapper {
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.temp-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.temp {
+  font-size: 64px;
+}
+
+.temp-symbol {
+  position: absolute;
+  top: 13px;
+  margin-left: 4px;
+}
+
+.temp-date {
+  position: absolute;
+  bottom: -1em;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 0, 0, 0.5);
 }

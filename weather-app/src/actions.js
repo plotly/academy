@@ -49,8 +49,8 @@ export function fetchData(url) {
       url: url
     }, function (err, data) {
 
-      var data = JSON.parse(data.body);
-      var list = data.list;
+      var body = JSON.parse(data.body);
+      var list = body.list;
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
@@ -58,7 +58,7 @@ export function fetchData(url) {
         temps.push(list[i].main.temp);
       }
       // RENAME self.props.dispatch TO dispatch
-      dispatch(setData(data));
+      dispatch(setData(body));
       dispatch(setDates(dates));
       dispatch(setTemps(temps));
       dispatch(setSelectedDate(''));

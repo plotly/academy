@@ -94,6 +94,28 @@ class Plot extends Component {
 export default Plot;
 ```
 
+You'll now see a warning in the console though – "Plotly is not defined". Since we injected `Plotly` globally via the script tag we need to tell `create-react-app` that this variable exists by adding a comment at the top of the file sayin `/* global Plotly */` like so:
+
+```JS
+/* global Plotly */
+// Plot.js
+import React, { Component } from 'react';
+
+class Plot extends Component {
+  componentDidMount() {
+    Plotly.newPlot('plot');
+  }
+
+  render() {
+    return (
+      <div id="plot"></div>
+    );
+  }
+}
+
+export default Plot;
+```
+
 That alone won't do much though, we need to give it data too! The problem is that we need the data for the x-axis and the y-axis to be separate, but the data we get from the OpenWeatherMap API doesn't make that distinction. This means we need to shape our data a little bit to suit our needs. What we want is human readable dates on the x-axis, and the degrees at that time on the y-axis!
 
 Lets jump back to our `App` component, and start changing the data a little bit. We'll do that in the `fetchData` method, so we only recalculate the data when new one comes in and not on every render. (which would possibly mean shaping the data every second or more!) This is what happens when the data comes back in at the moment:
@@ -184,8 +206,8 @@ class App extends Component {
     xhr({
       url: url
     }, function (err, data) {
-      var data = JSON.parse(data.body);
-      var list = data.list;
+      var body = JSON.parse(data.body);
+      var list = body.list;
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
@@ -194,7 +216,7 @@ class App extends Component {
       }
 
       self.setState({
-        data: data
+        data: body
       });
     });
   };
@@ -221,8 +243,8 @@ class App extends Component {
     xhr({
       url: url
     }, function (err, data) {
-      var data = JSON.parse(data.body);
-      var list = data.list;
+      var body = JSON.parse(data.body);
+      var list = body.list;
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
@@ -231,7 +253,7 @@ class App extends Component {
       }
 
       self.setState({
-        data: data,
+        data: body,
         dates: dates,
         temps: temps
       });

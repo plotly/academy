@@ -1,3 +1,4 @@
+/* global Plotly */
 // Plot.js
 import React, { Component } from 'react';
 

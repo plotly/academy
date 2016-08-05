@@ -575,8 +575,8 @@ class App extends React.Component {
       url: url
     }, function (err, data) {
 
-      var data = JSON.parse(data.body);
-      var list = data.list;
+      var body = JSON.parse(data.body);
+      var list = body.list;
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
@@ -584,7 +584,7 @@ class App extends React.Component {
         temps.push(list[i].main.temp);
       }
 
-      self.props.dispatch(setData(data));
+      self.props.dispatch(setData(body));
       self.props.dispatch(setDates(dates));
       self.props.dispatch(setTemps(temps));
       self.props.dispatch(setSelectedDate(''));
@@ -755,8 +755,8 @@ export function fetchData() {
       url: url
     }, function (err, data) {
 
-      var data = JSON.parse(data.body);
-      var list = data.list;
+      var body = JSON.parse(data.body);
+      var list = body.list;
       var dates = [];
       var temps = [];
       for (var i = 0; i < list.length; i++) {
@@ -764,7 +764,7 @@ export function fetchData() {
         temps.push(list[i].main.temp);
       }
 
-      self.props.dispatch(setData(data));
+      self.props.dispatch(setData(body));
       self.props.dispatch(setDates(dates));
       self.props.dispatch(setTemps(temps));
       self.props.dispatch(setSelectedDate(''));
