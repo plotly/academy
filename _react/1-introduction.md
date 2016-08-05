@@ -19,7 +19,7 @@ It also popularized building apps with encapsulated, reusable and composable com
 
 ## What we'll build
 
-This is the app we'll be building in this tutorial series:
+This is the app we'll be building in this tutorial series (yes, this is a live example! Click around and explore):
 
 <div class="post__example">
   <div class="post__example-bar">
