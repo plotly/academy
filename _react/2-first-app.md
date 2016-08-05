@@ -220,7 +220,7 @@ Now that we have access to all the weather data our heart could desire, lets get
 Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install --save xhr` to get it! While that's installing, `import` it in your App component at the top:
 
 ```JS
-// components/App.js
+// App.js
 import React, { Component } from 'react';
 import xhr from 'xhr';
 
@@ -489,7 +489,7 @@ Go open that in your browser, enter your current location and you'll see the cur
 
 ## Summary of this chapter
 
-We learned how to structure our application, with a common `components/` folder. We then created a controlled text input and used that to fetch our first data using `xhr`!
+We learned how to structure our application and then we created a controlled text input and used that to fetch our first data using `xhr`!
 
 > We're not rendering an error message if the API sends back an error – that part is left as an exercise to the reader.
 
