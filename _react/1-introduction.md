@@ -21,17 +21,11 @@ Node.js is a JavaScript runtime for your terminal. Don't worry too much about it
 
 ## Why React.js?
 
-The big benefits of React are performance and reusability:
+React, to quote Facebook themselves, was built to solve one problem: "building large applications with data that changes over time". (that's why Instagram and Facebook are built with it)
 
-### Performance
+With react, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
 
-Normally, when your application state changes and some part of the page has to render again, the entire page renders. This is a huge performance problem for bigger applications. React circumvents with its "virtual DOM".
-
-The virtual DOM is a virtual representation of the browsers DOM. When the state changes, React calculates a virtual DOM with the new state and compares it with the currently rendered virtual DOM. If something changed, React renders the changes – only the changes. This means we no longer rerender the entire page for the tiniest changes, instead we only render the parts we need to.
-
-### Reusability
-
-React calls the smallest parts of your application "elements", which compose together into "components". These components are encapsulated parts, e.g. a `Button` component, which combine together to make the page.
+It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and going of building webapps, but once you're used to it you can never go back!
 
 ## Getting Started
 
