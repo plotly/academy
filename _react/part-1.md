@@ -533,9 +533,7 @@ What we've done above when we ran the `npm install` command was that we installe
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
-## Summary of this chapter
-
-TK
+Now that we understand react and modules we know everything we need to know to get started with building our app. Continue with [Part 2: "The first app"](/react/part-2/)!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
