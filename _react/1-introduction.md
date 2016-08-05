@@ -9,7 +9,17 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
+## Why React.js?
+
+React, to quote Facebook themselves, was built to solve one problem: "building large applications with data that changes over time". (that's why Instagram and Facebook are built with it)
+
+With react, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
+
+It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and going of building webapps, but once you're used to it you can never go back!
+
 ## What we'll build
+
+This is the app we'll be building in this tutorial series:
 
 <div class="post__example">
   <div class="post__example-bar">
@@ -19,6 +29,8 @@ author:
     <iframe class="preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE" src="http://blog.mxstbr.com/weather-app/"></iframe>
   </div>
 </div>
+
+*You can also see this example in your own browser at [blog.mxstbr.com/weather-app](http://blog.mxstbr.com/weather-app)*
 
 <style>
 /* Fix post__example class to be 90vw instead of the size of the wrapper for just this time */
@@ -45,20 +57,6 @@ author:
   margin: 0;
 }
 </style>
-
-## Prerequisites
-
-### Node
-
-Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to [nodejs.org](https://nodejs.org), follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
-
-## Why React.js?
-
-React, to quote Facebook themselves, was built to solve one problem: "building large applications with data that changes over time". (that's why Instagram and Facebook are built with it)
-
-With react, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
-
-It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and going of building webapps, but once you're used to it you can never go back!
 
 ## Getting Started
 
@@ -391,6 +389,12 @@ Now it works, our `Counter` correctly increments the number when the button is c
 ### Modules
 
 Real world applications can have any number of components, ranging from a handful to thousands. Having all of them in a single file is impractical, so we structure them into **modules**. This allows us to keep our applications well structured and easy to work with.
+
+#### Prerequisites
+
+##### Node
+
+Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to [nodejs.org](https://nodejs.org), follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
 #### Default exports
 
