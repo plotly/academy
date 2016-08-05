@@ -839,7 +839,7 @@ TK Challenge
 
 We've created a new `Plot` component, shaped the data we get from the OpenWeatherMap API to suit our needs and used Plotly.js to render a beautiful and interactive 5 day weather forecast!
 
-Let's go to the next chapter, [Part 4: Redux](/react/part-4/), where we learn how to properly manage state in our app!
+Let's go to the next chapter, [Part 4: Redux](/react/4-redux-state-management/), where we learn how to properly manage state in our app!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

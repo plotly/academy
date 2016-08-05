@@ -493,7 +493,7 @@ We learned how to structure our application, with a common `components/` folder.
 
 > We're not rendering an error message if the API sends back an error – that part is left as an exercise to the reader.
 
-Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with [Part 3: React with Plotly.js](/react/part-3/)!
+Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with [Part 3: React with Plotly.js](/react/3-with-plotly/)!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
