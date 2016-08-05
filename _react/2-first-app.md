@@ -53,6 +53,7 @@ If you take a look into the `src/App.js` component, you'll see a bunch of boiler
 ```JS
 // App.js
 import React, { Component } from 'react';
+import './App.css';
 
 class App extends Component {
   render() {
@@ -65,7 +66,9 @@ class App extends Component {
 export default App;
 ```
 
-Save the file, go back to your browser and you should see a heading saying "Weather"! That's nice, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
+Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on [this page](https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css).
+
+That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
 
 ```JS
 // App.js
