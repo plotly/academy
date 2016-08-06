@@ -21,7 +21,7 @@ It also popularized building apps with encapsulated, reusable and composable com
 
 This is the app we'll be building in this tutorial series (yes, this is a live example! Click around and explore):
 
-<div class="post__example">
+<div class="post__example post__example--full-width">
   <div class="post__example-bar">
     <div class="post__example-controls"></div>
   </div>
@@ -33,27 +33,10 @@ This is the app we'll be building in this tutorial series (yes, this is a live e
 *You can also see this example in your own browser at [blog.mxstbr.com/weather-app](http://blog.mxstbr.com/weather-app)*
 
 <style>
-/* Fix post__example class to be 90vw instead of the size of the wrapper for just this time */
-.post__example {
-  width: 90vw;
-  height: 75vh;
-  max-height: 750px;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -45vw;
-  margin-right: -45vw;
-  border: 1px solid black;
-  padding: 1em 0em;
-  border: 1px solid #f2f2f2;
-  border-radius: 3px;
-  padding-top: 0;
-}
-
 .preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE {
   width: 100%;
   border: none;
-  height: 100%;
+  height: 98.4%; /* Magic number 😨 */
   margin: 0;
 }
 </style>

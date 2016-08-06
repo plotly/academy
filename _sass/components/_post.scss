@@ -36,6 +36,17 @@
   padding-top: 0;
 }
 
+.post__example--full-width {
+  width: 90vw;
+  height: 75vh;
+  max-height: 750px;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -45vw;
+  margin-right: -45vw;
+}
+
 .post__example-bar {
   height: 1.5em;
   width: 100%;
