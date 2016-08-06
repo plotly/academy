@@ -2,6 +2,7 @@
 title: "Plotly Academy"
 description: "site description goes here"
 url: "http://academy.plot.ly"
+exclude: [node_modules, scripts, weather-app, react-app]
 
 # Tutorials
 collections:
