@@ -7,7 +7,7 @@ url: "http://academy.plot.ly"
 collections:
   react:
     output: true
-    permalink: /react/:path/index.html
+    permalink: /react/:path/
     title: "Build your first real world React.js application with <a href='https://twitter.com/mxstbr'>@mxstbr</a>"
     category: "Frontend"
   ipython-notebook:
