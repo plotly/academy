@@ -10,7 +10,7 @@ import {
   fetchData
 } from './actions';
 
-class App extends React.Component {
+export class App extends React.Component {
   fetchData = (evt) => {
     evt.preventDefault();
 
