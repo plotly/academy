@@ -1,5 +1,5 @@
 ---
-title: The first app
+title: Your first app
 description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data
 layout: post
 author:

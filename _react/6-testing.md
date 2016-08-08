@@ -1,5 +1,5 @@
 ---
-title: Testing
+title: Testing your app with Jest
 description: Testing React.js applications
 layout: post
 author:

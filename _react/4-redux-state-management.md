@@ -1,5 +1,5 @@
 ---
-title: Redux
+title: State Management with Redux
 description: Properly handling application state
 layout: post
 author:

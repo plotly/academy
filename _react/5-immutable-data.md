@@ -1,5 +1,5 @@
 ---
-title: ImmutableJS
+title: Immutable React
 description: Enhance your application with immutability
 layout: post
 author:
