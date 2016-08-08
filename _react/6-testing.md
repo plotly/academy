@@ -450,8 +450,90 @@ PASS  src/__tests__/reducer.test.js (0.515s)
 
 ## React
 
+```
+npm install --save-dev react-test-renderer
+```
 
+```
+import React from 'react';
+import renderer from 'react-test-renderer';
+import App from '../App';
 
+describe('components', () => {
+	describe('<App />', () => {
+		it('renders correctly', () => {
+			const tree = renderer.create(<App />).toJSON();
+		  expect(tree).toMatchSnapshot();
+		});
+	});
+});
+```
+
+```
+- Invariant Violation: Could not find "store" in either the context or props of "Connect(App)". Either wrap the root component in a <Provider>, or explicitly pass "store" as a prop to "Connect(App)".
+```
+
+```JS
+export class App …
+```
+
+```JS
+import { App } from '../App';
+```
+
+```
+- TypeError: Cannot read property 'getIn' of undefined
+```
+
+```JS
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { fromJS } from 'immutable';
+import { App } from '../App';
+
+describe('components', () => {
+	describe('<App />', () => {
+		it('renders correctly', () => {
+			const tree = renderer.create(<App redux={fromJS({})} />).toJSON();
+		  expect(tree).toMatchSnapshot();
+		});
+	});
+});
+```
+
+```
+PASS  src/__tests__/actions.test.js (0.487s)
+PASS  src/__tests__/reducer.test.js (0.58s)
+FAIL  src/__tests__/components.test.js (1.042s)
+● components › <App /> › it renders correctly
+ - expected value to match snapshot 1
+   - expected + actual
+
+     <div>
+       <h1>
+         Weather
+       </h1>
+       <form
+         onSubmit={[Function anonymous]}>
+         <label>
+   -       I want to know the weather for
+   +       I want to know todays weather for
+           <input
+             onChange={[Function anonymous]}
+             placeholder="City, Country"
+             type="text"
+             value={undefined} />
+         </label>
+       </form>
+     </div>
+
+       at Object.<anonymous> (src/__tests__/components.test.js:10:17)
+
+Snapshot Summary
+› 1 snapshot test failed in 1 test file. Inspect your code changes or run with `npm test -- -u` to update them.
+
+snapshot failure, 1 test failed, 19 tests passed (20 total in 3 test suites, run time 1.347s)
+```
 
 Now that we have all that done, let's make our app a true app and create Android and iOS versions of it in [Part 7: React Native](/react/7-native-mobile-apps/)!
 
