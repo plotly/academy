@@ -9,11 +9,11 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
-Lets use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
+Let's use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
 
 ## Setup
 
-Facebook recently open sourced a neat little tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) that allows us to very easily get started with our react app! It includes all the necessary build tools and transpilation steps to just get stuff done.
+Facebook recently open sourced a neat little tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
 Let's install it with `npm`:
 
@@ -68,7 +68,7 @@ export default App;
 
 Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on [this page](https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css).
 
-That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so lets add a form with an input field and label that says "City, Country"!
+That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so let's add a form with an input field and label that says "City, Country"!
 
 ```JS
 // App.js
@@ -90,7 +90,7 @@ class App extends React.Component {
 
 > We nest the `input` inside the `label` so the input is focussed when users click on the label!
 
-When entering something into the input field and pressing "Enter", the page refreshes and nothing happens. What we really want to do is fetch the data when a city and a country are input. Lets add an `onSubmit` handler to the `form` and a `fetchData` function to our component!
+When entering something into the input field and pressing "Enter", the page refreshes and nothing happens. What we really want to do is fetch the data when a city and a country are input. Let's add an `onSubmit` handler to the `form` and a `fetchData` function to our component!
 
 ```JS
 // App.js
@@ -152,7 +152,7 @@ class App extends React.Component {
 }
 ```
 
-As mentioned in Part 1, when saving anything our local state, we have to predefine it. Lets do that:
+As mentioned in Part 1, when saving anything to our local state, we have to predefine it. Let's do that:
 
 ```JS
 // App.js
@@ -212,13 +212,13 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Lets get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](openweathermap.org/api) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [openweathermap.org/api](http://openweathermap.org/api) and register for a free account.
+Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](openweathermap.org/api) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [openweathermap.org/api](http://openweathermap.org/api) and register for a free account.
 
 As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
 
 TK screenshot of account page
 
-Now that we have access to all the weather data our heart could desire, lets get on with our app!
+Now that we have access to all the weather data our heart could desire, let's get on with our app!
 
 Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run `npm install --save xhr` to get it! While that's installing, `import` it in your App component at the top:
 
@@ -282,7 +282,7 @@ The top level `list` array contains time sorted weather data reaching forward 5 
 
 The five properties we care about are: `dt_txt`, the time of the weather prediction, `temp`, the expected temperature, `temp_min` and `temp_max`, the, respectively, minimum and maximum expected temperature, and `weather[0].main`, a string description of the weather at that time. OpenWeatherMap gives us a lot more data than that though, and I encourage you to snoop around a bit more and see what you could use to make the application more comprehensive!
 
-Now that we know what we need, lets get down to it – how do we actually fetch the data here? (by now `xhr` should have finished installing)
+Now that we know what we need, let's get down to it – how do we actually fetch the data here? (by now `xhr` should have finished installing)
 
 The general usage of `xhr` looks like this:
 
@@ -308,7 +308,7 @@ encodeURIComponent('My string with spaces'); // -> 'My%20string%20with%20spaces'
 
 Combine this method with the URL structure we need, the `xhr` explanation and the state of the component and we've got all the ingredients we need to get the data from the server!
 
-First, lets encode the location from the state:
+First, let's encode the location from the state:
 
 ```JS
 // App.js
@@ -330,7 +330,7 @@ class App extends React.Component {
 }
 ```
 
-Second, lets construct the URL we need using that escaped location:
+Second, let's construct the URL we need using that escaped location:
 
 ```JS
 // App.js
@@ -388,7 +388,7 @@ class App extends React.Component {
 }
 ```
 
-Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component. Also, network request data is a string so we'll need to parse that with `JSON.parse` to make it an object.
+Since we want React to rerender our application when we've loaded the data, we'll need to save it to the state of our `App` component. Also, network request data is a string, so we'll need to parse that with `JSON.parse` to make it an object.
 
 ```JS
 // App.js
@@ -447,7 +447,7 @@ class App extends React.Component {
 }
 ```
 
-Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the `list` array, sorted by time. The first element of said array is thus the current temperature, so lets try to render that first:
+Now that we've got the weather data for the location we want in our component state, we can use it in our render method! Remember, the data for the current weather is in the `list` array, sorted by time. The first element of said array is thus the current temperature, so let's try to render that first:
 
 ```JS
 // App.js
