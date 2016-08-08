@@ -78,13 +78,13 @@ If we put this into more general terms, we call a function which changes somethi
 
 TK Image of more general state management cycle
 
-We'll now need to introduce some terminology before we can finally start implementing this. This function that we call to change the application state is called an "action" in Redux, and we "dispatch" the "action". Lets change the cycle one last time with the terminology:
+We'll now need to introduce some terminology before we can finally start implementing this. This function that we call to change the application state is called an "action" in Redux, and we "dispatch" the "action". Let's change the cycle one last time with the terminology:
 
 TK Image of Redux specific state management cycle
 
 ## Writing our first Redux parts
 
-Lets write our first action! We'll start with the location field, since it's a very typical example. An action function in Redux returns an object with a `type` and can optionally also pass some data along the way. Our `changeLocation` action looks like this:
+Let's write our first action! We'll start with the location field, since it's a very typical example. An action function in Redux returns an object with a `type` and can optionally also pass some data along the way. Our `changeLocation` action looks like this:
 
 ```JS
 function changeLocation(location) {
@@ -179,7 +179,7 @@ class App extends React.Component {
 
 > Don't worry about where `this.props.dispatch` comes from for now, we'll get to that!
 
-Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when `dispatch` the `changeLocation` action:
+Imagine `evt.target.value` is `"Sydney, Australia"`, this is what our global state is going to look like when we `dispatch` the `changeLocation` action:
 
 ```JS
 {
@@ -538,7 +538,7 @@ function mapStateToProps(state) {
 }
 ```
 
-There's three more actions (and constants and reducer cases) that need to be implemented here: `setData`, `setDates` and `setTemps`. I'll leave it up to you here to implement them, taking inspiration from our already implemented actions!
+There are three more actions (and constants and reducer cases) that need to be implemented here: `setData`, `setDates` and `setTemps`. I'll leave it up to you here to implement them, taking inspiration from our already implemented actions!
 
 ----
 
@@ -865,7 +865,7 @@ var store = createStore(
 /* … */
 ```
 
-And that's it, everything should be working again now. Look how easy to handle our components are, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
+And that's it, everything should be working again now. Look how easy it is to handle our components, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
 
 Now, let's find out how we can make our app so much more performant with immutable datastructures in [Part 5: ImmutableJS](/react/5-immutable-data/)!
 
