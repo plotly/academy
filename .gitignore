@@ -4,3 +4,5 @@ _site
 node_modules
 bundle.js
 example-data.json
+npm-debug.log
+.hidden
