@@ -73,7 +73,7 @@ export default Plot;
 
 Now, the problem we have here is that if we called `Plotly.newPlot` in our `render` method, it would be called over and over again, possibly multiple times per second! That's not optimal, we really want to call it once when we get the data and leave it be afterwards – how can we do that?
 
-Thankfully, React gives us a lifecycle method called `componentDidMount`. It is called once when the component was first rendered, and never afterwards; perfect for our needs! Lets create a `componentDidMount` method and call `Plotly.newPlot` in there and pass it the ID of our `div`, `plot`, as the first argument:
+Thankfully, React gives us a lifecycle method called `componentDidMount`. It is called once when the component was first rendered, and never afterwards; perfect for our needs! Let's create a `componentDidMount` method and call `Plotly.newPlot` in there and pass it the ID of our `div`, `plot`, as the first argument:
 
 ```JS
 // Plot.js
@@ -94,7 +94,7 @@ class Plot extends React.Component {
 export default Plot;
 ```
 
-You'll now see a warning in the console though – "Plotly is not defined". Since we injected `Plotly` globally via the script tag we need to tell `create-react-app` that this variable exists by adding a comment at the top of the file sayin `/* global Plotly */` like so:
+You'll now see a warning in the console though – "Plotly is not defined". Since we injected `Plotly` globally via the script tag we need to tell `create-react-app` that this variable exists by adding a comment at the top of the file saying `/* global Plotly */` like so:
 
 ```JS
 /* global Plotly */
@@ -118,7 +118,7 @@ export default Plot;
 
 That alone won't do much though, we need to give it data too! The problem is that we need the data for the x-axis and the y-axis to be separate, but the data we get from the OpenWeatherMap API doesn't make that distinction. This means we need to shape our data a little bit to suit our needs. What we want is human readable dates on the x-axis, and the degrees at that time on the y-axis!
 
-Lets jump back to our `App` component, and start changing the data a little bit. We'll do that in the `fetchData` method, so we only recalculate the data when new one comes in and not on every render. (which would possibly mean shaping the data every second or more!) This is what happens when the data comes back in at the moment:
+Let's jump back to our `App` component, and start changing the data a little bit. We'll do that in the `fetchData` method, so we only recalculate the data when new one comes in and not on every render. (which would possibly mean shaping the data every second or more!) This is what happens when the data comes back in at the moment:
 
 ```JS
 // App.js
@@ -146,7 +146,7 @@ class App extends React.Component {
 }
 ```
 
-Instead of just saving the raw data in our `xhr` callback, lets shape the data into a form we can use it in and save both the raw and the formed data in our component state. Remember, this is what the raw data looks like:
+Instead of just saving the raw data in our `xhr` callback, let's shape the data into a form we can use it in and save both the raw and the formed data in our component state. Remember, this is what the raw data looks like:
 
 ```JS
 "city": {
@@ -190,7 +190,7 @@ With the `list` array containing objects of this form:
 
 What we really care about is `data.list[element].dt_txt`, a human-readable timestamp, and `data.list[element].main.temp`, the temperature at that time.
 
-Lets loop through all the weather information we have, making two arrays of different data. We'll use the `push` method of arrays, which adds an element to the end of an arary. Lets fill one with the timestamps, and another array with the temperatures:
+Let's loop through all the weather information we have, making two arrays of different data. We'll use the `push` method of arrays, which adds an element to the end of an arary. Let's fill one with the timestamps, and another array with the temperatures:
 
 ```JS
 // App.js
@@ -227,7 +227,7 @@ class App extends React.Component {
 }
 ```
 
-Now we have exactly what we want, we just need to save it to our component state! Lets call the two properties of our state `dates` and `temperatures`:
+Now we have exactly what we want, we just need to save it to our component state! Let's call the two properties of our state `dates` and `temperatures`:
 
 ```JS
 // App.js
@@ -337,7 +337,7 @@ class App extends React.Component {
 }
 ```
 
-We only want to render the current temperature and the forecast when we have data though, so lets add a ternary operator to check that `this.state.data.list` exists:
+We only want to render the current temperature and the forecast when we have data though, so let's add a ternary operator to check that `this.state.data.list` exists:
 
 ```JS
 // App.js
@@ -549,7 +549,7 @@ export default Plot;
 
 Beautiful, and works perfectly too!
 
-Lets add one more feature to our weather application. When clicking on a specific point of our graph, we want to show the user in text the temperature at that date!
+Let's add one more feature to our weather application. When clicking on a specific point of our graph, we want to show the user in text the temperature at that date!
 
 The first thing we need to do is add an event listener to our graph. Thankfully, Plotly gives us a handy `plotly_click` event to listen to, like so:
 
@@ -573,7 +573,7 @@ The nice thing about `plotly_click` is that it doesn't pass you the event, it pa
 
 These tell us which date was clicked on and what the relevant temperature was, exactly what we want! We'll pass a function down to the `Plot` component called `onPlotClick` that will get called when the `plotly_click` event is fired, i.e. when a point on our forecast is clicked on.
 
-Lets start off by binding that event listener in our `Plot` component. We need to somehow get the DOM node of our plot, and React makes that very easy. We add a `ref` prop with a value of `"plot"` to our `div`. Then we access the DOM node of the plot with `this.refs.plot` everywhere in our component:
+Let's start off by binding that event listener in our `Plot` component. We need to somehow get the DOM node of our plot, and React makes that very easy. We add a `ref` prop with a value of `"plot"` to our `div`. Then we access the DOM node of the plot with `this.refs.plot` everywhere in our component:
 
 ```JS
 // Plot.js
@@ -593,7 +593,7 @@ class Plot extends React.Component {
 module.exports = Plot;
 ```
 
-Lets use that in our `drawPlot` method to bind the `plotly_click` event to `this.props.onPlotClick`!
+Let's use that in our `drawPlot` method to bind the `plotly_click` event to `this.props.onPlotClick`!
 
 ```JS
 // Plot.js
@@ -616,7 +616,7 @@ class Plot extends React.Component {
 module.exports = Plot;
 ```
 
-Perfect, but running this will not work since we don't pass a `onPropClick` prop to `Plot`. Lets jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` components (current missing) `this.onPropClick` method:
+Perfect, but running this will not work since we don't pass an `onPropClick` prop to `Plot`. Let's jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` components (currently missing) `this.onPropClick` method:
 
 ```JS
 // App.js
@@ -642,7 +642,7 @@ class App extends React.Component {
 }
 ```
 
-The we add a first version of the `onPlotClick` method to our `App` component where we only log out the passed `data`:
+Then we add a first version of the `onPlotClick` method to our `App` component where we only log out the passed `data`:
 
 ```JS
 // App.js
@@ -673,7 +673,7 @@ class App extends React.Component {
 
 Now try opening your application, select a city and, when the forecast has rendered, click on a specific data point in the plot. If you see an object logged in your console containing an array called `points`, you're golden!
 
-Instead of logging the data, we now want to save that data in our state. Lets add a new object to our initial state called `selected`, which contains a `date` and a `temp` field. The date field will be an empty string by default, and the temp `null`:
+Instead of logging the data, we now want to save that data in our state. Let's add a new object to our initial state called `selected`, which contains a `date` and a `temp` field. The date field will be an empty string by default, and the temp `null`:
 
 ```JS
 // App.js
@@ -756,7 +756,7 @@ class App extends React.Component {
 }
 ```
 
-Now that we have the necessary data in our state, we need to do something with it! Lets render some text saying "The current temperature on some-date is some-temperature°C!" if we have a date selected, and otherwise show the current date. We thus need to adapt the `render` method of our `App` component to include that. We check if `this.state.selected.temp` exists (i.e. isn't `null`, the default value), and if it does we render the text with `this.state.selected`:
+Now that we have the necessary data in our state, we need to do something with it! Let's render some text saying "The current temperature on some-date is some-temperature°C!" if we have a date selected, and otherwise show the current date. We thus need to adapt the `render` method of our `App` component to include that. We check if `this.state.selected.temp` exists (i.e. isn't `null`, the default value), and if it does we render the text with `this.state.selected`:
 
 ```JS
 // App.js
