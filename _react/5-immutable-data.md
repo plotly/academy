@@ -19,7 +19,7 @@ Facebook released a second library called `Immutable.js` that adds immutable dat
 
 > If you want to follow along with the initial explanations, you'll have to `npm install immutable`!
 
-ImmutableJS exports this nice little `fromJS` function that allows us to create immutable data structures from your standard JavaScript objects and arrays. (also adds a `toJS` method to make objects and arrays out of them again) Let's create an immutable object:
+ImmutableJS exports this nice little `fromJS` function that allows us to create immutable data structures from your standard JavaScript objects and arrays. (it also adds a `toJS` method to make objects and arrays out of them again) Let's create an immutable object:
 
 ```JS
 import { fromJS } from 'immutable';
@@ -46,7 +46,7 @@ var immutableObject = fromJS({
 immutableObject.set('some', 'notobject');
 ```
 
-If you now `console.log(immutableObject.toJS())` though, you'll get our initial object again though? Why?
+If you now `console.log(immutableObject.toJS())` though, you'll get our initial object again. Why?
 
 Well, since `immutableObject` is immutable, what happens when you `immutableObject.set` is **that a new immutable object is returned with the changes**. No mutation happening, this is kind of like what we did with `Object.assign` for our reducers!
 
@@ -107,7 +107,7 @@ case 'CHANGE_LOCATION':
 	});
 ```
 
-Instead of doing this whole assinging business, we can simply `return state.set('location', action.location)`!
+Instead of doing this whole assigning business, we can simply `return state.set('location', action.location)`!
 
 ```JS
 case 'CHANGE_LOCATION':
@@ -236,13 +236,13 @@ In fact, try this and you'll see that works! There's two downsides to this appro
 
 1. Converting from (`fromJS`) and to (`toJS`) JavaScript objects to immutable data structures is _very performance expensive and slow_. This is fine for the `initialState` because we only ever convert that once, but doing that on every render will have an impact on your app.
 
-2. You thus loose the main benefit of ImmutableJS, which is performance!
+2. You thus lose the main benefit of ImmutableJS, which is performance!
 
 Now you might be thinking "But if it's so expensive, how can ImmutableJS have performance as its main benefit?". To explain that we have to quickly go over how ImmutableJS works.
 
 ## How ImmutableJS works
 
-Immutable data structures can't be changed. So when we convert a regular JavaScript object with `fromJS` what ImmutableJS does is loop over every single property and value in the object (including nested object and arrays) and transfers it to a new, immutable one. (the same thing applies in the other direction for `toJS`)
+Immutable data structures can't be changed. So when we convert a regular JavaScript object with `fromJS` what ImmutableJS does is loop over every single property and value in the object (including nested objects and arrays) and transfers it to a new, immutable one. (the same thing applies in the other direction for `toJS`)
 
 The problem with standard JavaScript objects is that they have reference equality. That means even when two objects have the same content, they're not the same:
 
@@ -260,7 +260,7 @@ console.log(object1 === object2); // -> false
 
 In the above example, even though `object1` and `object2` have the exact same contents, they aren't the exact same object and thus aren't equal. To properly check if two variables contain the same thing in JavaScript we'd have to loop over every property and value in those variables (including nested things) and check it against the other object.
 
-That's very very slow.
+That's very, very slow.
 
 Since immutable objects can't ever be changed again, ImmutableJS can _compute a hash based on the contents of the object_ and store that in a private field. Since this hash is based on the contents, when Immutable then compares two objects it only has to compare two hashes, i.e. two strings! That's a lot faster than looping over every property and value and comparing those!
 
@@ -593,7 +593,7 @@ Now try clicking around and loading different cities.
 
 We've entirely gotten rid of the continuous rerenders, and only rerender when it's _really_ necessary! This is awesome!
 
-Let's explore how we can make sure our app works the way we expect it to no, matter who's working on it, in [Part 6: Testing](/react/6-testing/)!
+Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in [Part 6: Testing](/react/6-testing/)!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
