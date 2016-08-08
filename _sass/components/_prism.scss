@@ -1,191 +1,223 @@
 /**
- * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
- * @author Tim  Shedor
+ * ==============================
+ * Prism Coda Theme
+ * 0.1.0 | MIT License
+ * ==============================
  */
 
 code[class*="language-"],
 pre[class*="language-"] {
-    color: black;
-    font-family: Consolas, Monaco, 'Andale Mono', monospace;
-    direction: ltr;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    line-height: 1.5;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
 
-    -moz-tab-size: 2;
-    -o-tab-size: 2;
-    tab-size: 2;
-
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
 }
 
 /* Code blocks */
 pre[class*="language-"] {
-    position: relative;
-    margin: .5em 0;
-    background-color: #fdfdfd;
-    background-image: -webkit-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
-    background-image: -moz-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
-    background-image: -ms-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
-    background-image: -o-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
-    background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
-    background-size: 3em 3em;
-    background-origin: content-box;
-    overflow: visible;
-    max-height: 30em;
+	position: relative;
+	margin: .5em 0;
+	border: 1px solid rgba(66, 66, 66, 0.11);
+	background-size: 3em 3em;
+	background-origin: content-box;
+	overflow: visible;
+	overflow-x: scroll;
+  padding: 1em 0;
 }
 
 code[class*="language"] {
-    max-height: inherit;
-    height: 100%;
-    padding: 0 1em;
-    display: block;
-    overflow: auto;
-}
-
-/* Margin bottom to accomodate shadow */
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-    background-color: #fdfdfd;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-bottom: 1em;
+	max-height: inherit;
+	height: 100%;
+	padding: 0 1em;
+	display: block;
+	overflow: auto;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-    position: relative;
-    padding: .2em;
-    -webkit-border-radius: 0.3em;
-    -moz-border-radius: 0.3em;
-    -ms-border-radius: 0.3em;
-    -o-border-radius: 0.3em;
-    border-radius: 0.3em;
-    color: #c92c2c;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-pre[class*="language-"]:before,
-pre[class*="language-"]:after {
-    content: '';
-    z-index: -2;
-    display: block;
-    position: absolute;
-    bottom: 0.75em;
-    left: 0.18em;
-    width: 40%;
-    height: 20%;
-    -webkit-transform: rotate(-2deg);
-    -moz-transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg);
-    -o-transform: rotate(-2deg);
-    transform: rotate(-2deg);
+	position: relative;
+	padding: .2em;
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	-ms-border-radius: 0.3em;
+	-o-border-radius: 0.3em;
+	border-radius: 0.3em;
+	color: #c92c2c;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 :not(pre) > code[class*="language-"]:after,
 pre[class*="language-"]:after {
-    right: 0.75em;
-    left: auto;
-    -webkit-transform: rotate(2deg);
-    -moz-transform: rotate(2deg);
-    -ms-transform: rotate(2deg);
-    -o-transform: rotate(2deg);
-    transform: rotate(2deg);
+	right: 0.75em;
+	left: auto;
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
 }
 
 .token.comment,
 .token.block-comment,
 .token.prolog,
-.token.doctype,
+.token.doctype {
+	color: #878787;
+	font-style: italic;
+}
+
 .token.cdata {
-    color: #7D8B99;
+	color: #bb2500;
 }
 
 .token.punctuation {
-    color: #5F6364;
+	color: inherit;
 }
 
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
+.token.boolean {
+	color: #007ab7;
+}
+
+.token.string {
+	color: rgb(228, 89, 63);
+}
+
+.token.function {
+	color: #8D98AF;
+}
+
+.token.property {
+	color: #0045aa;
+}
+
+.token.tag {
+	color: #0045aa;
+}
+
+.token.number {
+	color: #007ab7;
+}
+
 .token.function-name,
 .token.constant,
 .token.symbol,
 .token.deleted {
-    color: #c92c2c;
+	color: #c92c2c;
+}
+
+.token.attr-name{
+	color: #007ab7;
 }
 
 .token.selector,
-.token.attr-name,
-.token.string,
 .token.char,
-.token.function,
 .token.builtin,
 .token.inserted {
-    color: #2f9c0a;
+	color: #2f9c0a;
 }
 
-.token.operator,
-.token.entity,
-.token.url,
+
+
+.token.operator {
+	color: #006ff8;
+}
+
+.token.url {
+	color:#004ccb;
+	font-underline:none;
+}
+
+.token.entity {
+	color: #007ab7;
+}
+
 .token.variable {
-    color: #a67f59;
-    background: rgba(255, 255, 255, 0.5);
+	color: #8735a5;
 }
 
-.token.atrule,
-.token.attr-value,
-.token.keyword,
+.token.keyword {
+	color:#0045aa;
+	font-weight:normal;
+}
+
+.token.atrule {
+	color: #de7a31;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.token.attr-value {
+	color: #5d8f00;
+	font-weight: normal;
+}
+
 .token.class-name {
-    color: #1990b8;
+	color: #1990b8;
 }
 
 .token.regex,
 .token.important {
-    color: #e90;
+	color: #e90;
 }
 
 .language-css .token.string,
 .style .token.string {
-    color: #a67f59;
-    background: rgba(255, 255, 255, 0.5);
+	color: #f4378f;
+}
+
+.language-css .token.property,
+.style .token.property {
+	color: #0045aa;
+}
+
+.language-css .token.number,
+.style .token.number {
+	color: rgb(228, 89, 63);
+}
+
+.language-css .token.hexcode,
+.style .token.hexcode {
+	color: #d72d65;
 }
 
 .token.important {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 .token.bold {
-    font-weight: bold;
+	font-weight: bold;
 }
+
 .token.italic {
-    font-style: italic;
+	font-style: italic;
 }
 
 .token.entity {
-    cursor: help;
+	cursor: help;
 }
 
 .namespace {
-    opacity: .7;
+	opacity: .7;
 }
 
 @media screen and (max-width: 767px) {
-    pre[class*="language-"]:before,
-    pre[class*="language-"]:after {
-        bottom: 14px;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    }
+	pre[class*="language-"]:before,
+	pre[class*="language-"]:after {
+		bottom: 14px;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
 
 }
 
@@ -193,18 +225,35 @@ pre[class*="language-"]:after {
 .token.tab:not(:empty):before,
 .token.cr:before,
 .token.lf:before {
-    color: #e0d7d1;
+	color: #e0d7d1;
 }
 
-/* Plugin styles: Line Numbers */
-pre[class*="language-"].line-numbers {
-    padding-left: 0;
+
+/* Plugin styles: Line Highlight */
+pre[class*="language-"][data-line] {
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+pre[data-line] code {
+	position: relative;
+	padding-left: 4em;
+}
+pre .line-highlight {
+	margin-top: 0;
 }
 
-pre[class*="language-"].line-numbers code {
-    padding-left: 3.8em;
+.token a {
+	color: inherit;
+}
+code[class*="language-"] a[href],
+pre[class*="language-"] a[href] {
+	cursor: help;
+	text-decoration: none;
 }
 
-pre[class*="language-"].line-numbers .line-numbers-rows {
-    left: 0;
+code[class*="language-"] a[href]:hover,
+pre[class*="language-"] a[href]:hover {
+	cursor: help;
+	text-decoration: underline;
 }
