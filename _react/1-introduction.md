@@ -36,20 +36,20 @@ This is the app we'll be building in this tutorial series (yes, this is a live e
 .preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE {
   width: 100%;
   border: none;
-  height: 98.4%; /* Magic number 😨 */
+  height: 98.4%;
   margin: 0;
 }
 </style>
 
 ## Getting Started
 
-We'll use [`react.jsbin.com`](https://react.jsbin.com/sewaru/11/edit?js,output) for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
+We'll use <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output"><code>react.jsbin.com</code></a> for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
 
 React consists of two libraries, `React` and `ReactDOM`. `React` allows you to create elements, which we render with `ReactDOM`. They are split because you could (theoretically) render those ReactElements anywhere, not only to the browser DOM.
 
 > Note: There are initial experiments out there for rendering React to HTML5 Canvas, WebVR and some others.
 
-Open up our [first JSBin](https://react.jsbin.com/sewaru/11/edit?js,output), and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
+Open up our <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output">first JSBin</a>, and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
 
 ```JS
 ReactDOM.render(
@@ -102,7 +102,7 @@ which'll render this HTML:
 </div>
 ```
 
-*([JSBin](https://react.jsbin.com/sewaru/7/edit?js,output))*
+<em>(<a target="_blank" href="https://react.jsbin.com/sewaru/7/edit?js,output">JSBin</a>)</em>
 
 This `.wrapper` div might have a `max-width` and other styling associated with it, and we might want to reuse it someplace else. Doing this makes our application consistent across all pages, since we use the same element everywhere! In React, this is easily doable by creating components.
 
@@ -127,7 +127,7 @@ React.createElement(Wrapper, null,
   React.createElement('h1', {className: 'heading'}, 'Hello World')
 )
 ```
-*([JSBin](https://react.jsbin.com/sewaru/8/edit?js,output))*
+<em>(<a target="_blank" href="https://react.jsbin.com/sewaru/8/edit?js,output">JSBin</a>)</em>
 
 Now we can reuse our `Wrapper` component across our application and have consistent styling!
 
@@ -165,7 +165,7 @@ var Wrapper = function(props) {
 };
 ```
 
-*([JSBin](https://react.jsbin.com/sewaru/10/edit?js,output))*
+<em>(<a target="_blank" href="https://react.jsbin.com/sewaru/10/edit?js,output">JSBin</a>)</em>
 
 > JSX is the preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
 
@@ -204,7 +204,7 @@ ReactDOM.render(
 );
 ```
 
-*([JSBin](http://react.jsbin.com/gakawe/1/edit?js,output))*
+<em>(<a target="_blank" href="http://react.jsbin.com/gakawe/1/edit?js,output">JSBin</a>)</em>
 
 Lets make a separate `Button` component, which'll take a prop called `text`. We'll make this component a functional one again, since it won't need to store any state:
 
@@ -231,7 +231,7 @@ class Counter extends React.Component {
 }
 ```
 
-*([JSBin](http://react.jsbin.com/dewoseb/1/edit?js,output))*
+<em>(<a target="_blank" href="http://react.jsbin.com/dewoseb/1/edit?js,output">JSBin</a>)</em>
 
 Now lets increase a number everytime out `Button` is clicked by using an `onClick` handler:
 
@@ -258,7 +258,7 @@ var Button = function(props) {
 }
 ```
 
-*([JSBin](http://react.jsbin.com/welihac/1/edit?js,output))*
+<em>(<a target="_blank" href="http://react.jsbin.com/welihac/1/edit?js,output">JSBin</a>)</em>
 
 This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
@@ -277,7 +277,7 @@ class Counter extends React.Component {
 }
 ```
 
-That alone won't do anything though, we don't see that number anywhere on the page! ([JSBin](https://react.jsbin.com/xeroja/1/edit?js,output)) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
+That alone won't do anything though, we don't see that number anywhere on the page! (<a target="_blank" href="https://react.jsbin.com/xeroja/1/edit?js,output">JSBin</a>) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
 
 ```JS
 class Counter extends React.Component {
@@ -299,7 +299,7 @@ class Counter extends React.Component {
 }
 ```
 
-*([JSBin](https://react.jsbin.com/kakawi/1/edit?js,output))*
+<em>(<a target="_blank" href="https://react.jsbin.com/kakawi/1/edit?js,output">JSBin</a>)</em>
 
 > The `{ }` notation in JSX works with any variable.
 > `var favoriteFood = 'Pizza';` in combination with `I love { favoriteFood }!` will output "I love Pizza!"!
@@ -365,7 +365,7 @@ class Counter extends React.Component {
 }
 ```
 
-*([JSBin](https://react.jsbin.com/cuvono/1/edit?js,output))*
+<em>(<a target="_blank" href="https://react.jsbin.com/cuvono/1/edit?js,output">JSBin</a>)</em>
 
 Now it works, our `Counter` correctly increments the number when the button is clicked!
 
@@ -377,7 +377,7 @@ Real world applications can have any number of components, ranging from a handfu
 
 ##### Node
 
-Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to [nodejs.org](https://nodejs.org), follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
+Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. Head over to <a target="_blank" href="https://nodejs.org">nodejs.org</a>, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
 #### Default exports
 
