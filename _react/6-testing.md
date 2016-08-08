@@ -13,7 +13,7 @@ author:
 
 Unit testing is the practice of testing the smallest possible *units* of our code, functions. We run our tests and automatically verify that our functions do the thing we expect them to do. We assert that, given a set of inputs, our functions return the proper values and handle problems.
 
-We'll be using the [Mocha](https://github.com/mochajs/mocha) test framework to run the tests and [expect](http://github.com/mjackson/expect) for assertions. These libraries make writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
+We'll be using the [Jest](https://facebook.github.io/jest/) test framework by facebook. It was written to help test react apps, and is perfect for that purpose! It makes writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
 
 ### Basics
 
@@ -27,20 +27,20 @@ export function add(x, y) {
 }
 ```
 
-### Mocha
+### Jest
 
-Mocha is our unit testing framework. Its API, which we write tests with, is speech like and easy to use.
+Jest is our unit testing framework. Its API, which we write tests with, is speech like and easy to use.
 
-> Note: This is the [official documentation](http://mochajs.org) of Mocha.
+> Note: This is the [official documentation](http://facebook.github.io/jest) of Jest.
 
-We're going to add a second file called `add.test.js` with our unit tests inside. Running said unit tests requires us to enter `mocha add.test.js` into the command line.
+We're going to add a second file called `add.test.js` in a subfolder called `__tests__` with our unit tests inside. Running said unit tests requires us to enter `npm run test -- __tests__/add.test.js` into the command line.
 
 First, we `import` the function in our `add.test.js` file:
 
 ```javascript
 // add.test.js
 
-import { add } from './add.js';
+import { add } from '../add.js';
 ```
 
 Second, we `describe` our function:
@@ -51,7 +51,7 @@ describe('add()', function() {
 });
 ```
 
-Third, we tell Mocha what `it` (our function) should do:
+Third, we tell Jest what `it` (our function) should do:
 
 ```javascript
 describe('add()', function() {
@@ -65,25 +65,7 @@ describe('add()', function() {
 });
 ```
 
-That's the entire Mocha part! Onwards to the actual tests.
-
-### expect
-
-Using expect, we `expect` our little function to return the same thing every time given the same input.
-
-> Note: This is the [official documentation](https://github.com/mjackson/expect) for expect.
-
-First, we have to import `expect` at the top of our file, before the tests:
-
-```javascript
-import expect from 'expect';
-
-describe('add()', function() {
-  // [...]
-});
-```
-
-We're going to test that our little function correctly adds two numbers first. We are going to take some chosen inputs, and `expect` the result `toEqual` the corresponding output:
+Now we have to `expect` our little function to return the same thing every time given the same input. We're going to test that our little function correctly adds two numbers first. We are going to take some chosen inputs, and `expect` the result `toEqual` the corresponding output:
 
 ```javascript
 // [...]
@@ -105,12 +87,11 @@ it('doesnt add the third number', function() {
 
 > Note: Notice that we call `add` in `toEqual`. I won't tell you why, but just think about what would happen if we rewrote the expect as `expect(add(2, 3, 5)).toEqual(5)` and somebody broke something in the add function. What would this test actually... test?
 
-Should our function work, Mocha will show this output when running the tests:
+Should our function work, Jest will show this output when running the tests:
 
 ```
-add()
-  ✓ adds two numbers
-  ✓ doesnt add the third number
+PASS  __tests__/add.test.js (0.537s)
+2 tests passed (2 total in 1 test suite, run time 0.557s)
 ```
 
 Lets say an unnamed colleague of ours breaks our function:
@@ -128,43 +109,15 @@ Oh no, now our function doesn't add the numbers anymore, it multiplies them! Ima
 Thankfully, we have unit tests in place. Because we run the unit tests before we deploy our application, we see this output:
 
 ```
-add()
-  1) adds two numbers
-  ✓ doesnt add the third number
-
-  1) add adds two numbers:
-    Error: Expected 6 to equal 5
+Using Jest CLI v14.1.0, jasmine2
+ FAIL  __tests__/add.test.js (0.535s)
+● add() › it adds two numbers
+  - Expected 6 to equal 5.
+        at Object.<anonymous> (__tests__/add.test.js:5:65)
+1 test failed, 1 test passed (2 total in 1 test suite, run time 0.564s)
 ```
 
 This tells us that something is broken in the add function before any users get the code! Congratulations, you just saved time and money!
-
-### Installation
-
-Let's get to it and actually test some application parts.
-
-First we have to install a few necessary modules, namely `mocha` (the testing framework) and `babel-core` with `babel-preset-es2015`. (to transpile our code to ES5)
-
-```
-npm install babel-core mocha babel-preset-es2015
-```
-
-We then add a `.babelrc` file at the root folder which tells Babel to transpile our code to ES2015:
-
-```JSON
-{
-	"presets": ["es2015"]
-}
-```
-
-To run our tests, look into your `package.json` and add this to the `"scripts"` field:
-
-```JSON
-"scripts" {
-		"test": "mocha src/test/*.test.js --compilers js:babel-core/register"
-}
-```
-
-This tells Mocha to run all the `.test.js` files in the `test` folder (you better create that now!) and to compile those files with Babel.
 
 ### Redux
 
@@ -172,7 +125,7 @@ The nice thing about Redux is that it makes our data flow entirely consist of "p
 
 Let's test our actions first!
 
-### Actions
+#### Actions
 
 Create a new file called `actions.test.js` in the `src/test/` folder. (create that if you haven't already) Let's start by testing the good ol' `changeLocation` action. Add the default structure, we'll need to import `expect` and the action we want to test and `describe` "actions" and `changeLocation`:
 
@@ -205,12 +158,8 @@ describe('changeLocation', function () {
 Run `npm run test` in the console and this is what you should see:
 
 ```
-actions
-  changeLocation
-    ✓ should have a type of CHANGE_LOCATION
-
-
-  1 passing
+PASS  src/__tests__/actions.test.js (0.525s)
+1 test passed (1 total in 1 test suite, run time 0.55s)
 ```
 
 Nice, let's verify that it passes on the location we pass into it:
@@ -308,19 +257,8 @@ describe('actions', function() {
 Not too hard, huh? Run `npm run test` in your console now, and this is what you should see:
 
 ```
-actions
-  changeLocation
-    ✓ should have a type of CHANGE_LOCATION
-    ✓ should pass on the location we pass in
-  setSelectedDate
-    ✓ should have a type of SET_SELECTED_DATE
-    ✓ should pass on the date we pass in
-  setSelectedTemp
-    ✓ should have a type of SET_SELECTED_TEMP
-    ✓ should pass on the temp we pass in
-
-
-  6 passing
+PASS  src/__tests__/actions.test.js (0.531s)
+6 tests passed (6 total in 1 test suite, run time 0.554s)
 ```
 
 Now go on and test the other actions too, I'll be here waiting for you! (skip the `fetchData` action, one negative aspect of thunks is how hard they are to test so we'll skip it)
@@ -330,28 +268,35 @@ Now go on and test the other actions too, I'll be here waiting for you! (skip th
 Back? Everything tested? You should now see something like this in your console when running `npm run test`:
 
 ```
-actions
-  changeLocation
-    ✓ should have a type of CHANGE_LOCATION
-    ✓ should pass on the location we pass in
-  setSelectedDate
-    ✓ should have a type of SET_SELECTED_DATE
-    ✓ should pass on the date we pass in
-  setSelectedTemp
-    ✓ should have a type of SET_SELECTED_TEMP
-    ✓ should pass on the temp we pass in
-  setData
-    ✓ should have a type of SET_DATA
-    ✓ should pass on the data we pass in
-  setDates
-    ✓ should have a type of SET_DATES
-    ✓ should pass on the dates we pass in
-  setTemps
-    ✓ should have a type of SET_TEMPS
-    ✓ should pass on the temps we pass in
+PASS  src/__tests__/actions.test.js (0.357s)
+12 tests passed (12 total in 1 test suite, run time 0.384s)
+```
 
+This isn't the nicest output though, if you run `npm run test -- --verbose` you should see a much nicer list of tests that passed like so:
 
-  12 passing
+```
+PASS  src/__tests__/actions.test.js (0.364s)
+ actions
+   changeLocation
+     ✓ it should have a type of CHANGE_LOCATION (5ms)
+     ✓ it should pass on the location we pass in (1ms)
+   setSelectedDate
+     ✓ it should have a type of SET_SELECTED_DATE (1ms)
+     ✓ it should pass on the date we pass in
+   setSelectedTemp
+     ✓ it should have a type of SET_SELECTED_TEMP (1ms)
+     ✓ it should pass on the temp we pass in
+   setData
+     ✓ it should have a type of SET_DATA
+     ✓ it should pass on the data we pass in (1ms)
+   setDates
+     ✓ it should have a type of SET_DATES
+     ✓ it should pass on the dates we pass in
+   setTemps
+     ✓ it should have a type of SET_TEMPS (1ms)
+     ✓ it should pass on the temps we pass in
+
+12 tests passed (12 total in 1 test suite, run time 0.392s)
 ```
 
 And this is what your `actions.test.js` file could look like:
@@ -440,7 +385,7 @@ describe('actions', function() {
 
 Perfect, that part of our app is now comprehensively tested and we'll know as soon as somebody breaks something! Onwards to the reducer!
 
-### Reducer
+#### Reducer
 
 The reducer is, again, a pure function! It's quite easy to see what we need to validate actually, basically every `case` of our `switch` needs to have a test:
 
@@ -469,37 +414,38 @@ Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.tes
 
 
 ```
-actions
-  changeLocation
-    ✓ should have a type of CHANGE_LOCATION
-    ✓ should pass on the location we pass in
-  setSelectedDate
-    ✓ should have a type of SET_SELECTED_DATE
-    ✓ should pass on the date we pass in
-  setSelectedTemp
-    ✓ should have a type of SET_SELECTED_TEMP
-    ✓ should pass on the temp we pass in
-  setData
-    ✓ should have a type of SET_DATA
-    ✓ should pass on the data we pass in
-  setDates
-    ✓ should have a type of SET_DATES
-    ✓ should pass on the dates we pass in
-  setTemps
-    ✓ should have a type of SET_TEMPS
-    ✓ should pass on the temps we pass in
+PASS  src/__tests__/actions.test.js (0.365s)
+ actions
+   changeLocation
+     ✓ it should have a type of CHANGE_LOCATION (5ms)
+     ✓ it should pass on the location we pass in (1ms)
+   setSelectedDate
+     ✓ it should have a type of SET_SELECTED_DATE (1ms)
+     ✓ it should pass on the date we pass in
+   setSelectedTemp
+     ✓ it should have a type of SET_SELECTED_TEMP (1ms)
+     ✓ it should pass on the temp we pass in
+   setData
+     ✓ it should have a type of SET_DATA (1ms)
+     ✓ it should pass on the data we pass in
+   setDates
+     ✓ it should have a type of SET_DATES
+     ✓ it should pass on the dates we pass in (1ms)
+   setTemps
+     ✓ it should have a type of SET_TEMPS
+     ✓ it should pass on the temps we pass in (1ms)
 
-  mainReducer
-    ✓ should return the initial state
-    ✓ should react to an action with the type 'CHANGE_LOCATION'
-    ✓ should react to an action with the type 'SET_DATA'
-    ✓ should react to an action with the type 'SET_DATES'
-    ✓ should react to an action with the type 'SET_TEMPS'
-    ✓ should react to an action with the type 'SET_SELECTED_DATE'
-    ✓ should react to an action with the type 'SET_SELECTED_TEMP'
+PASS  src/__tests__/reducer.test.js (0.515s)
+ mainReducer
+   ✓ it should return the initial state (7ms)
+   ✓ it should react to an action with the type 'CHANGE_LOCATION' (1ms)
+   ✓ it should react to an action with the type 'SET_DATA' (3ms)
+   ✓ it should react to an action with the type 'SET_DATES' (4ms)
+   ✓ it should react to an action with the type 'SET_TEMPS' (2ms)
+   ✓ it should react to an action with the type 'SET_SELECTED_DATE' (1ms)
+   ✓ it should react to an action with the type 'SET_SELECTED_TEMP'
 
-
-  19 passing
+19 tests passed (19 total in 2 test suites, run time 0.819s)
 ```
 
 ## React
