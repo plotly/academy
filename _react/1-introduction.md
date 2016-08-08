@@ -13,9 +13,9 @@ author:
 
 React, to quote Facebook themselves, was built to solve one problem: "building large applications with data that changes over time". (that's why Instagram and Facebook are built with it)
 
-With react, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
+With React, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
 
-It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and going of building webapps, but once you're used to it you can never go back!
+It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and of going about building webapps, but once you're used to it you can never go back!
 
 ## What we'll build
 
@@ -75,7 +75,7 @@ Now you might think creating a `ReactDOM.render()` function for every ReactEleme
 
 ### `React.createElement()`
 
-This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the elements "children" as the third argument.
+This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the element's "children" as the third argument.
 
 ```JS
 // <h1></h1>
@@ -86,7 +86,7 @@ React.createElement('h1', { className: 'heading' });
 React.createElement('h1', {className: 'heading'}, 'Hello World');
 ```
 
-The children (the third argument), where it now says `'Hello World'`, can also be another ReactElement! Lets say we want to add a `<div>` with a `wrapper` class around our heading, we could pass our heading element to another element as a child:
+The children (the third argument), where it now says `'Hello World'`, can also be another ReactElement! Let's say we want to add a `<div>` with a `wrapper` class around our heading, we could pass our heading element to another element as a child:
 
 ```JS
 React.createElement('div', { className: 'wrapper' },
@@ -155,7 +155,7 @@ Using JSX is a bit tricky, since it's a non-standard extension of JavaScript no 
 
 Passing properties to our components is as easy as writing them as attributes on these HTML-like tags, and to add children we simply wrap them! The nice thing about JSX is that we can use JavaScript code in JSX by wrapping it in curly braces.
 
-Lets convert our `Wrapper` component to use JSX:
+Let's convert our `Wrapper` component to use JSX:
 
 ```JS
 var Wrapper = function(props) {
@@ -206,7 +206,7 @@ ReactDOM.render(
 
 <em>(<a target="_blank" href="http://react.jsbin.com/gakawe/1/edit?js,output">JSBin</a>)</em>
 
-Lets make a separate `Button` component, which'll take a prop called `text`. We'll make this component a functional one again, since it won't need to store any state:
+Let's make a separate `Button` component, which'll take a prop called `text`. We'll make this component a functional one again, since it won't need to store any state:
 
 ```JS
 var Button = function(props) {
@@ -233,7 +233,7 @@ class Counter extends React.Component {
 
 <em>(<a target="_blank" href="http://react.jsbin.com/dewoseb/1/edit?js,output">JSBin</a>)</em>
 
-Now lets increase a number everytime out `Button` is clicked by using an `onClick` handler:
+Now let's increase a number everytime our `Button` is clicked by using an `onClick` handler:
 
 ```JS
 class Counter extends React.Component {
@@ -277,7 +277,7 @@ class Counter extends React.Component {
 }
 ```
 
-That alone won't do anything though, we don't see that number anywhere on the page! (<a target="_blank" href="https://react.jsbin.com/xeroja/1/edit?js,output">JSBin</a>) To access the current state of the component we use `this.state`. Lets add that to our `render` method:
+That alone won't do anything though, we don't see that number anywhere on the page! (<a target="_blank" href="https://react.jsbin.com/xeroja/1/edit?js,output">JSBin</a>) To access the current state of the component we use `this.state`. Let's add that to our `render` method:
 
 ```JS
 class Counter extends React.Component {
@@ -308,7 +308,7 @@ Our `Counter` now looks like this, but clicking on the button doesn't increment 
 
 ![A counter with 0 clicks](https://i.imgur.com/zadL82o.jpg)
 
-To change the state of a component, we use the `this.setState` helper function which React provides. Lets add a `increment` method to our `Counter`, which increments the `clicks` state by one, and call `this.increment` when our `Button` is clicked!
+To change the state of a component, we use the `this.setState` helper function which React provides. Let's add an `increment` method to our `Counter`, which increments the `clicks` state by one, and call `this.increment` when our `Button` is clicked!
 
 ```JS
 class Counter extends React.Component {
@@ -336,7 +336,7 @@ class Counter extends React.Component {
 }
 ```
 
-The problem here is that `this` is in undefined in `increment` – the easiest way to fix this is to `bind` the context of `increment` to the class in the constructor like so:
+The problem here is that `this` is undefined in `increment` – the easiest way to fix this is to `bind` the context of `increment` to the class in the constructor like so:
 
 ```JS
 class Counter extends React.Component {
@@ -381,7 +381,7 @@ Node.js is a JavaScript runtime for your terminal. Don't worry too much about it
 
 #### Default exports
 
-Lets say we want to have a `add` function, that adds two numbers together. We write this function into its own file, `add.js`:
+Let's say we want to have an `add` function, that adds two numbers together. We write this function into its own file, `add.js`:
 
 ```JS
 // add.js
@@ -505,13 +505,13 @@ And as a third step, add an `index.html` file with this content:
 </body>
 ```
 
-If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "unexpected character import". This is because we haven't transpiled our JavaScript files with Browserify yet – lets do that! Run this command in your terminal:
+If you try opening the `index.html` file in your browser now, you'll see an error in your console saying something like "unexpected character import". This is because we haven't transpiled our JavaScript files with Browserify yet – let's do that! Run this command in your terminal:
 
 ```sh
 browserify main.js -o bundle.js
 ```
 
-This is telling browserify to transpile the `main.js` file and all modules found within, and to generate an output file called `bundle.js`. Lets edit our `index.html` and reference that transpiled bundle instead of our `main.js`!
+This is telling browserify to transpile the `main.js` file and all modules found within, and to generate an output file called `bundle.js`. Let's edit our `index.html` and reference that transpiled bundle instead of our `main.js`!
 
 ```HTML
 <!doctype html>
@@ -547,7 +547,7 @@ What we've done above when we ran the `npm install` command was that we installe
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
-Now that we understand react and modules we know everything we need to know to get started with building our app. Continue with [Part 2: "The first app"](/react/2-first-app/)!
+Now that we understand React and modules we know everything we need to know to get started with building our app. Continue with [Part 2: "The first app"](/react/2-first-app/)!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
