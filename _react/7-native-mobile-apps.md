@@ -2,6 +2,7 @@
 title: React Native
 description: Getting started with react native for Android and iOS
 layout: post
+finished: false
 author:
   name: Max Stoiber
   avatar: http://mxstbr.com/headshot.jpeg

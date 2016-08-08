@@ -75,6 +75,19 @@
 	background-color: $grey-1;
 }
 
+.tutorial-part--unfinished {
+	cursor: not-allowed;
+}
+
+.tutorial-part--unfinished:hover {
+	background-color: transparent;
+}
+
+.tutorial-part--unfinished .tutorial-part__title {
+	margin-top: 0;
+	margin-bottom: 3em;
+}
+
 .tutorial-part__title-part {
 	font-size: $small-copy-font-size;
 	text-align: center;

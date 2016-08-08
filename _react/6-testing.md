@@ -791,8 +791,6 @@ Snapshot Summary
 snapshot failure, 1 test failed, 19 tests passed (20 total in 3 test suites, run time 1.347s)
 ```
 
-Now that we have all that done, let's make our app a true app and create Android and iOS versions of it in [Part 7: React Native](/react/7-native-mobile-apps/)!
-
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->

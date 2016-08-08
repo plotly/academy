@@ -14,23 +14,32 @@ layout: default
         <section class="tutorial__parts">
           {% for docs in collection.docs %}
             {% assign loopindex = forloop.index0 | modulo: 2 %}
+            {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
             {% if loopindex == 0 %}
               <div class="tutorial__row">
             {% endif %}
-            {% if collection.docs.size == 1 %}
-              {% assign className = "tutorial-part--wide" %}
-            {% else %}
-              {% assign className = "" %}
+            {% assign className = "" %}
+            {% if forloop.last and thecycle == 'odd' %}
+              {% capture className %}{{ className }}{{ "tutorial-part--wide" }}{% endcapture %}
+            {% endif %}
+            {% if docs.finished == false %}
+              {% capture className %}{{ className }} {{ "tutorial-part--unfinished" }}{% endcapture %}
             {% endif %}
             <!-- site-internal tutorials -->
             {% if collection.output == true %}
-              <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
-                {% if collection.docs.size != 1 %}
-                  <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
-                {% endif %}
-                <h5 class="tutorial-part__title">{{ docs.title }}</h5>
-                <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
-              </a>
+              {% if docs.finished == false %}
+                <a class="tutorial-part {{ className }}">
+              {% else %}
+                <a class="tutorial-part {{ className }}" href="{{ docs.url }}">
+              {% endif %}
+                  {% if docs.finished == false %}
+                    <p class="tutorial-part__title-part">Coming soon</p>
+                  {% elsif collection.docs.size != 1 %}
+                    <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
+                  {% endif %}
+                  <h5 class="tutorial-part__title">{{ docs.title }}</h5>
+                  <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
+                </a>
             <!-- external tutorials -->
             {% else %}
               <a class="tutorial-part {{ className }}" href="{{ docs.links_to }}">
