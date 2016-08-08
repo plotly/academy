@@ -127,11 +127,10 @@ Let's test our actions first!
 
 #### Actions
 
-Create a new file called `actions.test.js` in the `src/test/` folder. (create that if you haven't already) Let's start by testing the good ol' `changeLocation` action. Add the default structure, we'll need to import `expect` and the action we want to test and `describe` "actions" and `changeLocation`:
+Create a new file called `actions.test.js` in the `src/__test__ /` folder. (create that if you haven't already) Let's start by testing the good ol' `changeLocation` action. Add the default structure, we'll need to import the action we want to test and `describe` "actions" and `changeLocation`:
 
 ```JS
 // actions.test.js
-import expect from 'expect';
 import {
   changeLocation
 } from '../actions';
@@ -304,7 +303,6 @@ And this is what your `actions.test.js` file could look like:
 ```JS
 // actions.test.js
 
-import expect from 'expect';
 import {
 	changeLocation,
 	setSelectedDate,
@@ -410,8 +408,135 @@ export default function mainReducer(state = initialState, action) {
 }
 ```
 
-Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `test/` directory and
+Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `__test__ /` directory, import the reducer and add the basic structure:
 
+```JS
+// __test__/reducer.test.js
+import mainReducer from '../reducer';
+
+describe('mainReducer', function() {
+
+});
+```
+
+The first branch of the switch statement we'll test is the `default` one – if we don't pass any state and an empty action in it should return the initial state. The thing is that the `initialState` is an immutable object, so we'll need to import `fromJS` too:
+
+```JS
+// __test__/reducer.test.js
+import mainReducer from '../reducer';
+import { fromJS } from 'immutable';
+
+describe('mainReducer', function() {
+  it('should return the initial state', function() {
+    expect(mainReducer(undefined, {})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+  });
+});
+```
+
+You should now see this output:
+
+```
+PASS  src/__tests__/actions.test.js (0.365s)
+PASS  src/__tests__/reducer.test.js (0.215s)
+13 tests passed (13 total in 2 test suites, run time 0.519s)
+```
+
+Brilliant! Let's showcase how we can test specific actions, again using our beloved `'CHANGE_LOCATION'` one.
+
+First, add a new `it` explaining what the reducer should do:
+
+```JS
+// __test__/reducer.test.js
+import mainReducer from '../reducer';
+import { fromJS } from 'immutable';
+
+describe('mainReducer', function() {
+  it('should return the initial state', function() {/* … */});
+
+  it('should react to an action with the type CHANGE_LOCATION', function() {
+
+  });
+});
+```
+
+Then, validate that the reducer changes the `location` field in the state correctly:
+
+```JS
+it('should react to an action with the type CHANGE_LOCATION', function() {
+  var location = 'Vienna, Austria';
+  expect(mainReducer(undefined, {
+    type: 'CHANGE_LOCATION',
+    location: location
+  })).toEqual(fromJS({
+    location: location,
+    data: {},
+    dates: [],
+    temps: [],
+    selected: {
+      date: '',
+      temp: null
+    }
+  }));
+});
+```
+
+Now we know that our action returns an object with a `type` of `"CHANGE_LOCATION"` and that our reducer changes the `location` field in the state correctly in response to an object with a `type` of `"CHANGE_LOCATION"`! Brilliant!
+
+Let's do the same thing for our `'SET_DATES'` case, first add the `it`:
+
+```JS
+// __test__/reducer.test.js
+import mainReducer from '../reducer';
+import { fromJS } from 'immutable';
+
+describe('mainReducer', function() {
+  it('should return the initial state', function() {/* … */});
+
+  it('should react to an action with the type CHANGE_LOCATION', function() {/* … */});
+
+  it('should react to an action with the type SET_DATES', function() {
+
+  });
+});
+```
+
+Then make sure our reducer acts accordingly:
+
+```JS
+it('should react to an action with the type SET_DATES', function() {
+  var dates = ['2016-01-01', '2016-02-02'];
+  expect(mainReducer(undefined, {
+    type: 'SET_DATES',
+    dates: dates
+  })).toEqual(fromJS({
+    location: '',
+    data: {},
+    dates: dates,
+    temps: [],
+    selected: {
+      date: '',
+      temp: null
+    }
+  }));
+});
+```
+
+Not too hard, eh? That's the power of redux!
+
+Now that we have showcased how it works with those two examples, go ahead and test the other cases too!
+
+----
+
+Done? This is what your terminal output should look like when running `npm run test -- --verbose`:
 
 ```
 PASS  src/__tests__/actions.test.js (0.365s)
@@ -448,6 +573,137 @@ PASS  src/__tests__/reducer.test.js (0.515s)
 19 tests passed (19 total in 2 test suites, run time 0.819s)
 ```
 
+If you do not have all the 7 cases in your reducer tested, go back and try to do them all! It'll strengthen your testing muscle and help you get used to thinking this way!
+
+When your output looks like the output above, you're done! This is what your `reducer.test.js` file should look like:
+
+```JS
+import mainReducer from '../reducer';
+import { fromJS } from 'immutable';
+
+describe('mainReducer', function() {
+	it('should return the initial state', function() {
+		expect(mainReducer(undefined, {})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'CHANGE_LOCATION'", function() {
+		var location = 'Vienna, Austria';
+		expect(mainReducer(undefined, {
+			type: 'CHANGE_LOCATION',
+			location: location
+		})).toEqual(fromJS({
+			location: location,
+		  data: {},
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'SET_DATA'", function() {
+		var data = { some: 'data' };
+		expect(mainReducer(undefined, {
+			type: 'SET_DATA',
+			data: data
+		})).toEqual(fromJS({
+			location: '',
+		  data: data,
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'SET_DATES'", function() {
+		var dates = ['2016-01-01', '2016-02-02'];
+		expect(mainReducer(undefined, {
+			type: 'SET_DATES',
+			dates: dates
+		})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: dates,
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'SET_TEMPS'", function() {
+		var temps = ['31', '32'];
+		expect(mainReducer(undefined, {
+			type: 'SET_TEMPS',
+			temps: temps
+		})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: [],
+		  temps: temps,
+		  selected: {
+		    date: '',
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'SET_SELECTED_DATE'", function() {
+		var date = '2016-02-01'
+		expect(mainReducer(undefined, {
+			type: 'SET_SELECTED_DATE',
+			date: date
+		})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: date,
+		    temp: null
+		  }
+		}));
+	});
+
+	it("should react to an action with the type 'SET_SELECTED_TEMP'", function() {
+		var temp = '31';
+		expect(mainReducer(undefined, {
+			type: 'SET_SELECTED_TEMP',
+			temp: temp
+		})).toEqual(fromJS({
+			location: '',
+		  data: {},
+		  dates: [],
+		  temps: [],
+		  selected: {
+		    date: '',
+		    temp: temp
+		  }
+		}));
+	});
+});
+```
+
+
+
+
+
+
 ## React
 
 ```
@@ -459,9 +715,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import App from '../App';
 
-describe('components', () => {
-	describe('<App />', () => {
-		it('renders correctly', () => {
+describe('components', function() {
+	describe('<App />', function() {
+		it('renders correctly', function() {
 			const tree = renderer.create(<App />).toJSON();
 		  expect(tree).toMatchSnapshot();
 		});
@@ -491,9 +747,9 @@ import renderer from 'react-test-renderer';
 import { fromJS } from 'immutable';
 import { App } from '../App';
 
-describe('components', () => {
-	describe('<App />', () => {
-		it('renders correctly', () => {
+describe('components', function() {
+	describe('<App />', function() {
+		it('renders correctly', function() {
 			const tree = renderer.create(<App redux={fromJS({})} />).toJSON();
 		  expect(tree).toMatchSnapshot();
 		});
