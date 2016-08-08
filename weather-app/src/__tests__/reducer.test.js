@@ -1,8 +1,7 @@
 import mainReducer from '../reducer';
-import expect from 'expect';
 import { fromJS } from 'immutable';
 
-describe('mainReducer', () => {
+describe('mainReducer', function() {
 	it('should return the initial state', function() {
 		expect(mainReducer(undefined, {})).toEqual(fromJS({
 			location: '',
