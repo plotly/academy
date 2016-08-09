@@ -13,7 +13,7 @@ Let's use our knowledge to write an actual app! What we'll build is a weather ap
 
 ## Setup
 
-Facebook recently open sourced a neat little tool called<a target="_blank" href="https://github.com/facebookincubator/create-react-app">`create-react-app`</a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
+Facebook recently open sourced a neat little tool called<a target="_blank" href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
 Let's install it with `npm`:
 
@@ -308,6 +308,8 @@ encodeURIComponent('My string with spaces'); // -> 'My%20string%20with%20spaces'
 ```
 
 Combine this method with the URL structure we need, the `xhr` explanation and the state of the component and we've got all the ingredients we need to get the data from the server!
+
+> Please note that you might need to restart the development server (`CTRL-C` to stop it, `npm start` to start it again) for it to know that a new module was installed!
 
 First, let's encode the location from the state:
 
