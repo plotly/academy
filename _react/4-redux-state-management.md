@@ -203,7 +203,7 @@ Then we need to create a store for our state and provide the state to our root `
 First, `import` those functions:
 
 ```JS
-// app.js
+// index.js
 
 /* … */
 import ReactDOM from 'react-dom';
@@ -219,7 +219,7 @@ import App from './App.js';
 Then we need to create our store:
 
 ```JS
-// app.js
+// index.js
 
 /* … */
 import App from './App.js';
@@ -306,10 +306,10 @@ export default function mainReducer(state = initialState, action) {
 
 That's our reducer done,
 
-Now we need to tell our store to use that reducer, so we `import` and pass it into the `createStore` call in the `app.js`:
+Now we need to tell our store to use that reducer, so we `import` and pass it into the `createStore` call in the `index.js`:
 
 ```JS
-// app.js
+// index.js
 
 /* … */
 import App from './App.js';
@@ -352,7 +352,7 @@ export default connect(function (state) {
 This function is called `mapStateToProps`, let's make that an external function so it's a bit clearer:
 
 ```JS
-// components/App.js
+// App.js
 
 /* … */
 
@@ -368,7 +368,7 @@ export default connect(mapStateToProps)(App);
 And that's everything need to get our App to get the location from the Redux store! Let's adapt our `App` to get the location from the props:
 
 ```JS
-// components/App.js
+// App.js
 
 /* … */
 
@@ -848,10 +848,10 @@ First, we need to install `redux-thunk`:
 npm install --save redux-thunk
 ```
 
-Second, we need to `apply` the `thunk` middleware in our `createStore` call in `app.js`:
+Second, we need to `apply` the `thunk` middleware in our `createStore` call in `index.js`:
 
 ```JS
-// app.js
+// index.js
 
 /* … */
 import { createStore, applyMiddleware } from 'redux';
