@@ -98,6 +98,9 @@ const theme = {
     '.post__description': {
       ...adjustFontSizeToMSValue(1/5),
     },
+    p: {
+      margin: '1.5rem 0',
+    }
   }),
 }
 
