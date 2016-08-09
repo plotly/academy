@@ -868,7 +868,7 @@ var store = createStore(
 
 And that's it, everything should be working again now. Look how easy it is to handle our components, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
 
-Now, let's find out how we can make our app so much more performant with immutable datastructures in <a target="_blank" href="/react/5-immutable-data/">Part 5: ImmutableJS</a>!
+Now, let's find out how we can make our app so much more performant with immutable datastructures in <a href="/react/5-immutable-data/">Part 5: ImmutableJS</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

@@ -549,7 +549,7 @@ What we've done above when we ran the `npm install` command was that we installe
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
-Now that we understand React and modules we know everything we need to know to get started with building our app. Continue with <a target="_blank" href="/react/2-first-app/">Part 2: "The first app"</a>!
+Now that we understand React and modules we know everything we need to know to get started with building our app. Continue with <a href="/react/2-first-app/">Part 2: "The first app"</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
