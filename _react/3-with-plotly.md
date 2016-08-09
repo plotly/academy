@@ -554,6 +554,7 @@ Let's add one more feature to our weather application. When clicking on a specif
 The first thing we need to do is add an event listener to our graph. Thankfully, Plotly gives us a handy `plotly_click` event to listen to, like so:
 
 ```JS
+// Called when a plot inside someDOMElement is clicked
 someDOMElement.on('plotly_click', function(data) {
   /* …do something here with the data… */
 });
