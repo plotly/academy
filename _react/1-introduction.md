@@ -41,6 +41,8 @@ This is the app we'll be building in this tutorial series (yes, this is a live e
 }
 </style>
 
+In this first chapter of the tutorial we'll go through the React basics, before starting to build the above app in chapter two. If you feel comfortable with React and JSX feel free to [skip ahead](/react/2-first-app/) but **I highly recommend going through this chapter to make sure you know React**!
+
 ## Getting Started
 
 We'll use <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output"><code>react.jsbin.com</code></a> for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
