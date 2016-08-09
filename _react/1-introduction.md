@@ -373,7 +373,7 @@ class Counter extends React.Component {
 
 Now it works, our `Counter` correctly increments the number when the button is clicked!
 
-Now that we understand React we know everything we need to know to get started with building our app. Continue with <a href="/react/2-first-app/">Part 2: "The first app"</a>!
+Now that we understand React we know everything we need to know to get started with building our app. Continue with <a href="/react/2-first-app/">Chapter 2: "The first app"</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

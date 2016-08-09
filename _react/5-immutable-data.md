@@ -9,7 +9,7 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
-As we discovered in Part 4: Redux, immutability is quite helpful when developing applications! It makes it so much easier to reason about what is happening to your data, as nothing can be mutated from somewhere entirely different.
+As we discovered in Chapter 4: Redux, immutability is quite helpful when developing applications! It makes it so much easier to reason about what is happening to your data, as nothing can be mutated from somewhere entirely different.
 
 The problem is that JavaScript is by default a mutable language. Other developers that don't have this intricate knowledge of immutability might still mess up, mutate the state and break our app in unexpected ways.
 
@@ -593,7 +593,7 @@ Now try clicking around and loading different cities.
 
 We've entirely gotten rid of the continuous rerenders, and only rerender when it's _really_ necessary! This is awesome!
 
-Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in <a href="/react/6-testing/">Part 6: Testing</a>!
+Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in <a href="/react/6-testing/">Chapter 6: Testing</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

@@ -852,15 +852,14 @@ module.exports = App;
 ```
 
 Perfect, this now works beautifully! As you can see, another huge benefit of Plotly.js is that it makes interactivity really easy in combination with React.
-Congratulations, you've built your first working application!
 
-TK Challenge
+Congratulations, you've built your first working application! 🎉
 
 ## Summary of this chapter
 
 We've created a new `Plot` component, shaped the data we get from the OpenWeatherMap API to suit our needs and used Plotly.js to render a beautiful and interactive 5 day weather forecast!
 
-Let's go to the next chapter,<a href="/react/4-redux-state-management/">Part 4: Redux</a>, where we learn how to properly manage state in our app!
+Onwards to <a href="/react/4-redux-state-management/">Chapter 4: State Management with Redux</a>, where we learn how to properly manage state in our app!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

@@ -196,7 +196,7 @@ class App extends React.Component {
 }
 ```
 
-As mentioned in Part 1, when saving anything to our local state, we have to predefine it. Let's do that:
+As mentioned in Chapter 1, when saving anything to our local state, we have to predefine it. Let's do that:
 
 ```JS
 // App.js
@@ -546,7 +546,7 @@ We learned how to structure our application and then we created a controlled tex
 
 > We're not rendering an error message if the API sends back an error – that part is left as an exercise to the reader.
 
-Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with <a href="/react/3-with-plotly/">Part 3: React with Plotly.js</a>!
+Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with <a href="/react/3-with-plotly/">Chapter 3: Adding a Forecast Graph</a> where we'll learn how to draw a graph!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

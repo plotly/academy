@@ -35,7 +35,7 @@ layout: default
                   {% if docs.finished == false %}
                     <p class="tutorial-part__title-part">Coming soon</p>
                   {% elsif collection.docs.size != 1 %}
-                    <p class="tutorial-part__title-part">Part {{ forloop.index }}</p>
+                    <p class="tutorial-part__title-part">Chapter {{ forloop.index }}</p>
                   {% endif %}
                   <h5 class="tutorial-part__title">{{ docs.title }}</h5>
                   <!-- <p class="tutorial-part__desc">{{ docs.description }}</p> -->
