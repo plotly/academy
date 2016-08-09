@@ -708,47 +708,118 @@ describe('mainReducer', function() {
 });
 ```
 
+Onwards to testing our components!
 
+## Component Testing
 
+When testing our components, the one thing we want to verify is that they render the same output as last time the test was ran. Since they are bound to change very often, more specific tests are more of a burden than a help. If the test fails, but we've manually verified the new output is correct we should be able to quickly tell that to our testing framework without much effort.
 
+Exactly for that purpose, Jest recently added support for **component snapshots**. Component snapshots are generated on the first test run and saved in files in your project. They should be checked into version control if you have one, and code reviews should include them.
 
+By having those snapshots after the first test run, we can immediately verify if our component output was changed. If any change happened and we manually verified the new version is correct we can run `jest -u` to update the existing snapshots!
 
-## React
+### Setup
+
+To render the components without opening a browser we'll have to install the `react-test-renderer`. It allows us to render the component to a JSON object!
 
 ```
 npm install --save-dev react-test-renderer
 ```
 
-```
+Let's create a new file and add the basic testing code. We'll be starting with the App component, so `import` that for now:
+
+```JS
+// __tests__/components.test.js
+
 import React from 'react';
 import renderer from 'react-test-renderer';
 import App from '../App';
 
 describe('components', function() {
-	describe('<App />', function() {
-		it('renders correctly', function() {
-			const tree = renderer.create(<App />).toJSON();
-		  expect(tree).toMatchSnapshot();
-		});
-	});
+  describe('<App />', function() {
+
+  });
 });
 ```
+
+The thing we want to verify in our `App` component is that it renders without throwing an error and taking a snapshot so we know when the output changes. Let's add an `it` to that effect:
+
+```JS
+// __tests__/components.test.js
+
+import React from 'react';
+import renderer from 'react-test-renderer';
+import App from '../App';
+
+describe('components', function() {
+  describe('<App />', function() {
+    it('renders correctly', function() {
+
+    });
+  });
+});
+```
+
+Let's now create a renderer, render our `<App />` component to JSON and expect that to match the snapshot:
+
+```JS
+// __tests__/components.test.js
+
+import React from 'react';
+import renderer from 'react-test-renderer';
+import App from '../App';
+
+describe('components', function() {
+  describe('<App />', function() {
+    it('renders correctly', function() {
+      var tree = renderer.create(<App />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
+```
+
+Try running this though, and you'll get this error:
 
 ```
 - Invariant Violation: Could not find "store" in either the context or props of "Connect(App)". Either wrap the root component in a <Provider>, or explicitly pass "store" as a prop to "Connect(App)".
 ```
 
-```JS
-export class App …
-```
+Ugh, what's this now? Couldn't find `store`? What?
+
+Remember what we export from the `App.js` file? The `react-redux` `connect`ed component! What we want to test though is the actual component itself, so we'll have to export that too:
 
 ```JS
-import { App } from '../App';
+// App.js
+
+/* … */
+
+export class App extends React.Component {/* … */}
+
+/* … */
+
+export default connect(mapStateToProps)(App);
 ```
+
+Awesome! Now we need to change the `import` in our test file to reference that new export and everything should work, right?
+
+```JS
+// __tests__/components.test.js
+
+import { App } from '../App';
+
+/* … */
+```
+
+Well, no, but we're getting a different error now! That's a good sign!
 
 ```
 - TypeError: Cannot read property 'getIn' of undefined
 ```
+
+Remember what `getIn` is used for? ImmutableJS! If you take a look into the component, it expects its `redux` prop to be an ImmutableJS data structure. At the moment, we aren't passing anything in as a prop so the `getIn` function is undefined.
+
+We can fix that very easily by `import`ing `fromJS` and passing our `<App />` an empty prop of `redux`:
 
 ```JS
 import React from 'react';
@@ -759,12 +830,41 @@ import { App } from '../App';
 describe('components', function() {
 	describe('<App />', function() {
 		it('renders correctly', function() {
-			const tree = renderer.create(<App redux={fromJS({})} />).toJSON();
+			var tree = renderer.create(<App redux={fromJS({})} />).toJSON();
 		  expect(tree).toMatchSnapshot();
 		});
 	});
 });
 ```
+
+Awesome, this totally works! When you now run your tests you'll see a new directory inside the `__tests__` directory called `__snapshots__`. It should contain a single file called `components.test.js` that has an export for our `App` component and some HTML as a string.
+
+```JS
+// __tests__/__snapshots__/components.test.js
+
+exports[`components <App /> renders correctly 1`] = `
+<div>
+  <h1>
+    Weather
+  </h1>
+  <form
+    onSubmit={[Function anonymous]}>
+    <label>
+      I want to know the weather for
+      <input
+        onChange={[Function anonymous]}
+        placeholder="City, Country"
+        type="text"
+        value={undefined} />
+    </label>
+  </form>
+</div>
+`;
+```
+
+Now try changing the text in the App component from "I want to know the weather for" to "I want to know todays weather for" and run `npm run test` again.
+
+This is the output you should see:
 
 ```
 PASS  src/__tests__/actions.test.js (0.487s)
@@ -799,6 +899,8 @@ Snapshot Summary
 
 snapshot failure, 1 test failed, 19 tests passed (20 total in 3 test suites, run time 1.347s)
 ```
+
+Awesome, Jest caught the changes in the output of our App component and immediately notified us of a potential error! If we wanted to make this the correct text, all we would have to do is run `npm run -- -u` (`-u` stands for "update snapshots") and Jest would recognize this output as the correct one!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
