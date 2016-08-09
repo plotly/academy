@@ -13,7 +13,7 @@ We've been using a top-level component called `App` to manage our global applica
 
 Together with React, Facebook released something called Flux. Flux is a methodology that helps you manage your global application state. Flux works fine, but has the downside that it uses events, which can lead to quite a bit of confusion.
 
-Thankfully,<a target="_blank" href="https://twitter.com/dan_abramov">Dan Abramov</a> stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
+Thankfully, <a target="_blank" href="https://twitter.com/dan_abramov">Dan Abramov</a> stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
 
 ## The Concept
 
