@@ -110,9 +110,9 @@ This `.wrapper` div might have a `max-width` and other styling associated with i
 
 ### Components
 
-To create a new `ReactComponent`, we make a new function that returns our `ReactElement`. That function gets passed the properties we give it when creating an element from it, plus a few extras. One of those extras is `children`, which is an array of all children.
+To create a new `ReactComponent`, we make a new function that returns our `ReactElement`. That function gets passed the properties (`props`) we give it when creating an element from it. These props are the second argument to the `createElement()` call. In the last example the sole property of the `div` was the `className`, but theoretically we could pass down as many props as we want!
 
-Our `Wrapper` component thus looks like this:
+Our `Wrapper` component could look like this:
 
 ```JS
 var Wrapper = function(props) {
@@ -122,7 +122,9 @@ var Wrapper = function(props) {
 };
 ```
 
-By using `props.children` as the third argument, this component will render its children! We simply pass it to `createElement` as the first argument without passing any special properties, and our heading as the child:
+> Some props are implicitly passed down by React. One of those is `children`, which is an array of all child components. The wrapper component only renders a `div` with a `class` of `'wrapper'`, and it's children!
+
+In the below example, the `Wrapper` component does not get passed any props, but it does get passed a child, a heading! This heading has a property called `className` that's set to `'heading'`, and a child that's just text saying `'Hello World`:
 
 ```JS
 React.createElement(Wrapper, null,
@@ -131,7 +133,7 @@ React.createElement(Wrapper, null,
 ```
 <em>(<a target="_blank" href="https://react.jsbin.com/sewaru/8/edit?js,output">JSBin</a>)</em>
 
-Now we can reuse our `Wrapper` component across our application and have consistent styling!
+Now we have a reusable `Wrapper` component that could make sure every page across our application has consistent styling!
 
 ### JSX
 
