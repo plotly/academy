@@ -25,11 +25,9 @@ Plotly.newPlot();
 
 A plot without data doesn't showcase much though, we need to parse the data we get from the OpenWeatherMap API and pass it to our `newPlot` call! The first argument is the id of the DOM element we want to render our plot into.
 
-The second argument is an array of objects with a few properties for our plot, with `x`, `y` and `type` being the most relevant for us. Plotly.js makes it easy to create a wide variety of plots, the one we care about the most at the moment is a `scatter` plot, which looks like this:
+The second argument is an array of objects with a few properties for our plot, with `x`, `y` and `type` being the most relevant for us. Plotly.js makes it easy to create a wide variety of plots, the one we care about the most at the moment is a `scatter` plot. See the documentation <a href="https://plot.ly/javascript/line-and-scatter/" target="_blank">here</a> for some examples. As you can see, it's perfect for a weather forecast!
 
-TK screenshot of plotly.js scatter plot
-
-As you can see, it's perfect for a weather forecast! This is structurally what our `Plotly.newPlot` call will look like:
+This is what our `Plotly.newPlot` call will look like:
 
 ```JS
 Plotly.newPlot('someDOMElementId', [{
