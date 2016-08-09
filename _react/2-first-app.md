@@ -33,6 +33,14 @@ Let's use our knowledge to write an actual app! What we'll build is a weather ap
 
 ## Setup
 
+### Prerequisites
+
+#### Node
+
+Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. If you don't have it installed already (check by running `node -v` in your terminal, which should print a version number) head over to <a target="_blank" href="https://nodejs.org">nodejs.org</a>, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
+
+### `create-react-app`
+
 Facebook recently open sourced a neat little tool called <a target="_blank" href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
 Let's install it with `npm`:
@@ -86,9 +94,25 @@ class App extends React.Component {
 export default App;
 ```
 
-Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on <a target="_blank" href="https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css">this page</a>.
+Save the file, go back to your browser and you should see a heading saying "Weather"! But what is all that `import` and `export` business?
 
-That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so let's add a form with an input field and label that says "City, Country"!
+### Modules
+
+Real world applications can have any number of components, ranging from a handful to thousands. Having all of them in a single file is impractical, so we structure them into **modules**. This allows us to keep our applications well structured and easy to work with. What we are doing above is telling the App component that we're using the `react` module and the `App.css` module!
+
+We can create modules by `export`ing something from a file, like above we're exporting the App component. This component can then be imported in another file with `import App from './path/to/App.js'`. (in fact, take a look at the `index.js` file and you'll see if being done!)
+
+#### Node Modules
+
+What we've done above when we ran the `npm install` command was that we installed a module. This means that somebody has pushed a module (just like our `App` module above!) to `npm` (Node Package Manager), which we can then install and use in our code!
+
+This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
+
+Alright, back to our weather app.
+
+We'll need a bit of styling to make sure our app looks good. I've prepared that for you so you can focus on React, simply replace all the CSS in `App.css` with what is on <a target="_blank" href="https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css">this page</a>.
+
+We'll also need to be able to tell our app for which location we want the weather, so let's add a form with an input field and label that says "City, Country"!
 
 ```JS
 // App.js
