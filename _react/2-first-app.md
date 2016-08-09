@@ -256,12 +256,15 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the <a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world.
-You'll need to get an API key from it, so head over to <a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a> and register for a free account.
+Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the <a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to <a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a>, press "Sign Up" in the top bar and register for a free account:
 
-As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
+![Homepage of openweathermap.org](http://i.imgur.com/CNBLfVY.png)
 
-TK screenshot of account page
+![Sign up page of openweathermap.org](http://i.imgur.com/WZmEa4p.png)
+
+As soon as you've done that go to your API key page by going to <a target="_blank" href="http://home.openweathermap.org/api_keys">home.openweathermap.org/api_keys</a>, copy the `API key` from there and keep it somewhere safe.
+
+![Profile page of openweathermap.org](http://i.imgur.com/3zvplvp.png)
 
 Now that we have access to all the weather data our heart could desire, let's get on with our app!
 
@@ -281,7 +284,7 @@ To get the data, the structure of the URL we'll request looks like this:
 http://api.openweathermap.org/data/2.5/forecast?q=CITY,COUNTRY&APPID=YOURAPIKEY&units=metric
 ```
 
-Replace `CITY,COUNTRY` with a city and country combination of choice and paste your copied API key from the OpenWeatherMap dashboard where it says `YOURAPIKEY`, and open that URL in your browser. (it should look something like this: `http://api.openweathermap.org/data/2.5/forecast?q=Vienna,Austria&APPID=asdf123&units=metric`)
+Replace `CITY,COUNTRY` with a city and country combination of choice, replace `YOURAPIKEY` with your copied API key and open that URL in your browser. (it should look something like this: `http://api.openweathermap.org/data/2.5/forecast?q=Vienna,Austria&APPID=asdf123&units=metric`)
 
 What you'll get is a JSON object that has the following structure:
 
