@@ -1,6 +1,6 @@
 ---
-title: React with Plotly.js
-description: How to use Plotly.js with React
+title: Adding a Forecast Graph
+description: Let's render a weather forecast graph using the plotly.js library!
 layout: post
 author:
   name: Max Stoiber
