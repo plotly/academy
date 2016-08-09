@@ -9,9 +9,18 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
+Testing apps is something that a lot of developers _should_ be doing, but a lot of them don't. It has a bunch of really nice benefits:
+
+1. **You catch bugs before they happen.** The obvious out of the bunch, but nontheless very important. We all make mistakes, and with an automated test suite (an array of tests) we make sure no users has to ever see those!
+2. **Tests are executable documentation.** This is in my opinion the biggest benefit. With a function that is well tested you can immediately figure out what it's used for, how you should use it and what to expect it to do! No more tedious documentation writing.
+3. **Tests save time.** This might be a bit counterintuitive, since writing tests takes away time you'd spend writing your app. But then you still have to do Q&A, manual testing to make sure you didn't break something else with a change! Automated tests save so much time that would be spent manually doing Q&A and finding bugs!
+4. **You will write better code.** Some code is harder to test, some easier. You'll start writing easier testable code, which automatically is better code!
+
+With this in mind, there's no way we could not test our application! Let's get started!
+
 ## Unit testing
 
-Unit testing is the practice of testing the smallest possible *units* of our code, functions. We run our tests and automatically verify that our functions do the thing we expect them to do. We assert that, given a set of inputs, our functions return the proper values and handle problems.
+Unit testing is the practice of testing the smallest possible *units* of our code. In JavaScript, those are functions. We run our tests and automatically verify that our functions do the thing we expect them to do. We assert that, given a set of inputs, our functions return the proper values and handle problems.
 
 We'll be using the <a target="_blank" href="https://facebook.github.io/jest/">Jest</a> test framework by facebook. It was written to help test react apps, and is perfect for that purpose! It makes writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
 
