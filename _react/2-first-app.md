@@ -9,11 +9,31 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
-Let's use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast.
+Let's use our knowledge to write an actual app! What we'll build is a weather application that'll display the current conditions and a 7 day forecast. Again, here is a live preview of what we're going to build:
+
+<div class="post__example post__example--full-width">
+  <div class="post__example-bar">
+    <div class="post__example-controls"></div>
+  </div>
+  <div class="post__example-content">
+    <iframe class="preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE" src="http://blog.mxstbr.com/weather-app/"></iframe>
+  </div>
+</div>
+
+*You can also see this example in your own browser at <a target="_blank" href="http://blog.mxstbr.com/weather-app">blog.mxstbr.com/weather-app</a>*
+
+<style>
+.preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE {
+  width: 100%;
+  border: none;
+  height: 98.4%;
+  margin: 0;
+}
+</style>
 
 ## Setup
 
-Facebook recently open sourced a neat little tool called<a target="_blank" href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
+Facebook recently open sourced a neat little tool called <a target="_blank" href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
 Let's install it with `npm`:
 
@@ -66,7 +86,7 @@ class App extends React.Component {
 export default App;
 ```
 
-Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on<a target="_blank" href="https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css">this page</a>.
+Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on <a target="_blank" href="https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css">this page</a>.
 
 That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so let's add a form with an input field and label that says "City, Country"!
 
@@ -212,8 +232,8 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the<a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world.
-You'll need to get an API key from it, so head over to<a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a> and register for a free account.
+Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the <a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world.
+You'll need to get an API key from it, so head over to <a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a> and register for a free account.
 
 As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
 
@@ -499,7 +519,7 @@ We learned how to structure our application and then we created a controlled tex
 
 > We're not rendering an error message if the API sends back an error – that part is left as an exercise to the reader.
 
-Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with<a target="_blank" href="/react/3-with-plotly/">Part 3: React with Plotly.js</a>!
+Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with <a target="_blank" href="/react/3-with-plotly/">Part 3: React with Plotly.js</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

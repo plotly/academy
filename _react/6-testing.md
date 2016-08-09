@@ -13,7 +13,7 @@ author:
 
 Unit testing is the practice of testing the smallest possible *units* of our code, functions. We run our tests and automatically verify that our functions do the thing we expect them to do. We assert that, given a set of inputs, our functions return the proper values and handle problems.
 
-We'll be using the<a target="_blank" href="https://facebook.github.io/jest/">Jest</a> test framework by facebook. It was written to help test react apps, and is perfect for that purpose! It makes writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
+We'll be using the <a target="_blank" href="https://facebook.github.io/jest/">Jest</a> test framework by facebook. It was written to help test react apps, and is perfect for that purpose! It makes writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
 
 ### Basics
 
@@ -31,7 +31,7 @@ export function add(x, y) {
 
 Jest is our unit testing framework. Its API, which we write tests with, is speech like and easy to use.
 
-> Note: This is the<a target="_blank" href="http://facebook.github.io/jest">official documentation</a> of Jest.
+> Note: This is the <a target="_blank" href="http://facebook.github.io/jest">official documentation</a> of Jest.
 
 We're going to add a second file called `add.test.js` in a subfolder called `__tests__` with our unit tests inside. Running said unit tests requires us to enter `npm run test -- __tests__/add.test.js` into the command line.
 

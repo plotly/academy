@@ -50,7 +50,7 @@ Plotly.newPlot('someDOMElementId', [{
 
 As you can see, we also pass in some styling information as the third argument (we specify a few margins and hide the xaxis grid lines), and some options as the fourth argument. (we hide the mode bar)
 
-Plotly.js has tons of options, I encourage you to check out the<a target="_blank" href="https://plot.ly/javascript/">excellent documentation</a> and play around with a few of them!
+Plotly.js has tons of options, I encourage you to check out the <a target="_blank" href="https://plot.ly/javascript/">excellent documentation</a> and play around with a few of them!
 
 To actually get this done though, we need to create a new component first. We'll call it `Plot` (what a surprise!), so add a new file in your `src/` folder called `Plot.js`, and render just a div:
 

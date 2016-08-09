@@ -593,7 +593,7 @@ Now try clicking around and loading different cities.
 
 We've entirely gotten rid of the continuous rerenders, and only rerender when it's _really_ necessary! This is awesome!
 
-Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in<a target="_blank" href="/react/6-testing/">Part 6: Testing</a>!
+Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in <a target="_blank" href="/react/6-testing/">Part 6: Testing</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
