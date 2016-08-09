@@ -30,7 +30,7 @@ This is the app we'll be building in this tutorial series (yes, this is a live e
   </div>
 </div>
 
-*You can also see this example in your own browser at [blog.mxstbr.com/weather-app](http://blog.mxstbr.com/weather-app)*
+*You can also see this example in your own browser at<a target="_blank" href="http://blog.mxstbr.com/weather-app">blog.mxstbr.com/weather-app</a>*
 
 <style>
 .preview-iframe-DO-NOT-APPLY-THIS-CLASS-ANYWHERE-ELSE {
@@ -547,7 +547,7 @@ What we've done above when we ran the `npm install` command was that we installe
 
 This way we can use React and build our app without having to globally attach anything, a big benefit in terms of understanding what is going on!
 
-Now that we understand React and modules we know everything we need to know to get started with building our app. Continue with [Part 2: "The first app"](/react/2-first-app/)!
+Now that we understand React and modules we know everything we need to know to get started with building our app. Continue with<a target="_blank" href="/react/2-first-app/">Part 2: "The first app"</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

@@ -13,7 +13,7 @@ Let's use our knowledge to write an actual app! What we'll build is a weather ap
 
 ## Setup
 
-Facebook recently open sourced a neat little tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
+Facebook recently open sourced a neat little tool called<a target="_blank" href="https://github.com/facebookincubator/create-react-app">`create-react-app`</a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
 Let's install it with `npm`:
 
@@ -66,7 +66,7 @@ class App extends React.Component {
 export default App;
 ```
 
-Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on [this page](https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css).
+Save the file, go back to your browser and you should see a heading saying "Weather"! We'll also need a bit of styling, so replace all the CSS in `App.css` with what is on<a target="_blank" href="https://github.com/plotly/academy/blob/gh-pages/weather-app/src/App.css">this page</a>.
 
 That's nice and all, but we'll need to be able to tell our app for which location we want the weather, so let's add a form with an input field and label that says "City, Country"!
 
@@ -212,7 +212,8 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the [OpenWeatherMap API](openweathermap.org/api) for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to [openweathermap.org/api](http://openweathermap.org/api) and register for a free account.
+Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the<a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world.
+You'll need to get an API key from it, so head over to<a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a> and register for a free account.
 
 As soon as you've done that go to your account page, copy the `API key` and keep it somewhere safe.
 
@@ -496,7 +497,7 @@ We learned how to structure our application and then we created a controlled tex
 
 > We're not rendering an error message if the API sends back an error – that part is left as an exercise to the reader.
 
-Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with [Part 3: React with Plotly.js](/react/3-with-plotly/)!
+Now that we have the current temperature, we need to render the 5 day forecast! Thankfully, we have Plotly which makes it very easy for us to create amazing graphs. Continue with<a target="_blank" href="/react/3-with-plotly/">Part 3: React with Plotly.js</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

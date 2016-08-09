@@ -13,7 +13,7 @@ We've been using a top-level component called `App` to manage our global applica
 
 Together with React, Facebook released something called Flux. Flux is a methodology that helps you manage your global application state. Flux works fine, but has the downside that it uses events, which can lead to quite a bit of confusion.
 
-Thankfully, [Dan Abramov](https://twitter.com/dan_abramov) stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
+Thankfully,<a target="_blank" href="https://twitter.com/dan_abramov">Dan Abramov</a> stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
 
 ## The Concept
 
@@ -867,7 +867,7 @@ var store = createStore(
 
 And that's it, everything should be working again now. Look how easy it is to handle our components, how nicely everything is separeted by concern and how easy it would be to add a new feature to our app! That's the power of redux, our application is easier to reason about and to handle, instead of having one massive top-level `App` component we separate the concerns properly.
 
-Now, let's find out how we can make our app so much more performant with immutable datastructures in [Part 5: ImmutableJS](/react/5-immutable-data/)!
+Now, let's find out how we can make our app so much more performant with immutable datastructures in<a target="_blank" href="/react/5-immutable-data/">Part 5: ImmutableJS</a>!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
