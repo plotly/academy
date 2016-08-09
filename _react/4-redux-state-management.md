@@ -97,7 +97,7 @@ function changeLocation(location) {
 
 This action thus has a type of `'CHANGE_LOCATION'` and passes along some data with the `location` property.
 
-That's nice and all, but this won't change the store automatically. We have to tell Redux what to do when this action comes in, which we do in a so-called reducer.
+That's nice and all, but this won't change the state automatically. We have to tell Redux what to do when this action comes in, which we do in a so-called reducer.
 
 A reducer is a simple function that takes two arguments, the current state and the action that was dispatched:
 
@@ -198,7 +198,9 @@ npm install --save redux react-redux
 
 > `redux` is the main package and is framework agnostic. `react-redux` provides bindings for react, as we'll see shortly!
 
-Then we need to create a store for our state and provide the state to our root `App` component. We do this in our main `index.js` file, and we'll use the `createStore` function from the `redux` package and the `Provider` component from the `react-redux` package.
+Then we need to create a store for our state and provide the state to our root `App` component. The `store` combines all of the apps reducers and (as the name suggests) stores the state. Once the store is set up though, you can forget about it again since we'll be using the state, but not the store directly!
+
+We do this in our main `index.js` file, and we'll use the `createStore` function from the `redux` package and the `Provider` component from the `react-redux` package.
 
 First, `import` those functions:
 
@@ -323,7 +325,7 @@ ReactDOM.render(
 );
 ```
 
-Awesome, now everything's wired up except our `App` component! We need to connect it to the store, which the `react-redux` module thankfully has a handy function for. Instead of exporting the raw `App` component, we export the `connect`ed component:
+Awesome, now everything's wired up except our `App` component! We need to connect it to the global redux state, which the `react-redux` module thankfully has a handy function for. Instead of exporting the raw `App` component, we export the `connect`ed component:
 
 ```JS
 // App.js
@@ -365,7 +367,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(App);
 ```
 
-And that's everything need to get our App to get the location from the Redux store! Let's adapt our `App` to get the location from the props:
+And that's everything need to get our App to get the location from the Redux state! Let's adapt our `App` to get the location from the props:
 
 ```JS
 // App.js
