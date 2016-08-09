@@ -238,7 +238,8 @@ Lastly, we need to wrap our `App` component in the `Provider` and pass in the st
 ReactDOM.render(
 	<Provider store={store}>
 		<App />
-	</Provider>
+	</Provider>,
+  document.getElementById('root')
 );
 /* … */
 ```
