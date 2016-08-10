@@ -1027,7 +1027,13 @@ Snapshot Summary
 
 Yesss!!! 🎉 We have now successfully tested our entire application, whenever something breaks we now immediately know!
 
+## Outro
 
+Congratulations, you've now built your first real-world React application!!!
+
+We've gone over a lot, starting off with learning the basics of React, integrating a standard JavaScript library with it, fetching and managing data from an API, managing state with Redux and ImmutableJS all the way to testing our entire app!
+
+This is everything you need to know to get started building your own app with React. Go out there and create amazing things!
 
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>

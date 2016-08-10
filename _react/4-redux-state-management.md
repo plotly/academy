@@ -872,6 +872,12 @@ And that's it, everything should be working again now. Look how easy it is to ha
 
 Now, let's find out how we can make our app so much more performant with immutable datastructures in <a href="/react/5-immutable-data/">Chapter 5: ImmutableJS</a>!
 
+## Additional Material
+
+- <a href="http://redux.js.org" target="_blank">Official Redux Docs</a>
+- <a href="https://egghead.io/courses/getting-started-with-redux" target="_blank">Egghead.io "Getting started with Redux" Video Course</a>
+- <a href="https://egghead.io/courses/building-react-applications-with-idiomatic-redux" target="_blank">Egghead.io Advanced Redux Video Course</a>
+
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->

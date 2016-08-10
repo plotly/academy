@@ -595,6 +595,12 @@ We've entirely gotten rid of the continuous rerenders, and only rerender when it
 
 Let's explore how we can make sure our app works the way we expect it to, no matter who's working on it, in <a href="/react/6-testing/">Chapter 6: Testing</a>!
 
+## Additional Material
+
+- <a href="http://facebook.github.io/immutable-js" target="_blank">Official ImmutableJS docs</a>
+- <a href="https://auth0.com/blog/intro-to-immutable-js/" target="_blank">Introduction to Immutable.js and Functional Programming Concepts</a>
+- <a href="http://reactkungfu.com/2015/08/pros-and-cons-of-using-immutability-with-react-js/" target="_blank">Pros and Cons of using immutability with React.js</a>
+
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->

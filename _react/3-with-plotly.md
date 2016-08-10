@@ -836,6 +836,12 @@ We've created a new `Plot` component, shaped the data we get from the OpenWeathe
 
 Onwards to <a href="/react/4-redux-state-management/">Chapter 4: State Management with Redux</a>, where we learn how to properly manage state in our app!
 
+## Additional Material
+
+- <a href="https://plot.ly/javascript/" target="_blank">Official plotly.js docs</a>
+- <a href="http://openweathermap.org/api" target="_blank">OpenWeatherMap API</a>
+- <a href="http://www.jsgraphs.com/" target="_blank">JavaScript Graphing Library Comparison</a>
+
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->

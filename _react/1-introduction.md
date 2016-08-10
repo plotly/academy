@@ -375,6 +375,14 @@ Now it works, our `Counter` correctly increments the number when the button is c
 
 Now that we understand React we know everything we need to know to get started with building our app. Continue with <a href="/react/2-first-app/">Chapter 2: "The first app"</a>!
 
+## Additional material
+
+> This section at the end of each chapter will contain a few more links to articles of related topics.
+
+- <a target="_blank" href="https://facebook.github.io/react/">Official React Docs</a>
+- <a target="_blank" href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX in depth</a>
+- <a target="_blank" href="https://medium.com/javascript-scene/jsx-looks-like-an-abomination-1c1ec351a918#.2fvbsips2">JSX Looks Like An Abomination, But it’s Good for You</a>
+
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->
