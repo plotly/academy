@@ -902,6 +902,133 @@ snapshot failure, 1 test failed, 19 tests passed (20 total in 3 test suites, run
 
 Awesome, Jest caught the changes in the output of our App component and immediately notified us of a potential error! If we wanted to make this the correct text, all we would have to do is run `npm run -- -u` (`-u` stands for "update snapshots") and Jest would recognize this output as the correct one!
 
+Let's try to do the same thing for our `Plot`. First, import it and add the testing structure:
+
+```JS
+import Plot from '../Plot.js';
+
+describe('components', function() {
+  describe('<App />', function() {/* … */});
+
+  describe('<Plot />', function() {
+    it('renders correctly', function() {
+
+    });
+  });
+});
+```
+
+> We don't need to export the Plot separately here since this isn't `connect`ed anyway!
+
+Now try adding a first snapshot:
+
+```JS
+import Plot from '../Plot.js';
+
+describe('components', function() {
+  describe('<App />', function() {/* … */});
+
+  describe('<Plot />', function() {
+    it('renders correctly', function() {
+      const tree = renderer.create(<Plot />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
+```
+
+Run `npm run test` and you'll see this error: `"ReferenceError: Plotly is not defined"`. We use `Plotly.newPlot` in the `drawPlot` method, so at least we know that's being ran!
+
+We need to pretend to Jest that `Plotly` exists for our component. We do this by adding a new field to the `global` variable which the `Plot` component will try to get `Plotly` from:
+
+```JS
+import Plot from '../Plot.js';
+
+describe('components', function() {
+  describe('<App />', function() {/* … */});
+
+  describe('<Plot />', function() {
+    global.Plotly = {
+      newPlot: () => {}
+    };
+    it('renders correctly', function() {
+      const tree = renderer.create(<Plot />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
+```
+
+Now that that's "defined" (at least we pretend like it is), let's try running `npm run test` again! Another error, this time saying `"TypeError: Cannot read property 'toJS' of undefined"`?
+
+Wait, didn't we have a similar error before? Exactly, this is an ImmutableJS problem again! Our `Plot` expects two immutable data structures to be passed in as `xData` and `yData`. Soo, let's do that? We have `fromJS` already imported from before, so we just add those as props:
+
+```JS
+import Plot from '../Plot.js';
+
+describe('components', function() {
+  describe('<App />', function() {/* … */});
+
+  describe('<Plot />', function() {
+    global.Plotly = {
+      newPlot: () => {}
+    };
+    it('renders correctly', function() {
+      const tree = renderer.create(<Plot xData={fromJS({})} yData={fromJS({})} />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
+```
+
+Nothing fancy, let's see what happens now! Ugh, _another_ error saying `"ReferenceError: document is not defined"`. How many more errors will we get??
+
+As a short aside, this is what happens when you integrate general JS libraries with React. The nice thing is, React is just JavaScript so contrary to some other frameworks it's possible! That doesn't mean it's easy though, but we're almost through it!
+
+Let's get on with it, since the `react-test-renderer` renders the components in a non-browser context (the command line) we need to tell Jest that the `document` variable we use for `document.getElementById('...').on('...')` isn't undefined for us!
+
+We do this again like `Plotly` above by attaching a new property to `global`:
+
+```JS
+import Plot from '../Plot.js';
+
+describe('components', function() {
+  describe('<App />', function() {/* … */});
+
+  describe('<Plot />', function() {
+    global.Plotly = {
+      newPlot: () => {}
+    };
+    global.document = {
+      getElementById: function() { return {
+        on: function() {}
+      }}
+    };
+    it('renders correctly', function() {
+      const tree = renderer.create(<Plot xData={fromJS({})} yData={fromJS({})} />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+});
+```
+
+Now when you run this, what do you see?!
+
+```
+ PASS  src/__tests__/actions.test.js (0.528s)
+ PASS  src/__tests__/reducer.test.js (0.623s)
+ PASS  src/__tests__/components.test.js (0.947s)
+
+Snapshot Summary
+› 1 snapshot written in 1 test file.
+
+21 tests passed (21 total in 3 test suites, 2 snapshots, run time 1.242s)
+```
+
+Yesss!!! 🎉 We have now successfully tested our entire application, whenever something breaks we now immediately know!
+
+
+
 <!-- Syntax highlighting -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
 <!-- /Syntax highlighting -->
