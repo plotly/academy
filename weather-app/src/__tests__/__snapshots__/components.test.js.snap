@@ -16,3 +16,8 @@ exports[`components <App /> renders correctly 1`] = `
   </form>
 </div>
 `;
+
+exports[`components <Plot /> renders correctly 1`] = `
+<div
+  id="plot" />
+`;
