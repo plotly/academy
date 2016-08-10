@@ -447,7 +447,7 @@ export default Plot;
 
 Now try it! You'll see a beautiful 5 day weather forecast rendered like this:
 
-TK screenshot of working app
+![Finished Forecast Graph](http://i.imgur.com/XqyXXz8.png)
 
 Awesome! Normally, creating a graph like this would take ages, but Plotly.js makes it incredibly easy!
 

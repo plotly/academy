@@ -12,6 +12,7 @@
 .post img {
   max-width: 100%;
   display: block;
+  margin: 0 auto;
 }
 
 .post__author {
@@ -25,7 +26,8 @@
 .post__author-avatar {
   float: left;
   max-width: 8em!important;
-  margin-right: 1.5em;
+  margin: 0!important;
+  margin-right: 1.5em!important;
 }
 
 .post__example {
