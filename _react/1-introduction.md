@@ -1,6 +1,6 @@
 ---
 title: Introduction to React.js
-description: Learn the basics of the tools we'll use to build our app
+description: Learn the basics of the React, one of the most popular JavaScript frameworks out there!
 layout: post
 author:
   name: Max Stoiber

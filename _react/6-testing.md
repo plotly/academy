@@ -1,6 +1,6 @@
 ---
 title: Testing your app with Jest
-description: Testing React.js applications
+description: Learn how to test your React/Redux app thoroughly, including actions, reducers and components!
 layout: post
 author:
   name: Max Stoiber

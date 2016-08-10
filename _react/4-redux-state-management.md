@@ -1,6 +1,6 @@
 ---
 title: State Management with Redux
-description: Properly handling application state
+description: Learn how to handle application state in a centralized store with Redux!
 layout: post
 author:
   name: Max Stoiber

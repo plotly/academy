@@ -1,6 +1,6 @@
 ---
 title: Immutable React
-description: Enhance your application with immutability
+description: Learn how to enhance your application with immutability to increase the performance and avoid mutation bugs!
 layout: post
 author:
   name: Max Stoiber
