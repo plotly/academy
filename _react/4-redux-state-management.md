@@ -1,6 +1,6 @@
 ---
 title: State Management with Redux
-description: Learn how to handle application state in a centralized store with Redux!
+description: Learn how to handle application state in a centralized store with Redux, the most popular unidirectional data flow library!
 layout: post
 author:
   name: Max Stoiber

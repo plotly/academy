@@ -1,6 +1,6 @@
 ---
 title: Your first app
-description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data!
+description: Starting to write our first React.js application, we learn how to structure our app and how to fetch data from an API!
 layout: post
 author:
   name: Max Stoiber

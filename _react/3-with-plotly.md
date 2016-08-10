@@ -1,6 +1,6 @@
 ---
 title: Adding a Forecast Graph
-description: Let's render a weather forecast graph using the plotly.js graphing library!
+description: Learn how to render a weather forecast graph using the plotly.js graphing library!
 layout: post
 author:
   name: Max Stoiber

@@ -1,6 +1,6 @@
 ---
 title: Introduction to React.js
-description: Learn the basics of the React, one of the most popular JavaScript frameworks out there!
+description: Learn the basics of React, one of the most popular JavaScript frameworks out there. It's used by companies large and small including Instagram, Netflix, Airbnb and many more!
 layout: post
 author:
   name: Max Stoiber
