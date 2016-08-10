@@ -24,6 +24,10 @@ Unit testing is the practice of testing the smallest possible *units* of our cod
 
 We'll be using the <a target="_blank" href="https://facebook.github.io/jest/">Jest</a> test framework by facebook. It was written to help test react apps, and is perfect for that purpose! It makes writing tests as easy as speaking - you `describe` a unit of your code and `expect` `it` to do the correct thing.
 
+Thankfully, `create-react-app` comes with it installed by default so we won't need to do any setup! Simply enter `npm run test` into your terminal to run the tests we'll write below.
+
+> Note: You need version 0.0.3 or higher of `create-react-app` for Jest support. To check which version you have installed look into the `package.json` of the `weather-app` folder to the version next to `"react-scripts"`, and possibly update it with this command: `npm install --save-dev react-scripts@"^0.3.0 || 0.3.0-alpha"`
+
 ### Basics
 
 For the sake of this guide, lets pretend we're testing this function. It's situated in the `add.js` file:
