@@ -552,8 +552,8 @@ Let's add one more feature to our weather application. When clicking on a specif
 The first thing we need to do is add an event listener to our graph. Thankfully, Plotly gives us a handy `plotly_click` event to listen to, like so:
 
 ```JS
-// Called when a plot inside someDOMElement is clicked
-someDOMElement.on('plotly_click', function(data) {
+// Called when a plot inside the DOM element with the id "someID" is clicked
+document.getElementById('someID').on('plotly_click', function(data) {
   /* …do something here with the data… */
 });
 ```
@@ -572,27 +572,7 @@ The nice thing about `plotly_click` is that it doesn't pass you the event, it pa
 
 These tell us which date was clicked on and what the relevant temperature was, exactly what we want! We'll pass a function down to the `Plot` component called `onPlotClick` that will get called when the `plotly_click` event is fired, i.e. when a point on our forecast is clicked on.
 
-Let's start off by binding that event listener in our `Plot` component. We need to somehow get the DOM node of our plot, and React makes that very easy. We add a `ref` prop with a value of `"plot"` to our `div`. Then we access the DOM node of the plot with `this.refs.plot` everywhere in our component:
-
-```JS
-// Plot.js
-
-class Plot extends React.Component {
-  drawPlot = () => { /* … */ },
-  componentDidMount() { /* … */ },
-  componentDidUpdate() { /* … */ },
-  render() {
-    var self = this;
-    return (
-      <div id="plot" ref="plot"></div>
-    );
-  }
-}
-
-module.exports = Plot;
-```
-
-Let's use that in our `drawPlot` method to bind the `plotly_click` event to `this.props.onPlotClick`!
+Let's start off by binding that event listener in our `Plot` component. In our `drawPlot` method bind the `plotly_click` event to `this.props.onPlotClick`!
 
 ```JS
 // Plot.js
@@ -600,16 +580,11 @@ Let's use that in our `drawPlot` method to bind the `plotly_click` event to `thi
 class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot( /* … */ );
-    this.refs.plot.on('plotly_click', this.props.onPlotClick);
+    document.getElementById('plot').on('plotly_click', this.props.onPlotClick);
   },
   componentDidMount() { /* … */ },
   componentDidUpdate() { /* … */ },
-  render() {
-    var self = this;
-    return (
-      <div id="plot" ref="plot"></div>
-    );
-  }
+  render() { /* … */ }
 }
 
 module.exports = Plot;

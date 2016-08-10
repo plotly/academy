@@ -18,7 +18,7 @@ class Plot extends Component {
     }, {
       displayModeBar: false
     });
-    this.refs.plot.on('plotly_click', this.props.onPlotClick);
+    document.getElementById('plot').on('plotly_click', this.props.onPlotClick);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -38,7 +38,7 @@ class Plot extends Component {
 
   render() {
     return (
-      <div id="plot" ref="plot"></div>
+      <div id="plot"></div>
     );
   }
 }
