@@ -45,7 +45,7 @@ In this first chapter of the tutorial we'll go through the React basics, before 
 
 ## Getting Started
 
-We'll use <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output"><code>react.jsbin.com</code></a> for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for `React.js`.
+We'll use <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output"><code>react.jsbin.com</code></a> for the initial explanation, which has a fully featured React environment set up. With this, you can quickly experiment and get a feel for React.
 
 React consists of two libraries, `React` and `ReactDOM`. `React` allows you to create elements, which we render with `ReactDOM`. They are split because you could (theoretically) render those ReactElements anywhere, not only to the browser DOM.
 
@@ -77,7 +77,7 @@ Now you might think creating a `ReactDOM.render()` function for every ReactEleme
 
 ### `React.createElement()`
 
-This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the element's "children" as the third argument.
+This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the elements "children" as the third argument.
 
 ```JS
 // <h1></h1>
@@ -147,7 +147,7 @@ Instead of calling `React.createElement`, we can use JSX:
 </Wrapper>
 ```
 
-which is the same thing as
+is the same thing as
 
 ```JS
 React.createElement(Wrapper, null,
@@ -155,7 +155,7 @@ React.createElement(Wrapper, null,
 )
 ```
 
-Using JSX is a bit tricky, since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!
+Using JSX is a bit tricky: since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* (compile JavaScript to JavaScript) our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!
 
 Passing properties to our components is as easy as writing them as attributes on these HTML-like tags, and to add children we simply wrap them! The nice thing about JSX is that we can use JavaScript code in JSX by wrapping it in curly braces.
 
