@@ -30,10 +30,10 @@ Thankfully, `create-react-app` comes with it installed by default so we won't ne
 
 ### Basics
 
-For the sake of this guide, lets pretend we're testing this function. It's situated in the `add.js` file:
+For the sake of this guide, lets pretend we're testing this function. It's situated in the `src/add.js` file:
 
 ```javascript
-// add.js
+// src/add.js
 
 export function add(x, y) {
   return x + y;
@@ -46,12 +46,12 @@ Jest is our unit testing framework. Its API, which we write tests with, is speec
 
 > Note: This is the <a target="_blank" href="http://facebook.github.io/jest">official documentation</a> of Jest.
 
-We're going to add a second file called `add.test.js` in a subfolder called `__tests__` with our unit tests inside. Running said unit tests requires us to enter `npm run test -- __tests__/add.test.js` into the command line.
+We're going to add a second file called `add.test.js` in a subfolder called `src/__tests__/` with our unit tests inside. Running said unit tests requires us to enter `npm run test -- src/__tests__/add.test.js` into the command line.
 
 First, we `import` the function in our `add.test.js` file:
 
 ```javascript
-// add.test.js
+// src/__tests__/add.test.js
 
 import { add } from '../add.js';
 ```
@@ -103,7 +103,7 @@ it('doesnt add the third number', function() {
 Should our function work, Jest will show this output when running the tests:
 
 ```
-PASS  __tests__/add.test.js (0.537s)
+PASS  src/__tests__/add.test.js (0.537s)
 2 tests passed (2 total in 1 test suite, run time 0.557s)
 ```
 
@@ -123,7 +123,7 @@ Thankfully, we have unit tests in place. Because we run the unit tests before we
 
 ```
 Using Jest CLI v14.1.0, jasmine2
- FAIL  __tests__/add.test.js (0.535s)
+ FAIL  src/__tests__/add.test.js (0.535s)
 ● add() › it adds two numbers
   - Expected 6 to equal 5.
         at Object.<anonymous> (__tests__/add.test.js:5:65)
@@ -140,7 +140,7 @@ Let's test our actions first!
 
 #### Actions
 
-Create a new file called `actions.test.js` in the `src/__test__ /` folder. (create that if you haven't already) Let's start by testing the good ol' `changeLocation` action. Add the default structure, we'll need to import the action we want to test and `describe` "actions" and `changeLocation`:
+Create a new file called `actions.test.js` in the `src/__tests__ /` folder. (create that if you haven't already) Let's start by testing the good ol' `changeLocation` action. Add the default structure, we'll need to import the action we want to test and `describe` "actions" and `changeLocation`:
 
 ```JS
 // actions.test.js
@@ -421,10 +421,10 @@ export default function mainReducer(state = initialState, action) {
 }
 ```
 
-Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `__test__ /` directory, import the reducer and add the basic structure:
+Let's showcase this on the `'CHANGE_LOCATION'` case, first create a `reducer.test.js` file in the `__tests__ /` directory, import the reducer and add the basic structure:
 
 ```JS
-// __test__/reducer.test.js
+// __tests__/reducer.test.js
 import mainReducer from '../reducer';
 
 describe('mainReducer', function() {
@@ -435,7 +435,7 @@ describe('mainReducer', function() {
 The first branch of the switch statement we'll test is the `default` one – if we don't pass any state and an empty action in it should return the initial state. The thing is that the `initialState` is an immutable object, so we'll need to import `fromJS` too:
 
 ```JS
-// __test__/reducer.test.js
+// __tests__/reducer.test.js
 import mainReducer from '../reducer';
 import { fromJS } from 'immutable';
 
@@ -468,7 +468,7 @@ Brilliant! Let's showcase how we can test specific actions, again using our belo
 First, add a new `it` explaining what the reducer should do:
 
 ```JS
-// __test__/reducer.test.js
+// __tests__/reducer.test.js
 import mainReducer from '../reducer';
 import { fromJS } from 'immutable';
 
@@ -507,7 +507,7 @@ Now we know that our action returns an object with a `type` of `"CHANGE_LOCATION
 Let's do the same thing for our `'SET_DATES'` case, first add the `it`:
 
 ```JS
-// __test__/reducer.test.js
+// __tests__/reducer.test.js
 import mainReducer from '../reducer';
 import { fromJS } from 'immutable';
 
