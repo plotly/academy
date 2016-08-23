@@ -252,7 +252,9 @@ class Counter extends React.Component {
 }
 ```
 
-With only that code though, you can click the `Button` however much you like and you will never see `click!` in the console. That is because right now, we specified the `onClick` prop on a ReactComponent. To use this in the browser DOM, we have to attach it to the native DOM `button` node inside the React component:
+Here we need to differentiate between react components and real DOM nodes. This `onClick` attribute is being passed down to our `Button`, but it's never being attached to a real DOM node so it doesn't work! You can click the `Button` however much you like, you will never see `"click!"` in the console.
+
+To make this work, we have to attach it to the native DOM `button` node inside the `Button` component:
 
 ```JS
 var Button = function(props) {
@@ -264,7 +266,9 @@ var Button = function(props) {
 
 <em>(<a target="_blank" href="http://react.jsbin.com/welihac/1/edit?js,output">JSBin</a>)</em>
 
-This works, but we don't actually want to log "click!" every time we click the button – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
+Yey, this works!
+
+We don't actually want to log "click!" every time we click the button though – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
 
 The first thing we need to do is set the initial state. Classes have a `constructor` that is called when the class is first initialized, which we can use to assign the initial state to our component:
 
