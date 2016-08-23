@@ -316,7 +316,7 @@ Now we need to tell our store to use that reducer, so we `import` and pass it in
 /* … */
 import App from './App.js';
 
-import mainReducer from './reducer';
+import mainReducer from './reducers';
 
 var store = createStore(mainReducer);
 
