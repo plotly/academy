@@ -17,7 +17,7 @@ To use `plotly.js`, we need to add it to our application first. Copy and paste t
 
 ## Plotly
 
-Including this script gives us access to the `Ploty` variable in our code. Using `Plotly.newPlot`, we can easily create graphs to showcase the weather data:
+Including this script gives us access to the `Plotly` variable in our code. Using `Plotly.newPlot`, we can easily create graphs to showcase the weather data:
 
 ```JS
 Plotly.newPlot();
@@ -188,7 +188,7 @@ With the `list` array containing objects of this form:
 
 What we really care about is `data.list[element].dt_txt`, a human-readable timestamp, and `data.list[element].main.temp`, the temperature at that time.
 
-Let's loop through all the weather information we have, making two arrays of different data. We'll use the `push` method of arrays, which adds an element to the end of an arary. Let's fill one with the timestamps, and another array with the temperatures:
+Let's loop through all the weather information we have, making two arrays of different data. We'll use the `push` method of arrays, which adds an element to the end of an array. Let's fill one with the timestamps, and another array with the temperatures:
 
 ```JS
 // App.js
@@ -591,7 +591,7 @@ class Plot extends React.Component {
 export default Plot;
 ```
 
-Perfect, but running this will not work since we don't pass an `onPropClick` prop to `Plot`. Let's jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` components (currently missing) `this.onPropClick` method:
+Perfect, but running this will not work since we don't pass an `onPropClick` prop to `Plot`. Let's jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` component's (currently missing) `this.onPropClick` method:
 
 ```JS
 // App.js
