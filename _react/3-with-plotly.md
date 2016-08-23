@@ -581,13 +581,14 @@ class Plot extends React.Component {
   drawPlot = () => {
     Plotly.newPlot( /* … */ );
     document.getElementById('plot').on('plotly_click', this.props.onPlotClick);
-  },
-  componentDidMount() { /* … */ },
-  componentDidUpdate() { /* … */ },
+  };
+
+  componentDidMount() { /* … */ }
+  componentDidUpdate() { /* … */ }
   render() { /* … */ }
 }
 
-module.exports = Plot;
+export default Plot;
 ```
 
 Perfect, but running this will not work since we don't pass an `onPropClick` prop to `Plot`. Let's jump to our `App` component and change that. First, we pass an `onPlotClick` prop to our `Plot` component calling our `App` components (currently missing) `this.onPropClick` method:
@@ -792,10 +793,10 @@ Try opening your app again and clicking on a point on the graph, and you'll see 
 To fix this, we set `selected` back to the default values in our `fetchData` method when the request has returned data:
 
 ```JS
-var React = require('react');
-var xhr = require('xhr');
+import React from 'react';
+import xhr from 'xhr';
 
-var Plot = require('./Plot');
+import Plot from './Plot';
 
 var App = React.createClass({
   getInitialState: function() { /* … */ },
@@ -808,7 +809,7 @@ var App = React.createClass({
       /* … */
       /* Save the data, and reset the selected time to the default values */
       self.setState({
-        data: data,
+        data: body,
         dates: dates,
         temps: temps,
         selected: {
@@ -823,7 +824,7 @@ var App = React.createClass({
   render: function() { /* … */ }
 });
 
-module.exports = App;
+export default App;
 ```
 
 Perfect, this now works beautifully! As you can see, another huge benefit of Plotly.js is that it makes interactivity really easy in combination with React.
