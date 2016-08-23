@@ -344,7 +344,7 @@ class Counter extends React.Component {
 }
 ```
 
-The problem here is that `this` is undefined in `increment` – the easiest way to fix this is to `bind` the context of `increment` to the class in the constructor like so:
+The problem here is that `this` is undefined in `increment` because of the way ES6 `class`es work – the easiest way to fix this is to `bind` the context of `increment` to the class in the constructor like so:
 
 ```JS
 class Counter extends React.Component {
