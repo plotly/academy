@@ -769,7 +769,7 @@ class App extends React.Component {
               </span>
               <span className="temp-symbol">°C</span>
               <span className="temp-date">
-                { this.state.selected.temp ? this.state.selected.date : ''}
+                { this.state.selected.temp ? `${this.state.selected.date}h00` : ''}
               </span>
             </p>
             <h2>Forecast</h2>
