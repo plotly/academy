@@ -31,15 +31,11 @@ Let's use our knowledge to write an actual app! What we'll build is a weather ap
 }
 </style>
 
-## Setup
-
-### Prerequisites
-
-#### Node
+## Prerequisites
 
 Node.js is a JavaScript runtime for your terminal. Don't worry too much about it, but it's used by some tools we'll be using to build our application. If you don't have it installed already (check by running `node -v` in your terminal, which should print a version number) head over to <a target="_blank" href="https://nodejs.org">nodejs.org</a>, follow the instructions there to install the latest version (v6 at the time of this writing) and you're good to go!
 
-### `create-react-app`
+## First steps
 
 Facebook recently open sourced a neat little tool called <a target="_blank" href="https://github.com/facebookincubator/create-react-app"><code>create-react-app</code></a> that allows us to very easily get started with our React app! It includes all the necessary build tools and transpilation steps to just get stuff done.
 
@@ -73,8 +69,6 @@ ReactDOM.render(
 ```
 
 Thankfully, `create-react-app` includes a simple server so instead of having to open the `index.html` file manually we can simply run `npm run start` in the `weather-app` directory and see our application at `localhost:3000`!
-
-## First steps
 
 If you take a look into the `src/App.js` component, you'll see a bunch of boilerplate code in there. Delete the `import logo from './logo.svg';` (and the `logo.svg` file if you want) and all of the JSX, and instead render a heading saying "Weather":
 
