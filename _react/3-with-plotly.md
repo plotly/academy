@@ -9,13 +9,15 @@ author:
   bio: Max is the creator of <a href="https://github.com/mxstbr/react-boilerplate">react-boilerplate</a>, one of the most popular react starter kits, the co-creator of <a href="https://github.com/carteb/carte-blanche">Carte Blanche</a> and he co-organises the React.js Vienna Meetup. He works as an Open Source Developer at <a href="http://thinkmill.com.au">Thinkmill</a>, where he takes care of <a href="http://keystonejs.com">KeystoneJS</a>.
 ---
 
+Often, in real world applications, there's some third party library that needs to be used, or maybe some legacy code that needs to be bridged. To showcase how one would go about doing that, we'll be using <a href="http://plot.ly" target="_blank">Plotly</a> to draw a beautiful temperature forecast graph!
+
+## Plotly
+
 To use `plotly.js`, we need to add it to our application first. Copy and paste this snippet into our `index.html`:
 
 ```HTML
 <script src="https://cdn.plot.ly/plotly-1.8.0.min.js"></script>
 ```
-
-## Plotly
 
 Including this script gives us access to the `Plotly` variable in our code. Using `Plotly.newPlot`, we can easily create graphs to showcase the weather data:
 
