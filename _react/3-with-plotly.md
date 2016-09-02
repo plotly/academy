@@ -454,7 +454,7 @@ Now try it! You'll see a beautiful 5 day weather forecast rendered like this:
 
 ![Finished Forecast Graph](http://i.imgur.com/XqyXXz8.png)
 
-Awesome! Normally, creating a graph like this would take ages, but Plotly.js makes it incredibly easy!
+Awesome! Normally, creating a graph like this manually would take ages, but Plotly.js makes it incredibly easy!
 
 There is one problem though: When we change the city and refetch data, the graph doesn't update. This is the case because we're solely using the `componentDidMount` lifecycle method, which is only ever called once when the component mounts. We also need to draw the plot again when new data comes in, i.e. when the component did update! (*hinthint*)
 
