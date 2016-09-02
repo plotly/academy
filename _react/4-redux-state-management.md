@@ -15,6 +15,8 @@ Together with React, Facebook released something called Flux. Flux is a methodol
 
 Thankfully, <a target="_blank" href="https://twitter.com/dan_abramov">Dan Abramov</a> stepped in and created Redux. Redux has the same core concept as Flux, but works without events, is much easer to understand and now basically the standard for application state management.
 
+> Note: None of the following concepts and technologies are **necessary** to build a production app with react. Many people use them to their advantage, but they have some downsides too. (which we'll examine)
+
 ## The Concept
 
 Remember the initial state of our `App` component? It looks like this:
