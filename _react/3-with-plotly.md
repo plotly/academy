@@ -463,7 +463,7 @@ As you might have guessed, we can use the `componentDidUpdate` lifecycle method 
 import React from 'react';
 
 class Plot extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
       y: this.props.yData,
@@ -480,7 +480,7 @@ class Plot extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     Plotly.newPlot('plot', [{
       x: this.props.xData,
       y: this.props.yData,
@@ -530,11 +530,12 @@ class Plot extends React.Component {
       displayModeBar: false
     });
   }
-  componentDidUpdate() {
+
+  componentDidMount() {
     this.drawPlot();
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.drawPlot();
   }
 

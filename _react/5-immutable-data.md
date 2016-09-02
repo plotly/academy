@@ -514,10 +514,9 @@ class Plot extends React.Component {
     }], {/* … */}, {/* … */});
     /* … */
   }
-  componentDidUpdate() {/* … */}
 
   componentDidMount() {/* … */}
-
+  componentDidUpdate() {/* … */}
   render() {/* … */}
 }
 ```
@@ -536,10 +535,9 @@ class Plot extends React.Component {
     }], {/* … */}, {/* … */});
     /* … */
   }
-  componentDidUpdate() {/* … */}
 
   componentDidMount() {/* … */}
-
+  componentDidUpdate() {/* … */}
   render() {/* … */}
 }
 ```
@@ -563,10 +561,9 @@ class Plot extends React.Component {
 		return xDataChanged || yDataChanged;
 	}
 
-  componentDidUpdate() {/* … */}
 
   componentDidMount() {/* … */}
-
+  componentDidUpdate() {/* … */}
   render() {/* … */}
 }
 ```
