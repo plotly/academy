@@ -26,7 +26,7 @@ We'll be using the <a target="_blank" href="https://facebook.github.io/jest/">Je
 
 Thankfully, `create-react-app` comes with it installed by default so we won't need to do any setup! Simply enter `npm run test` into your terminal to run the tests we'll write below.
 
-> Note: You need version 0.0.3 or higher of `create-react-app` for Jest support. To check which version you have installed look into the `package.json` of the `weather-app` folder to the version next to `"react-scripts"`, and possibly update it with this command: `npm install --save-dev react-scripts@"^0.3.0 || 0.3.0-alpha"`
+> Note: **You need version 0.3.0 or higher of `create-react-app` for Jest support.** To check which version you have installed look into the `package.json` of the `weather-app` folder. If it's lower than `0.3.0` follow the [upgrade guide](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md#migrating-from-023-to-030) to get the testing setup.
 
 ### Basics
 
