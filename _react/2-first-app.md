@@ -273,6 +273,7 @@ Inside our `fetchData` function, we'll have to make a request to the API. I like
 ```JS
 // App.js
 import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component { /* … */ };
@@ -362,7 +363,8 @@ First, let's encode the location from the state:
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {
@@ -384,7 +386,8 @@ Second, let's construct the URL we need using that escaped location:
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {
@@ -410,7 +413,8 @@ The last thing we need to do to get the data from the server is call `xhr` with 
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {
@@ -442,7 +446,8 @@ Since we want React to rerender our application when we've loaded the data, we'l
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {
@@ -480,7 +485,8 @@ Let's define that `data` in our state:
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {
@@ -501,7 +507,8 @@ Now that we've got the weather data for the location we want in our component st
 
 ```JS
 // App.js
-
+import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 
 class App extends React.Component {

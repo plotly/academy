@@ -330,6 +330,8 @@ Awesome, now everything's wired up except our `App` component! We need to connec
 ```JS
 // App.js
 
+/* …more imports… */
+
 import { connect } from 'react-redux';
 
 /* … */
@@ -372,7 +374,7 @@ And that's everything need to get our App to get the location from the Redux sta
 ```JS
 // App.js
 
-/* … */
+/* …more imports… */
 
 import {
   changeLocation
@@ -487,6 +489,8 @@ Now let's wire it all up again in our `App` component:
 ```JS
 // App.js
 
+/* …more imports… */
+
 import {
   changeLocation,
   setSelectedTemp,
@@ -549,6 +553,7 @@ Are you done? This is what your `App` component should look like now:
 
 ```JS
 import React from 'react';
+import './App.css';
 import xhr from 'xhr';
 import { connect } from 'react-redux';
 

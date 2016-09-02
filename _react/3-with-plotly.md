@@ -289,6 +289,9 @@ Now that we have that data saved in our component state, we can render our plot!
 
 ```JS
 // App.js
+import React from 'react';
+import './App.css';
+import xhr from 'xhr';
 
 import Plot from './Plot.js';
 
