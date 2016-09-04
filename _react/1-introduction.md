@@ -15,7 +15,7 @@ React, to quote Facebook themselves, was built to solve one problem: "building l
 
 With React, it's simple to express how your app should look at any given point in time. It will figure out which parts need to update when the data changes for you, and will only render those.
 
-It also popularized building apps with encapsulated, reusable and composable components. It's a different way of thinking and of going about building webapps, but once you're used to it you can never go back!
+It also popularised building apps with encapsulated, reusable and composable components. It's a different way of thinking and of going about building webapps, but once you're used to it you can never go back!
 
 ## What we'll build
 
@@ -49,7 +49,7 @@ We'll use <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,out
 
 React consists of two libraries, `React` and `ReactDOM`. `React` allows you to create elements, which we render with `ReactDOM`. They are split because you could (theoretically) render those ReactElements anywhere, not only to the browser DOM.
 
-> Note: There are initial experiments out there for rendering React to HTML5 Canvas, WebVR and some others.
+> For example, there are initial experiments out there for rendering React to Canvas, WebVR and even hardware!
 
 Open up our <a target="_blank" href="https://react.jsbin.com/sewaru/11/edit?js,output">first JSBin</a>, and you will see an `<h1>` with the text "Hello World". This is the source code generating that text:
 
@@ -73,73 +73,111 @@ ReactDOM.render(
 );
 ```
 
-Now you might think creating a `ReactDOM.render()` function for every ReactElement you have is the way to go. That's not a very good idea – it empties the DOM node we use as an entry point. How do we render multiple ReactElements then? To find that out we have to examine the `React.createElement()` function.
+Now you might think creating a `ReactDOM.render()` function for every ReactElement you have is the way to go. That's not a very good idea – it empties the DOM node we use as an entry point. How do we render multiple ReactElements then? Let's take a look at the `React.createElement()` function to figure it out!
 
 ### `React.createElement()`
 
-This function takes the node (or ReactElement, as we'll see soon) we want to create as the first argument, some properties (like `className`) in an object as the second argument and the elements "children" as the third argument.
+This function takes the node (or ReactElement) we want to create as the first argument and some properties (like `type`) in an object as the second argument:
 
 ```JS
-// <h1></h1>
-React.createElement('h1');
-// <h1 class="heading"></h1>
-React.createElement('h1', { className: 'heading' });
-// <h1 class="heading">Hello World</h1>
-React.createElement('h1', {className: 'heading'}, 'Hello World');
+React.createElement('input');
+// -> <input></input>
+React.createElement('input', { type: 'radio' });
+// -> <input type="radio"></input>
+React.createElement('input', { className: 'heading', type: 'radio' });
+// -> <input class="heading" type="radio"></input>
 ```
 
-The children (the third argument), where it now says `'Hello World'`, can also be another ReactElement! Let's say we want to add a `<div>` with a `wrapper` class around our heading, we could pass our heading element to another element as a child:
+> Notice how the HTML `class` attribute has to be set via `className` property in react. This is because `class` is a reserved keyword in JavaScript, which means we might introduce unwanted problems into our apps by passing in `class`. React mitigates this by using the `className` property instead of `class`!
+
+We can also (optionally) pass children as the third argument! The simplest usecase here is to render a bit of text:
+
+```JS
+React.createElement('h1', null, 'Hello World');
+// -> <h1>Hello World</h1>
+```
+
+The children (above: `'Hello World'`) can also be another ReactElement! Let's say we want to add a `<div class="wrapper">` around our heading. We use `React.createElement` to render a `div` with a `className` of `'wrapper'`, and then pass our heading in as the child:
 
 ```JS
 React.createElement('div', { className: 'wrapper' },
-  React.createElement('h1', {className: 'heading'}, 'Hello World')
+  React.createElement('h1', null, 'Hello World')
 )
 ```
 
-which'll render this HTML:
+This will render this HTML:
 
 ```HTML
 <div class="wrapper">
-  <h1 class="heading">Hello World</h1>
+  <h1>Hello World</h1>
 </div>
 ```
 
 <em>(<a target="_blank" href="https://react.jsbin.com/sewaru/7/edit?js,output">JSBin</a>)</em>
 
-This `.wrapper` div might have a `max-width` and other styling associated with it, and we might want to reuse it someplace else. Doing this makes our application consistent across all pages, since we use the same element everywhere! In React, this is easily doable by creating components.
+This `.wrapper` div might have a `max-width` and other styling associated with it. By reusing this element, we make sure our application is consistent since it has the same styling everywhere! This is what _components_ are for.
 
 ### Components
 
-To create a new `ReactComponent`, we make a new function that returns our `ReactElement`. That function gets passed the properties (`props`) we give it when creating an element from it. These props are the second argument to the `createElement()` call. In the last example the sole property of the `div` was the `className`, but theoretically we could pass down as many props as we want!
-
-Our `Wrapper` component could look like this:
+To create a `ReactComponent` we write a function that returns a `ReactElement`:
 
 ```JS
 var Wrapper = function(props) {
-  return (
-    React.createElement('div', { className: 'wrapper' }, props.children)
-  );
-};
+  return React.createElement('div', { className: wrapper });
+}
 ```
 
-> Some props are implicitly passed down by React. One of those is `children`, which is an array of all child components. The wrapper component only renders a `div` with a `class` of `'wrapper'`, and it's children!
+We can then use this components like any DOM Node by passing it into a `createElement` call:
 
-In the below example, the `Wrapper` component does not get passed any props, but it does get passed a child, a heading! This heading has a property called `className` that's set to `'heading'`, and a child that's just text saying `'Hello World`:
+```JS
+React.createElement(Wrapper);
+// -> <div class="wrapper"></div>
+```
+
+Our wrapper component isn't very useful so far, since it doesn't render its children:
+
+```JS
+React.createElement(Wrapper, {}, 'Hello World!');
+// -> <div class="wrapper"></div> (😢 no "Hello World" visible!)
+```
+
+This is because our component function gets passed the properties (`props`). In the last example we didn't use the properties we got passed from the `createElement(Wrapper)` call at all!
+
+Let's render the children that our `Wrapper` gets passed:
+
+```JS
+var Wrapper = function(props) {
+  // Render the children we get passed from the createElement(Wrapper) call
+  return React.createElement('div', { className: wrapper }, props.children);
+}
+```
+
+Now the above example works perfectly:
+
+```JS
+React.createElement(Wrapper, {}, 'Hello World!');
+// -> <div class="wrapper">Hello World</div>
+```
+
+Let's try rendering our heading inside our `Wrapper` component:
 
 ```JS
 React.createElement(Wrapper, null,
-  React.createElement('h1', {className: 'heading'}, 'Hello World')
+  React.createElement('h1', null, 'Hello World')
 )
+// -> <div class="wrapper"><h1>Hello World</h1></div>
 ```
 <em>(<a target="_blank" href="https://react.jsbin.com/sewaru/8/edit?js,output">JSBin</a>)</em>
 
-Now we have a reusable `Wrapper` component that could make sure every page across our application has consistent styling!
+Amazing! 🎉 Now we have a reusable `Wrapper` component that could make sure every page across our application has consistent styling.
 
 ### JSX
 
-You might have seen React code samples floating around, and something that might've struck you is the weird HTML-ish syntax in the JavaScript code that is used by most of the community. This syntactic sugar is called "JSX", and is nothing but a wrapper for `React.createElement`.
+You might have seen React code samples floating around, and something that might've struck you is the weird HTML-ish syntax in the JavaScript code that is used by most of the community.
 
-Instead of calling `React.createElement`, we can use JSX:
+This syntactic sugar is called "JSX", and is nothing but a wrapper for `React.createElement`!
+
+Instead of calling `React.createElement` manually, we can use JSX to make the code look more like the rendered HTML:
 
 ```HTML
 <Wrapper>
@@ -155,7 +193,7 @@ React.createElement(Wrapper, null,
 )
 ```
 
-Using JSX is a bit tricky: since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* (compile JavaScript to JavaScript) our code with a build tool – thankfully, `react.jsbin.com` does that for us automatically, so we don't have to worry about that for now. Simply write JSX in there and it's going to work!
+> Using JSX is a bit tricky: since it's a non-standard extension of JavaScript no browser will understand it. This means we have to *transpile* (compile JavaScript to JavaScript) our code with a build tool – thankfully, `react.jsbin.com` does that automatically for us, so we don't have to worry about it.
 
 Passing properties to our components is as easy as writing them as attributes on these HTML-like tags, and to add children we simply wrap them! The nice thing about JSX is that we can use JavaScript code in JSX by wrapping it in curly braces.
 
@@ -171,23 +209,19 @@ var Wrapper = function(props) {
 
 <em>(<a target="_blank" href="https://react.jsbin.com/sewaru/10/edit?js,output">JSBin</a>)</em>
 
+It's not that different from calling `createElement` manually, but JSX is much nicer to read and understand!
+
 > JSX is the preferred way of writing react applications because it is easier to read and understand. Thus, this tutorial will from now on use JSX.
 
 ### Classes
 
-As mentioned in the "Why React?" section, React has the virtual DOM to minimize rerendering when the application state changes. But, how do we manage application state in React?
+As mentioned in the "Why React?" section, React has the virtual DOM to minimize rerendering when the application state changes. But what is application state and how do we manage it in React?
 
-Above we had our `Wrapper` component, which was written as a *functional component*. We can also write our React components in a slightly different way so we can make it stateful. Let's write a `Counter` component that counts how often we've clicked a button!
+Any real world application will have _state_. State can be anything and everything, ranging from "this checkbox is checked" over "that modal is open" to "this data was fetched".
 
-React exports an instance which we can use to create components which is `React.Component`. We create a new `class` that extends `React.Component` and we can pass it a `render` function, like so:
+As a simple example of state, let's create a `Counter` component that counts how often we've clicked a button! Our `Wrapper` component above was written as a *functional component*. To create _stateful_ components, we have to use a slightly different notation to create components – the `class` notation!
 
-```JS
-class Counter extends React.Component {
-  render() { /* component here */ }
-}
-```
-
-This render function doesn't work any differently from the functional component we have seen before, we simply return some elements in there and they will be rendered:
+To create a stateful component, we create a new `class` that extends `React.Component`. (`React.Component` is a base we can build upon that React provides for us) We assign it a `render` method from which we return our `ReactElements`, not unlike the functional component:
 
 ```JS
 class Counter extends React.Component {
@@ -237,7 +271,7 @@ class Counter extends React.Component {
 
 <em>(<a target="_blank" href="http://react.jsbin.com/dewoseb/1/edit?js,output">JSBin</a>)</em>
 
-Now let's increase a number everytime our `Button` is clicked by using an `onClick` handler:
+Now let's increase a number every time a user clicks on our `Button` by using an `onClick` handler:
 
 ```JS
 class Counter extends React.Component {
@@ -252,9 +286,9 @@ class Counter extends React.Component {
 }
 ```
 
-Here we need to differentiate between react components and real DOM nodes. This `onClick` attribute is being passed down to our `Button`, but it's never being attached to a real DOM node so it doesn't work! You can click the `Button` however much you like, you will never see `"click!"` in the console.
+Here we need to differentiate between react components and real DOM nodes. Event handlers, like `onClick`, `onMouseOver`, etc., only work when they are attached to a real DOM node. The above example doesn't work, because we're only attaching it to a `ReactComponent`. You can click the `Button` however much you like, you will never see `"click!"` in the console!
 
-To make this work, we have to attach it to the native DOM `button` node inside the `Button` component:
+To make this work, we have to attach the `onCLick` handler to the native DOM `button` node inside the `Button` component:
 
 ```JS
 var Button = function(props) {
@@ -268,9 +302,9 @@ var Button = function(props) {
 
 Yey, this works!
 
-We don't actually want to log "click!" every time we click the button though – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. That state will have a `clicks` property, which initially is zero and increments by one with each click.
+We don't actually want to log "click!" every time we click the button though – we want to count the times it has been clicked! To do that, we have to add state to our `Counter` component. State is a plain object in react, which can have as little or as many properties as you like! Out state will have a `clicks` property, which initially is zero and increments by one with each click.
 
-The first thing we need to do is set the initial state. Classes have a `constructor` that is called when the class is first initialized, which we can use to assign the initial state to our component:
+The first thing we need to do is set the initial state. Classes have a `constructor` that is called when the class is first initialised, which we can use to assign the initial state to our component:
 
 ```JS
 class Counter extends React.Component {
@@ -285,7 +319,7 @@ class Counter extends React.Component {
 }
 ```
 
-That alone won't do anything though, we don't see that number anywhere on the page! (<a target="_blank" href="https://react.jsbin.com/xeroja/1/edit?js,output">JSBin</a>) To access the current state of the component we use `this.state`. Let's add that to our `render` method:
+That alone won't do anything though, we don't see that number anywhere on the page! (<a target="_blank" href="https://react.jsbin.com/xeroja/1/edit?js,output">JSBin</a>) To access the current state of our component anywhere within our component we access `this.state`. Let's render the current number of clicks as text for a start:
 
 ```JS
 class Counter extends React.Component {
