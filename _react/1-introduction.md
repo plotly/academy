@@ -127,7 +127,7 @@ var Wrapper = function(props) {
 }
 ```
 
-We can then use this components like any DOM Node by passing it into a `createElement` call:
+We can then use these components like any DOM Node by passing it into a `createElement` call:
 
 ```JS
 React.createElement(Wrapper);
