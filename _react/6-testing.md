@@ -122,7 +122,6 @@ Oh no, now our function doesn't add the numbers anymore, it multiplies them! Ima
 Thankfully, we have unit tests in place. Because we run the unit tests before we deploy our application, we see this output:
 
 ```
-Using Jest CLI v14.1.0, jasmine2
  FAIL  src/__tests__/add.test.js (0.535s)
 ● add() › it adds two numbers
   - Expected 6 to equal 5.
