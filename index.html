@@ -10,7 +10,8 @@ layout: default
   {% for collection in site.collections %}
     {% if collection.category == "Frontend" %}
       <section class="tutorial">
-        <h4 id="{{ collection.label }}" class="tutorial__title">{{ collection.title }}</h4>
+        <span id="{{ collection.label }}" class="tutorial__anchor"></span>
+        <h4 class="tutorial__title">{{ collection.title }}</h4>
         <section class="tutorial__parts">
           {% for docs in collection.docs %}
             {% assign loopindex = forloop.index0 | modulo: 2 %}
