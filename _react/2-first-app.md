@@ -250,7 +250,7 @@ Now, whichever location you enter it should log "fetch data for MyCity, MyCountr
 
 ## Fetching data
 
-Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the <a target="_blank" href="openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to <a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a>, press "Sign Up" in the top bar and register for a free account:
+Let's get into fetching data. Instead of console logging a text, we need to get some weather information. We'll be using the <a target="_blank" href="http://openweathermap.org/api">OpenWeatherMap API</a> for this task, which is a free service that provides access to data for basically all locations all around the world. You'll need to get an API key from it, so head over to <a target="_blank" href="http://openweathermap.org/api">openweathermap.org/api</a>, press "Sign Up" in the top bar and register for a free account:
 
 ![Homepage of openweathermap.org](http://i.imgur.com/CNBLfVY.png)
 
