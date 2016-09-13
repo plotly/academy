@@ -123,7 +123,7 @@ To create a `ReactComponent` we write a function that returns a `ReactElement`:
 
 ```JS
 var Wrapper = function(props) {
-  return React.createElement('div', { className: wrapper });
+  return React.createElement('div', { className: 'wrapper' });
 }
 ```
 
@@ -148,7 +148,7 @@ Let's render the children that our `Wrapper` gets passed:
 ```JS
 var Wrapper = function(props) {
   // Render the children we get passed from the createElement(Wrapper) call
-  return React.createElement('div', { className: wrapper }, props.children);
+  return React.createElement('div', { className: 'wrapper' }, props.children);
 }
 ```
 
