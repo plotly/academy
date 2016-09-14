@@ -262,7 +262,7 @@ As soon as you've done that go to your API key page by going to <a target="_blan
 
 Now that we have access to all the weather data our heart could desire, let's get on with our app!
 
-Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run 
+Inside our `fetchData` function, we'll have to make a request to the API. I like to use a npm module called `xhr` for this, a wrapper around the JavaScript XMLHttpRequest that makes said requests a lot easier. Run:
 
 ```Sh
 npm install --save xhr
