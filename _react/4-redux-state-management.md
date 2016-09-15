@@ -371,7 +371,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(App);
 ```
 
-And that's everything need to get our App to get the location from the Redux state! Let's adapt our `App` to get the location from the props:
+And that's everything we need to get our App to get the location from the Redux state! Let's adapt our `App` to get the location from the props:
 
 ```JS
 // App.js
