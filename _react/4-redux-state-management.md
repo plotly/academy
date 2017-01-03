@@ -562,6 +562,7 @@ import { connect } from 'react-redux';
 import Plot from './Plot';
 import {
   changeLocation,
+  fetchData,
   setData,
   setDates,
   setTemps,
