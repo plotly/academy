@@ -1,8 +1,10 @@
-# Plotly Academy
+# Academy
 
-## Usage
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-### Setup
+> Skills, style guides, and tutorials for work at Plotly
+
+## Install
 
 1. Clone this repository by entering `git clone https://github.com/plotly/academy.git` into your terminal
 2. When that is finished, enter the directory of the repo with `cd academy`
@@ -15,7 +17,9 @@
 1. Enter `bundle exec jekyll serve` into your terminal
 2. Open `localhost:4000` in your browser
 
-#### Typography
+## Usage
+
+### Typography
 
 We use [Typography.js](https://github.com/KyleAMathews/typography.js) to set up our typography styles. If you need to adjust the typography, follow the steps below:
 
@@ -23,7 +27,7 @@ We use [Typography.js](https://github.com/KyleAMathews/typography.js) to set up 
 2. Make changes to the generated typography css, make changes to `write-typography.js`
 3. Run `npm run write-typography`. This will write out a file to the \_sass src directory.
 
-NOw you can just start jekyll like normally and the new styles will be there!
+Now you can just start jekyll like normally and the new styles will be there!
 
 ### Adding a new tutorial
 
@@ -44,7 +48,7 @@ collections:
     category: "Frontend"
 ```
 
-Add a folder in the root directory called `_tutorialname`, and put the Markdown files of the tutorial in there. That's it, your tutorial will now be visible on the homescreen!
+Add a folder in the root directory called `_tutorialname`, and put the Markdown files of the tutorial in there. That's it, your tutorial will now be visible on the home screen!
 
 > Note the `category` field, this field can be one of these two values: "Frontend" or "Data Science"!
 
@@ -74,6 +78,16 @@ links_to: http://plot.ly
 
 And you'll see a list of your tutorial parts with links to the external sites on the homepage!
 
-## Licensing
+## Maintainers
 
-Code released under [the MIT license](LICENSE.txt).
+Currently, there is no single maintainer for this project. Would you like to become one? [Ask us by opening an issue!](https://github.com/plotly/academy/issues/new).
+
+## Contribute
+
+Please do! This is an open source project. [Open an issue](https://github.com/plotly/academy/issues/new) or submit a PR.
+
+Please note that all work on any Plotly repository must follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## License
+
+[MIT](LICENSE.txt) © 2016-2017 Plotly.
